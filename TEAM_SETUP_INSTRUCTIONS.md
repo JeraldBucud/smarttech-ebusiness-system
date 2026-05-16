@@ -83,7 +83,8 @@ MySQL Workbench
 MySQL Connector/J
 Git
 FakeSMTP
-```
+=======
+
 
 Recommended setup:
 
@@ -92,7 +93,8 @@ NetBeans Project: EBusinessSystem
 Application Server: GlassFish 7.0.12
 Database: MySQL
 Fake Email Tool: FakeSMTP
-```
+=======
+
 
 ---
 
@@ -448,7 +450,9 @@ Project email settings:
 
 ```text
 SMTP Host: localhost
+
 SMTP Port: 2525
+
 Authentication: false
 SSL/TLS: false
 ```
@@ -461,7 +465,7 @@ Jakarta EE application → localhost:2525 → FakeSMTP window
 
 When the user creates a verification code or recovery code, the email should appear in the FakeSMTP window. The code can then be copied from FakeSMTP and entered into the web application.
 
----
+
 
 ## 11. Run the Project
 

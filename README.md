@@ -37,7 +37,8 @@ MySQL Connector/J
 Git
 Apache Maven 3.9.15
 FakeSMTP
-```
+
+
 
 ### Open Project
 
@@ -132,6 +133,7 @@ The project `persistence.xml` should use:
 <jta-data-source>jdbc/ebusiness_db</jta-data-source>
 ```
 
+<<<<<<< HEAD
 ### FakeSMTP
 
 FakeSMTP is used for registration verification and account recovery emails.
@@ -186,13 +188,18 @@ If the JAR file name is different, use:
 
 ```powershell
 java -jar (Get-ChildItem target\*.jar | Select-Object -First 1).FullName -s -p 2525
+=======
 ```
 
 Use these email settings in the project:
 
 ```text
 SMTP Host: localhost
+<<<<<<< HEAD
 SMTP Port: 2525
+=======
+SMTP Port: 25
+>>>>>>> main
 Authentication: false
 SSL/TLS: false
 ```
