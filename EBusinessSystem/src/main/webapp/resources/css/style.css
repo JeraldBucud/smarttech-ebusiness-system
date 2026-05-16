@@ -506,3 +506,18 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* =========================================================
+   Action Links
+   Used for table actions such as delete links.
+   ========================================================= */
+
+.danger-link {
+    color: #b91c1c;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.danger-link:hover {
+    text-decoration: underline;
+}
