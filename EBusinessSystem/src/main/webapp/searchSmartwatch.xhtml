@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html">
+
+    <h:head>
+        <title>Search Smartwatch - E-Business System</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <h:outputStylesheet library="css" name="style.css" />
+    </h:head>
+
+    <h:body>
+        <main class="app-container">
+
+            <header class="app-header">
+                <div>
+                    <h1>E-Business System</h1>
+                    <p>Smartwatch Product Search</p>
+                </div>
+
+                <nav class="app-nav">
+                    <h:link outcome="main" value="Dashboard" />
+                    <h:link outcome="createSmartwatch" value="Create Smartwatch" />
+                    <h:link outcome="listSmartwatches" value="Smartwatch Stock" />
+                    <h:link outcome="login" value="Logout" />
+                </nav>
+            </header>
+
+            <section class="content-card">
+
+                <div class="section-heading">
+                    <h2>Search Smartwatch</h2>
+                    <p>
+                        Search smartwatch products by brand, model, health monitoring, fitness tracking, or connectivity details.
+                    </p>
+                </div>
+
+                <h:form styleClass="data-form">
+
+                    <h:messages globalOnly="true" styleClass="form-error" />
+
+                    <div class="search-bar">
+                        <div class="form-group search-input-group">
+                            <h:outputLabel for="searchKeyword"
+                                           value="Search Keyword"
+                                           styleClass="form-label" />
+
+                            <h:inputText id="searchKeyword"
+                                         required="true"
+                                         requiredMessage="Search keyword is required."
+                                         styleClass="form-input" />
+
+                            <h:message for="searchKeyword" styleClass="form-error" />
+                        </div>
+
+                        <div class="search-action">
+                            <h:commandButton value="Search Smartwatch"
+                                             styleClass="primary-button" />
+                        </div>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Brand</th>
+                                    <th>Model</th>
+                                    <th>Display Size</th>
+                                    <th>Health Monitoring</th>
+                                    <th>Fitness Tracking</th>
+                                    <th>Wearable Connectivity</th>
+                                    <th>Stock</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>Sample Brand</td>
+                                    <td>Sample Smartwatch Model</td>
+                                    <td>1.9 inch</td>
+                                    <td>Heart Rate</td>
+                                    <td>Step Counter</td>
+                                    <td>Bluetooth</td>
+                                    <td>100</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </h:form>
+
+            </section>
+
+        </main>
+    </h:body>
+
+</html>
