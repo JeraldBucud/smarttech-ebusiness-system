@@ -50,6 +50,7 @@
                         <div class="form-group">
                             <h:outputLabel for="customer" value="Customer" styleClass="form-label" />
                             <h:selectOneMenu id="customer"
+                                             value="#{orderBean.customer}"
                                              required="true"
                                              requiredMessage="Customer is required."
                                              styleClass="form-input">
@@ -62,6 +63,7 @@
                         <div class="form-group">
                             <h:outputLabel for="productType" value="Product Type" styleClass="form-label" />
                             <h:selectOneMenu id="productType"
+                                             value="#{orderBean.productType}"
                                              required="true"
                                              requiredMessage="Product type is required."
                                              styleClass="form-input">
@@ -75,6 +77,7 @@
                         <div class="form-group">
                             <h:outputLabel for="product" value="Product" styleClass="form-label" />
                             <h:selectOneMenu id="product"
+                                             value="#{orderBean.product}"
                                              required="true"
                                              requiredMessage="Product is required."
                                              styleClass="form-input">
@@ -88,6 +91,7 @@
                         <div class="form-group">
                             <h:outputLabel for="quantity" value="Quantity" styleClass="form-label" />
                             <h:inputText id="quantity"
+                                         value="#{orderBean.quantity}"
                                          required="true"
                                          requiredMessage="Quantity is required."
                                          styleClass="form-input" />
@@ -97,6 +101,7 @@
                         <div class="form-group form-grid-full">
                             <h:outputLabel for="orderNotes" value="Order Notes" styleClass="form-label" />
                             <h:inputTextarea id="orderNotes"
+                                             value="#{orderBean.orderNotes}"
                                              styleClass="form-input form-textarea" />
                             <h:message for="orderNotes" styleClass="form-error" />
                         </div>
@@ -105,6 +110,7 @@
 
                     <div class="form-actions">
                         <h:commandButton value="Create Order"
+                                         action="#{orderBean.createOrder}"
                                          styleClass="primary-button" />
                     </div>
 
