@@ -30,6 +30,7 @@
                     <div class="form-group">
                         <h:outputLabel for="username" value="Username" styleClass="form-lab" />
                         <h:inputText id="username"
+                                     value="#{authenticationBean.username}"
                                      required="true"
                                      requiredMessage="Username is required"
                                      styleClass="form-input" />
@@ -39,6 +40,7 @@
                     <div class="form-group">
                         <h:outputLabel for="password" value="Password" styleClass="form-label" />
                         <h:inputSecret id="password"
+                                       value="#{authenticationBean.password}"
                                        required="true"
                                        requiredMessage="Password is required"
                                        styleClass="form-input" />
@@ -46,7 +48,9 @@
                     </div>
                     
                     <div class="form-actions">
-                        <h:commandButton value="Login" styleClass="primary-button" />
+                        <h:commandButton value="Login" 
+                                         action="#{authenticationBean.login}"
+                                         styleClass="primary-button" />
                     </div>
                     
                 </h:form>
