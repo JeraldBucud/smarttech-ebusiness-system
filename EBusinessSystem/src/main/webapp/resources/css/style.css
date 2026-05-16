@@ -380,3 +380,44 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* =========================================================
+   Data Tables
+   Used for product, customer, and order listing pages.
+   ========================================================= */
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #ddd8ce;
+    border-radius: 14px;
+    background: #ffffff;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 760px;
+}
+
+.data-table th,
+.data-table td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid #eee8dc;
+    font-size: 14px;
+}
+
+.data-table th {
+    background: #0b1f3a;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.data-table tr:last-child td {
+    border-bottom: none;
+}
+
+.data-table tbody tr:hover {
+    background: #f7f5f0;
+}
