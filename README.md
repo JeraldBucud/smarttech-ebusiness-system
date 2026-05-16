@@ -35,8 +35,10 @@ MySQL Server 8.0
 MySQL Workbench
 MySQL Connector/J
 Git
-smtp4dev
-```
+Apache Maven 3.9.15
+FakeSMTP
+
+
 
 ### Open Project
 
@@ -131,19 +133,73 @@ The project `persistence.xml` should use:
 <jta-data-source>jdbc/ebusiness_db</jta-data-source>
 ```
 
-### smtp4dev
+<<<<<<< HEAD
+### FakeSMTP
 
-Start smtp4dev and open:
+FakeSMTP is used for registration verification and account recovery emails.
+
+Clone FakeSMTP:
+
+```powershell
+cd "D:\05_School\Java\fakestmp"
+git clone https://github.com/Nilhcem/FakeSMTP.git
+cd FakeSMTP
+```
+
+Build it with Maven. If `mvn` is not set in PATH, use the full Maven path:
+
+```powershell
+D:\05_School\Java\apache-maven-3.9.15\bin\mvn.cmd -version
+```
+
+If the build fails with this error:
 
 ```text
-http://localhost:5000
+Source option 6 is no longer supported. Use 8 or later.
+Target option 6 is no longer supported. Use 8 or later.
+```
+
+open `pom.xml`:
+
+```powershell
+notepad pom.xml
+```
+
+Change the compiler version from Java 6 to Java 8:
+
+```xml
+<source>1.8</source>
+<target>1.8</target>
+```
+
+Then build:
+
+```powershell
+D:\05_School\Java\apache-maven-3.9.15\bin\mvn.cmd clean package -DskipTests
+```
+
+Run FakeSMTP on port `2525`:
+
+```powershell
+java -jar target\fakeSMTP-2.1-SNAPSHOT.jar -s -p 2525
+```
+
+If the JAR file name is different, use:
+
+```powershell
+java -jar (Get-ChildItem target\*.jar | Select-Object -First 1).FullName -s -p 2525
+=======
 ```
 
 Use these email settings in the project:
 
 ```text
 SMTP Host: localhost
+<<<<<<< HEAD
+SMTP Port: 2525
+=======
 SMTP Port: 25
+>>>>>>> main
 Authentication: false
 SSL/TLS: false
 ```

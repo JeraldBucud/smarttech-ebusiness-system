@@ -82,8 +82,9 @@ MySQL Server 8.0
 MySQL Workbench
 MySQL Connector/J
 Git
-smtp4dev
-```
+FakeSMTP
+=======
+
 
 Recommended setup:
 
@@ -91,8 +92,9 @@ Recommended setup:
 NetBeans Project: EBusinessSystem
 Application Server: GlassFish 7.0.12
 Database: MySQL
-Fake Email Tool: smtp4dev
-```
+Fake Email Tool: FakeSMTP
+=======
+
 
 ---
 
@@ -318,32 +320,152 @@ This allows JPA to connect to the GlassFish JDBC resource.
 
 ---
 
-## 10. smtp4dev Setup
+## 10. FakeSMTP Setup
 
-smtp4dev is used as the fake email server for registration verification and account recovery emails.
+FakeSMTP is used as the fake SMTP email server for registration verification and account recovery emails. The assignment demonstration uses FakeSMTP/CentreMail so the verification and recovery codes can be viewed locally instead of sending real emails through Gmail or another commercial email server.
 
-Start smtp4dev and open:
+### 10.1 Clone FakeSMTP from GitHub
 
-```text
-http://localhost:5000
+Open PowerShell and go to the folder where you want to save FakeSMTP.
+
+Example:
+
+```powershell
+cd "D:\05_School\Java\fakestmp"
 ```
 
-The SMTP server should listen on:
+Clone the FakeSMTP repository:
+
+```powershell
+git clone https://github.com/Nilhcem/FakeSMTP.git
+```
+
+Go inside the FakeSMTP folder:
+
+```powershell
+cd FakeSMTP
+```
+
+### 10.2 Build FakeSMTP with Maven
+
+This project needs Apache Maven. If `mvn` is not available in PowerShell, use the full Maven path.
+
+Example Maven path:
 
 ```text
-localhost:25
+D:\05_School\Java\apache-maven-3.9.15
 ```
+
+Check Maven:
+
+```powershell
+D:\05_School\Java\apache-maven-3.9.15\bin\mvn.cmd -version
+```
+
+### 10.3 Fix Java 6 Compiler Setting for JDK 21
+
+FakeSMTP is an older project and may use Java 6 compiler settings. When building with JDK 21, this can cause this error:
+
+```text
+Source option 6 is no longer supported. Use 8 or later.
+Target option 6 is no longer supported. Use 8 or later.
+```
+
+To fix it, open the FakeSMTP `pom.xml` file:
+
+```powershell
+notepad pom.xml
+```
+
+Find the Maven compiler settings and change Java 6 to Java 8.
+
+Change this:
+
+```xml
+<source>1.6</source>
+<target>1.6</target>
+```
+
+To this:
+
+```xml
+<source>1.8</source>
+<target>1.8</target>
+```
+
+If the file uses `6` instead of `1.6`, change it to `8`:
+
+```xml
+<source>8</source>
+<target>8</target>
+```
+
+Save the `pom.xml` file.
+
+### 10.4 Package FakeSMTP
+
+From inside the FakeSMTP folder, run:
+
+```powershell
+D:\05_School\Java\apache-maven-3.9.15\bin\mvn.cmd clean package -DskipTests
+```
+
+Expected result:
+
+```text
+BUILD SUCCESS
+```
+
+The generated JAR should be created in the `target` folder.
+
+Check the target folder:
+
+```powershell
+dir target
+```
+
+Example generated file:
+
+```text
+fakeSMTP-2.1-SNAPSHOT.jar
+```
+
+### 10.5 Run FakeSMTP on Port 2525
+
+Start FakeSMTP using port `2525`:
+
+```powershell
+java -jar target\fakeSMTP-2.1-SNAPSHOT.jar -s -p 2525
+```
+
+If the JAR file name is different, run this PowerShell command to start the first JAR in the target folder:
+
+```powershell
+java -jar (Get-ChildItem target\*.jar | Select-Object -First 1).FullName -s -p 2525
+```
+
+Keep the FakeSMTP window open while testing the web application.
 
 Project email settings:
 
 ```text
 SMTP Host: localhost
-SMTP Port: 25
+
+SMTP Port: 2525
+
 Authentication: false
 SSL/TLS: false
 ```
 
----
+The email flow should be:
+
+```text
+Jakarta EE application → localhost:2525 → FakeSMTP window
+```
+
+When the user creates a verification code or recovery code, the email should appear in the FakeSMTP window. The code can then be copied from FakeSMTP and entered into the web application.
+
+
 
 ## 11. Run the Project
 
