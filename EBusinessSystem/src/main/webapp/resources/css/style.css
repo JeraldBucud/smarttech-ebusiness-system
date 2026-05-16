@@ -521,3 +521,106 @@ body {
 .danger-link:hover {
     text-decoration: underline;
 }
+
+/* =========================================================
+   Landing Page Layout
+   Used by the public welcome page before login or registration.
+   ========================================================= */
+
+.landing-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    background: linear-gradient(135deg, #050505 0%, #0b1f3a 100%);
+}
+
+.landing-card {
+    width: 100%;
+    max-width: 760px;
+    padding: 56px;
+    background: #ffffff;
+    border-radius: 22px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+    text-align: center;
+}
+
+.landing-label {
+    margin: 0 0 12px;
+    color: #c9a227;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.landing-content h1 {
+    margin: 0;
+    color: #111111;
+    font-size: 42px;
+    line-height: 1.15;
+}
+
+.landing-subtitle {
+    max-width: 560px;
+    margin: 18px auto 32px;
+    color: #6b7280;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.landing-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.primary-link-button,
+.secondary-link-button {
+    display: inline-block;
+    min-width: 150px;
+    padding: 13px 22px;
+    border-radius: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+}
+
+.primary-link-button {
+    background: #c9a227;
+    color: #111111;
+}
+
+.primary-link-button:hover {
+    background: #b8921f;
+}
+
+.secondary-link-button {
+    background: #0b1f3a;
+    color: #ffffff;
+}
+
+.secondary-link-button:hover {
+    background: #07182d;
+}
+
+@media (max-width: 700px) {
+    .landing-card {
+        padding: 36px 24px;
+    }
+
+    .landing-content h1 {
+        font-size: 32px;
+    }
+
+    .landing-actions {
+        flex-direction: column;
+    }
+
+    .primary-link-button,
+    .secondary-link-button {
+        width: 100%;
+    }
+}
