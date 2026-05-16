@@ -4,12 +4,99 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html">
+    
+    <h:head>
+        <title>Register - E-Business System</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <h:outputStylesheet library="css" name="style.css" />
+    </h:head>
+
+    <h:body>
+        <main class="auth-container">
+            <section class="auth-card">
+                
+                <div class="auth-brand">
+                    <h2>E-Business System</h2>
+                    <p>Tablet and Smartwatch Management Portal</p>
+                </div>
+                
+                <h1 class="auth-title">Create Your Account</h1>
+                
+                <p class="auth-subtitle">
+                    Register with a valid email address to access the e-business system.
+                </p>
+                
+                <h:form styleClass="auth-form">
+                    <div class="form-group">
+                        <h:outputLabel for="email" value="Email Address" styleClass="form-label" />
+                        <h:inputText id="email"
+                                     required="true"
+                                     requiredMessage="Email address is required"
+                                     styleClass="form-input" />
+                        <h:message for="email" styleClass="form-error" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <h:outputLabel for="firstName" value="First Name" styleClass="form=label" />
+                        <h:inputText id="firstName"
+                                     required="true"
+                                     requiredMessage="First name is required"
+                                     styleClass="form-input" />
+                        <h:message for="firstName" styleClass="form-error" />
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <h:outputLabel for="lastName" value="Last Name" styleClass="form-label" />
+                        <h:inputText id="lastName"
+                                     required="true"
+                                     requiredMessage="Last name is required."
+                                     styleClass="form-input" />
+                        <h:message for="lastName" styleClass="form-error" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <h:outputLabel for="username" value="Username" styleClass="form-label" />
+                        <h:inputText id="username"
+                                     required="true"
+                                     requiredMessage="Username is required."
+                                     styleClass="form-input" />
+                        <h:message for="username" styleClass="form-error" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <h:outputLabel for="password" value="Password" styleClass="form-label" />
+                        <h:inputSecret id="password"
+                                       required="true"
+                                       requiredMessage="Password is required."
+                                       styleClass="form-input" />
+                        <h:message for="password" styleClass="form-error" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <h:outputLabel for="confirmPassword" value="Confirm Password" styleClass="form-label" />
+                        <h:inputSecret id="confirmPassword"
+                                       required="true"
+                                       requiredMessage="Password confirmation is required."
+                                       styleClass="form-input" />
+                        <h:message for="confirmPassword" styleClass="form-error" />
+                    </div>
+
+                    <div class="form-actions">
+                        <h:commandButton value="Register" styleClass="primary-button" />
+                    </div>
+                    
+                </h:form>
+                
+                <div class="auth-links">
+                    <h:link outcome="login" value="Already have an account? Login" />
+                    <br />
+                    <h:link outcome="index" value="Welcome Page" />
+                </div>
+                
+            </section>
+        </main>
+    </h:body>
 </html>
