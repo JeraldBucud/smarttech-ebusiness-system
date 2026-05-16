@@ -23,7 +23,11 @@
                     <h:link outcome="main" value="Dashboard" />
                     <h:link outcome="listCustomers" value="List Customers" />
                     <h:link outcome="searchCustomer" value="Search Customer" />
-                    <h:link outcome="logout" value="Logout" />
+                    <h:form styleClass="logout-form">
+                        <h:commandLink value="Logout"
+                                       action="#{authenticationBean.logout}"
+                                       styleClass="nav-command-link" />
+                    </h:form>
                 </nav>
             </header>
 

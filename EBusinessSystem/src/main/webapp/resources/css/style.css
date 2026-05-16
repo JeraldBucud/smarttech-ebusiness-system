@@ -624,3 +624,23 @@ body {
         width: 100%;
     }
 }
+
+
+/* =========================================================
+   Navigation Command Links
+   Styles JSF command links used in the secured navigation bar.
+   ========================================================= */
+
+.logout-form {
+    margin: 0;
+}
+
+.nav-command-link {
+    color: #c9a227;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.nav-command-link:hover {
+    text-decoration: underline;
+}

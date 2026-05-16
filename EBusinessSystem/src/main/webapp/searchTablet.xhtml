@@ -22,7 +22,11 @@
                     <h:link outcome="main" value="Dashboard" />
                     <h:link outcome="createTablet" value="Create Tablet" />
                     <h:link outcome="listTablets" value="Tablet Stock" />
-                    <h:link outcome="logout" value="Logout" />
+                    <h:form styleClass="logout-form">
+                        <h:commandLink value="Logout"
+                                       action="#{authenticationBean.logout}"
+                                       styleClass="nav-command-link" />
+                    </h:form>
                 </nav>
             </header>
 
