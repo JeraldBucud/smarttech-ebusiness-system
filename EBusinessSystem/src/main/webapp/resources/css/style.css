@@ -421,3 +421,30 @@ body {
 .data-table tbody tr:hover {
     background: #f7f5f0;
 }
+
+/* =========================================================
+   Search Layout
+   Used by product, customer, and order search pages.
+   ========================================================= */
+
+.search-bar {
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 18px;
+    align-items: end;
+    margin-bottom: 24px;
+}
+
+.search-input-group {
+    margin-bottom: 0;
+}
+
+.search-action {
+    margin-bottom: 0;
+}
+
+@media (max-width: 800px) {
+    .search-bar {
+        grid-template-columns: 1fr;
+    }
+}
