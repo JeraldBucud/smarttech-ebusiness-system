@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+
+    <h:head>
+        <title>Create Order - E-Business System</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <h:outputStylesheet library="css" name="style.css" />
+    </h:head>
+
+    <h:body>
+        <main class="app-container">
+
+            <header class="app-header">
+                <div>
+                    <h1>E-Business System</h1>
+                    <p>Customer Order Management</p>
+                </div>
+
+                <nav class="app-nav">
+                    <h:link outcome="main" value="Dashboard" />
+                    <h:link outcome="listOrders" value="List Orders" />
+                    <h:link outcome="searchOrder" value="Search Order" />
+                    <h:link outcome="login" value="Logout" />
+                </nav>
+            </header>
+
+            <section class="content-card">
+
+                <div class="section-heading">
+                    <h2>Create Order</h2>
+                    <p>
+                        Create a customer order for one selected product item.
+                    </p>
+                </div>
+
+                <h:form styleClass="data-form">
+
+                    <h:messages globalOnly="true" styleClass="form-error" />
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <h:outputLabel for="customer" value="Customer" styleClass="form-label" />
+                            <h:selectOneMenu id="customer"
+                                             required="true"
+                                             requiredMessage="Customer is required."
+                                             styleClass="form-input">
+                                <f:selectItem itemLabel="Select Customer" itemValue="" />
+                                <f:selectItem itemLabel="CUST-001 - Sample Customer" itemValue="CUST-001" />
+                            </h:selectOneMenu>
+                            <h:message for="customer" styleClass="form-error" />
+                        </div>
+
+                        <div class="form-group">
+                            <h:outputLabel for="productType" value="Product Type" styleClass="form-label" />
+                            <h:selectOneMenu id="productType"
+                                             required="true"
+                                             requiredMessage="Product type is required."
+                                             styleClass="form-input">
+                                <f:selectItem itemLabel="Select Product Type" itemValue="" />
+                                <f:selectItem itemLabel="Tablet" itemValue="Tablet" />
+                                <f:selectItem itemLabel="Smartwatch" itemValue="Smartwatch" />
+                            </h:selectOneMenu>
+                            <h:message for="productType" styleClass="form-error" />
+                        </div>
+
+                        <div class="form-group">
+                            <h:outputLabel for="product" value="Product" styleClass="form-label" />
+                            <h:selectOneMenu id="product"
+                                             required="true"
+                                             requiredMessage="Product is required."
+                                             styleClass="form-input">
+                                <f:selectItem itemLabel="Select Product" itemValue="" />
+                                <f:selectItem itemLabel="Sample Tablet Model" itemValue="TAB-001" />
+                                <f:selectItem itemLabel="Sample Smartwatch Model" itemValue="SW-001" />
+                            </h:selectOneMenu>
+                            <h:message for="product" styleClass="form-error" />
+                        </div>
+
+                        <div class="form-group">
+                            <h:outputLabel for="quantity" value="Quantity" styleClass="form-label" />
+                            <h:inputText id="quantity"
+                                         required="true"
+                                         requiredMessage="Quantity is required."
+                                         styleClass="form-input" />
+                            <h:message for="quantity" styleClass="form-error" />
+                        </div>
+
+                        <div class="form-group form-grid-full">
+                            <h:outputLabel for="orderNotes" value="Order Notes" styleClass="form-label" />
+                            <h:inputTextarea id="orderNotes"
+                                             styleClass="form-input form-textarea" />
+                            <h:message for="orderNotes" styleClass="form-error" />
+                        </div>
+
+                    </div>
+
+                    <div class="form-actions">
+                        <h:commandButton value="Create Order"
+                                         styleClass="primary-button" />
+                    </div>
+
+                </h:form>
+
+            </section>
+
+        </main>
+    </h:body>
+
+</html>
