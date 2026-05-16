@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="jakarta.faces.html">
 
     <h:head>
-        <title>Customer Details - E-Business System</title>
+        <title>Order List - E-Business System</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
@@ -16,13 +15,13 @@
             <header class="app-header">
                 <div>
                     <h1>E-Business System</h1>
-                    <p>Customer Details and Order History</p>
+                    <p>Customer Order Records</p>
                 </div>
 
                 <nav class="app-nav">
                     <h:link outcome="main" value="Dashboard" />
-                    <h:link outcome="listCustomers" value="List Customers" />
-                    <h:link outcome="searchCustomer" value="Search Customer" />
+                    <h:link outcome="createOrder" value="Create Order" />
+                    <h:link outcome="searchOrder" value="Search Order" />
                     <h:link outcome="login" value="Logout" />
                 </nav>
             </header>
@@ -30,45 +29,9 @@
             <section class="content-card">
 
                 <div class="section-heading">
-                    <h2>Customer Details</h2>
+                    <h2>Order List</h2>
                     <p>
-                        View customer information and the orders associated with the selected customer.
-                    </p>
-                </div>
-
-                <div class="details-grid">
-
-                    <div class="details-item">
-                        <span class="details-label">Customer ID</span>
-                        <span class="details-value">CUST-001</span>
-                    </div>
-
-                    <div class="details-item">
-                        <span class="details-label">Full Name</span>
-                        <span class="details-value">Sample Customer</span>
-                    </div>
-
-                    <div class="details-item">
-                        <span class="details-label">Email Address</span>
-                        <span class="details-value">sample.customer@email.com</span>
-                    </div>
-
-                    <div class="details-item">
-                        <span class="details-label">Phone Number</span>
-                        <span class="details-value">0400 000 000</span>
-                    </div>
-
-                    <div class="details-item details-full">
-                        <span class="details-label">Address</span>
-                        <span class="details-value">Sample customer address</span>
-                    </div>
-
-                </div>
-
-                <div class="section-heading sub-section-heading">
-                    <h2>Customer Orders</h2>
-                    <p>
-                        Orders placed by this customer are listed below.
+                        View customer orders saved in the e-business system.
                     </p>
                 </div>
 
@@ -81,30 +44,47 @@
                             <thead>
                                 <tr>
                                     <th>Order ID</th>
+                                    <th>Customer</th>
                                     <th>Product Type</th>
-                                    <th>Brand</th>
-                                    <th>Model</th>
+                                    <th>Product Model</th>
                                     <th>Quantity</th>
                                     <th>Status</th>
+                                    <th>Details</th>
+                                    <th>Delete</th>
                                 </tr>
                             </thead>
 
                             <tbody>
                                 <tr>
                                     <td>ORD-001</td>
+                                    <td>Sample Customer</td>
                                     <td>Tablet</td>
-                                    <td>Sample Brand</td>
                                     <td>Sample Tablet Model</td>
                                     <td>2</td>
                                     <td>Created</td>
+                                    <td>
+                                        <h:link outcome="orderDetails" value="View Details" />
+                                    </td>
+                                    <td>
+                                        <h:commandLink value="Delete"
+                                                       styleClass="danger-link" />
+                                    </td>
                                 </tr>
+
                                 <tr>
                                     <td>ORD-002</td>
+                                    <td>Sample Customer</td>
                                     <td>Smartwatch</td>
-                                    <td>Sample Brand</td>
                                     <td>Sample Smartwatch Model</td>
                                     <td>1</td>
                                     <td>Created</td>
+                                    <td>
+                                        <h:link outcome="orderDetails" value="View Details" />
+                                    </td>
+                                    <td>
+                                        <h:commandLink value="Delete"
+                                                       styleClass="danger-link" />
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
