@@ -49,6 +49,7 @@
                         <div class="form-group">
                             <h:outputLabel for="firstName" value="First Name" styleClass="form-label" />
                             <h:inputText id="firstName"
+                                         value="#{customerBean.firstName}"
                                          required="true"
                                          requiredMessage="First name is required."
                                          styleClass="form-input" />
@@ -58,6 +59,7 @@
                         <div class="form-group">
                             <h:outputLabel for="lastName" value="Last Name" styleClass="form-label" />
                             <h:inputText id="lastName"
+                                         value="#{customerBean.lastName}"
                                          required="true"
                                          requiredMessage="Last name is required."
                                          styleClass="form-input" />
@@ -67,6 +69,7 @@
                         <div class="form-group">
                             <h:outputLabel for="email" value="Email Address" styleClass="form-label" />
                             <h:inputText id="email"
+                                         value="#{customerBean.emailAddress}"
                                          required="true"
                                          requiredMessage="Email address is required."
                                          styleClass="form-input" />
@@ -76,6 +79,7 @@
                         <div class="form-group">
                             <h:outputLabel for="phone" value="Phone Number" styleClass="form-label" />
                             <h:inputText id="phone"
+                                         value="#{customerBean.phoneNumber}"
                                          required="true"
                                          requiredMessage="Phone number is required."
                                          styleClass="form-input" />
@@ -85,6 +89,7 @@
                         <div class="form-group form-grid-full">
                             <h:outputLabel for="address" value="Address" styleClass="form-label" />
                             <h:inputTextarea id="address"
+                                             value="#{customerBean.address}"
                                              required="true"
                                              requiredMessage="Address is required."
                                              styleClass="form-input form-textarea" />
@@ -95,6 +100,7 @@
 
                     <div class="form-actions">
                         <h:commandButton value="Create Customer"
+                                         action="#{customerBean.createCustomer}"
                                          styleClass="primary-button" />
                     </div>
 
