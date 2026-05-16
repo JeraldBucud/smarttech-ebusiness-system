@@ -28,6 +28,7 @@
                     <div class="form-group">
                         <h:outputLabel for="email" value="Email Address" styleClass="form-label" />
                         <h:inputText id="email"
+                                     value="#{authenticationBean.emailAddress}"
                                      required="true"
                                      requiredMessage="Email address is required."
                                      styleClass="form-input" />
@@ -35,7 +36,9 @@
                     </div>
                     
                     <div class="form-actions">
-                        <h:commandButton value="Create Recovery Code" styleClass="primary-button" />
+                        <h:commandButton value="Create Recovery Code" 
+                                         action="#{authenticationBean.recoverAccount}"
+                                         styleClass="primary-button" />
                     </div>
                     
                 </h:form>
