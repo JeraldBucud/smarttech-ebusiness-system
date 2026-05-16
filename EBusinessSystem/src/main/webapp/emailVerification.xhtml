@@ -28,11 +28,10 @@
                 <h:form styleClass="auth-form">
 
                     <div class="form-group">
-                        <h:outputLabel for="verificationCode"
-                                       value="Verification Code"
-                                       styleClass="form-label" />
+                        <h:outputLabel for="verificationCode" value="Verification Code" styleClass="form-label" />
 
                         <h:inputText id="verificationCode"
+                                     value="#{authenticationBean.verificationCode}"
                                      required="true"
                                      requiredMessage="Verification code is required."
                                      styleClass="form-input" />
@@ -41,7 +40,9 @@
                     </div>
 
                     <div class="form-actions">
-                        <h:commandButton value="Verify Account" styleClass="primary-button" />
+                        <h:commandButton value="Verify Account" 
+                                         action="#{authenticationBean.verifyEmail}"
+                                         styleClass="primary-button" />
                     </div>
 
                 </h:form>
