@@ -365,6 +365,15 @@ body {
     margin-bottom: 0;
 }
 
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 22px;
+}
+
+.form-grid .form-group {
+    margin-bottom: 0;
+}
 
 /* =========================================================
    Responsive Form Layout
