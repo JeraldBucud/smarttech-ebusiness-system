@@ -179,3 +179,130 @@ body {
     margin: 0 8px;
     color: #9ca3af;
 }
+
+
+/* =========================================================
+   Main Application Layout
+   Used by secured pages after successful login.
+   ========================================================= */
+
+.app-container {
+    min-height: 100vh;
+    padding: 32px;
+    background: #f7f5f0;
+    color: #111111;
+}
+
+.app-header {
+    max-width: 1100px;
+    margin: 0 auto 32px;
+    padding: 24px 28px;
+    background: #050505;
+    color: #ffffff;
+    border-radius: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.app-header p {
+    margin: 6px 0 0;
+    color: #d1d5db;
+}
+
+.app-nav {
+    display: flex;
+    gap: 18px;
+}
+
+.app-nav a {
+    color: #c9a227;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.app-nav a:hover {
+    text-decoration: underline;
+}
+
+.dashboard-hero {
+    max-width: 1100px;
+    margin: 0 auto 28px;
+    padding: 32px;
+    background: #ffffff;
+    border: 1px solid #ddd8ce;
+    border-radius: 18px;
+}
+
+.dashboard-hero h2 {
+    margin: 0;
+    font-size: 30px;
+}
+
+.dashboard-hero p {
+    max-width: 650px;
+    margin: 10px 0 0;
+    color: #6b7280;
+    line-height: 1.6;
+}
+
+.dashboard-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.dashboard-card {
+    background: #ffffff;
+    border: 1px solid #ddd8ce;
+    border-radius: 18px;
+    padding: 26px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.dashboard-card h3 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.dashboard-card p {
+    margin: 10px 0 20px;
+    color: #6b7280;
+    line-height: 1.5;
+}
+
+.card-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card-links a {
+    color: #0b1f3a;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.card-links a:hover {
+    color: #c9a227;
+    text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+    .app-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
