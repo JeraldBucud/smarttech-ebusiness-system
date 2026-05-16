@@ -50,6 +50,7 @@
                                            styleClass="form-label" />
 
                             <h:inputText id="searchKeyword"
+                                         value="#{tabletBean.searchKeyword}"
                                          required="true"
                                          requiredMessage="Search keyword is required."
                                          styleClass="form-input" />
@@ -59,6 +60,7 @@
 
                         <div class="search-action">
                             <h:commandButton value="Search Tablet"
+                                             action="#{tabletBean.searchTablet}"
                                              styleClass="primary-button" />
                         </div>
                     </div>
