@@ -16,8 +16,6 @@ import java.io.Serializable;
  * @author Cardoso Pepe
  */
 
-
-
 @Entity
 @Table(name = "LAPTOPS")
 public class Laptop implements Serializable {
