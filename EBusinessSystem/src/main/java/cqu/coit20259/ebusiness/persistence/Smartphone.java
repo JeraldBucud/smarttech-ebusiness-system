@@ -64,3 +64,4 @@ public class Smartphone implements Serializable {
         this.stock = stock; 
     }
 }
+
