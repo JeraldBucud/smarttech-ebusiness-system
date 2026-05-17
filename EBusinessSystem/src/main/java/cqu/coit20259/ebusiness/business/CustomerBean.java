@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package cqu.coit20259.ebusiness.business;
 
 import jakarta.ejb.Stateless;
@@ -14,36 +10,35 @@ import java.util.Random;
  *
  * @author Cardoso Pepe
  */
-
 @Stateless
 public class CustomerBean {
 
     @PersistenceContext(unitName = "my_persistence_unit")
     private EntityManager em;
 
-    // REGLA DE NEGOCIO: Generar código de verificación simulado para el email
+    // Generates a simulated verification code for the customer's email.
     public String generateVerificationCode() {
         Random random = new Random();
-        int code = 100000 + random.nextInt(900000); // Código de 6 dígitos
+        int code = 100000 + random.nextInt(900000); // Creates a 6-digit code.
         return String.valueOf(code);
     }
 
-    // REGLA DE NEGOCIO: Registrar cliente de forma segura
+    // Registers a new customer after checking if the email already exists.
     public boolean registerCustomer(Customer customer) {
-        // Verificar si el email ya existe en la base de datos
+        // Checks if the email is already registered in the database.
         Long count = em.createQuery("SELECT COUNT(c) FROM Customer c WHERE c.email = :email", Long.class)
                 .setParameter("email", customer.getEmail())
                 .getSingleResult();
         
         if (count > 0) {
-            return false; // El correo ya está registrado
+            return false; // Returns false if the email is already registered.
         }
         
         em.persist(customer);
         return true;
     }
 
-    // REGLA DE NEGOCIO: Validar credenciales de inicio de sesión
+    // Checks the customer's login details.
     public Customer login(String email, String password) {
         try {
             return em.createQuery("SELECT c FROM Customer c WHERE c.email = :email AND c.password = :password", Customer.class)
@@ -51,16 +46,16 @@ public class CustomerBean {
                     .setParameter("password", password)
                     .getSingleResult();
         } catch (Exception e) {
-            return null; // Credenciales incorrectas o usuario no encontrado
+            return null; // Returns null if the login details are incorrect.
         }
     }
     
-    // Buscar un cliente específico por su ID
+    // Finds a customer by ID.
     public Customer findCustomerById(Long id) {
         return em.find(Customer.class, id);
     }
 
-    // Obtener la lista de todos los clientes registrados
+    // Returns all registered customers.
     public java.util.List<Customer> findAllCustomers() {
         return em.createQuery("SELECT c FROM Customer c", Customer.class).getResultList();
     }

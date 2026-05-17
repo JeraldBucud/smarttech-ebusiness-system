@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package cqu.coit20259.ebusiness.business;
 
 import jakarta.ejb.Stateless;
@@ -13,31 +9,30 @@ import java.util.List;
  *
  * @author Cardoso Pepe
  */
-
 @Stateless
 public class ProductFacade {
 
     @PersistenceContext(unitName = "my_persistence_unit")
     private EntityManager em;
 
-    // Método para buscar un producto por ID (puede ser Laptop o Smartphone)
+    // Finds a product by ID depending on its type.
     public Object findProduct(Long id, String type) {
         if ("laptop".equalsIgnoreCase(type)) {
-            // Asumiendo que tu compañero de persistencia llame a la entidad 'Laptop'
+            // Searches for a laptop product.
             return em.find(cqu.coit20259.ebusiness.persistence.Laptop.class, id);
         } else {
-            // Asumiendo que se llame 'Smartphone'
+            // Searches for a smartphone product.
             return em.find(cqu.coit20259.ebusiness.persistence.Smartphone.class, id);
         }
     }
 
-    // REGLA DE NEGOCIO: Reducir stock cuando se crea una orden
+    // Reduces product stock when a new order is created.
     public boolean deductStock(Long productId, String type, int quantity) {
         if ("laptop".equalsIgnoreCase(type)) {
             var laptop = em.find(cqu.coit20259.ebusiness.persistence.Laptop.class, productId);
             if (laptop != null && laptop.getStock() >= quantity) {
                 laptop.setStock(laptop.getStock() - quantity);
-                em.merge(laptop); // Actualiza en la BD
+                em.merge(laptop); // Saves the updated stock in the database.
                 return true;
             }
         } else {
@@ -48,10 +43,10 @@ public class ProductFacade {
                 return true;
             }
         }
-        return false; // No hay suficiente stock o no existe el producto
+        return false; // Returns false if the product does not exist or stock is not enough.
     }
 
-    // REGLA DE NEGOCIO: Devolver stock si se elimina una orden
+    // Restores product stock when an order is removed.
     public void restoreStock(Long productId, String type, int quantity) {
         if ("laptop".equalsIgnoreCase(type)) {
             var laptop = em.find(cqu.coit20259.ebusiness.persistence.Laptop.class, productId);
@@ -68,22 +63,22 @@ public class ProductFacade {
         }
     }
     
-    // Obtener la lista de todas las Laptops
+    // Returns all laptop products.
     public List<cqu.coit20259.ebusiness.persistence.Laptop> findAllLaptops() {
         return em.createQuery("SELECT l FROM Laptop l", cqu.coit20259.ebusiness.persistence.Laptop.class).getResultList();
     }
 
-    // Obtener la lista de todos los Smartphones
+    // Returns all smartphone products.
     public List<cqu.coit20259.ebusiness.persistence.Smartphone> findAllSmartphones() {
         return em.createQuery("SELECT s FROM Smartphone s", cqu.coit20259.ebusiness.persistence.Smartphone.class).getResultList();
     }
 
-    // Registrar una nueva Laptop (Panel de administración)
+    // Creates a new laptop product.
     public void createLaptop(cqu.coit20259.ebusiness.persistence.Laptop laptop) {
         em.persist(laptop);
     }
 
-    // Registrar un nuevo Smartphone (Panel de administración)
+    // Creates a new smartphone product.
     public void createSmartphone(cqu.coit20259.ebusiness.persistence.Smartphone phone) {
         em.persist(phone);
     }
