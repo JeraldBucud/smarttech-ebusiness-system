@@ -60,3 +60,5 @@ public class CustomerBean {
         return em.createQuery("SELECT c FROM Customer c", Customer.class).getResultList();
     }
 }
+
+
