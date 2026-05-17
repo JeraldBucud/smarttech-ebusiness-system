@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import cqu.coit20259.ebusiness.persistence.Customer;
 import java.util.Random;
+import cqu.coit20259.ebusiness.business.exception.CustomerAlreadyExistsException;
 
 /**
  *
