@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author Cardoso Pepe
+ * @author Cardoso Pepe 
  */
 @Entity
 @Table(name = "SMARTPHONES")
