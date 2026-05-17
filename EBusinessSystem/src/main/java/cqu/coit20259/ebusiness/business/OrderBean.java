@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import cqu.coit20259.ebusiness.persistence.Order;
 import java.util.List;
+import cqu.coit20259.ebusiness.business.exception.InsufficientStockException;
 
 /**
  *
