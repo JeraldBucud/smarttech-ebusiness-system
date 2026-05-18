@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "SMARTPHONES")
-public class Smartphone implements Serializable {
+public class Smartwatch implements Serializable {
     
     @Id
     private Long id;
@@ -21,7 +21,7 @@ public class Smartphone implements Serializable {
     private int stock;
 
     // Default constructor required by JPA.
-    public Smartphone() {}
+    public Smartwatch() {}
 
     // Getter and setter methods for smartphone data.
     public Long getId() { 

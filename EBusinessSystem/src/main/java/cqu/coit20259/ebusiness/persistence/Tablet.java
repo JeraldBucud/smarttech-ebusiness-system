@@ -18,7 +18,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "LAPTOPS")
-public class Laptop implements Serializable {
+public class Tablet implements Serializable {
     @Id
     private Long id;
     private String brand;
@@ -26,7 +26,7 @@ public class Laptop implements Serializable {
     private double price;
     private int stock;
 
-    public Laptop() {}
+    public Tablet() {}
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }

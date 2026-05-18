@@ -17,29 +17,29 @@ public class ProductFacade {
 
     // Finds a product by ID depending on its type.
     public Object findProduct(Long id, String type) {
-        if ("laptop".equalsIgnoreCase(type)) {
-            // Searches for a laptop product.
-            return em.find(cqu.coit20259.ebusiness.persistence.Laptop.class, id);
+        if ("tablet".equalsIgnoreCase(type)) {
+            // Searches for a tablet product.
+            return em.find(cqu.coit20259.ebusiness.persistence.Tablet.class, id);
         } else {
-            // Searches for a smartphone product.
-            return em.find(cqu.coit20259.ebusiness.persistence.Smartphone.class, id);
+            // Searches for a smartwatch product.
+            return em.find(cqu.coit20259.ebusiness.persistence.Smartwatch.class, id);
         }
     }
 
     // Reduces product stock when a new order is created.
     public boolean deductStock(Long productId, String type, int quantity) {
-        if ("laptop".equalsIgnoreCase(type)) {
-            var laptop = em.find(cqu.coit20259.ebusiness.persistence.Laptop.class, productId);
-            if (laptop != null && laptop.getStock() >= quantity) {
-                laptop.setStock(laptop.getStock() - quantity);
-                em.merge(laptop); // Saves the updated stock in the database.
+        if ("tablet".equalsIgnoreCase(type)) {
+            var tablet = em.find(cqu.coit20259.ebusiness.persistence.Tablet.class, productId);
+            if (tablet != null && tablet.getStock() >= quantity) {
+                tablet.setStock(tablet.getStock() - quantity);
+                em.merge(tablet); // Saves the updated stock in the database.
                 return true;
             }
         } else {
-            var phone = em.find(cqu.coit20259.ebusiness.persistence.Smartphone.class, productId);
-            if (phone != null && phone.getStock() >= quantity) {
-                phone.setStock(phone.getStock() - quantity);
-                em.merge(phone);
+            var smartwatch = em.find(cqu.coit20259.ebusiness.persistence.Smartwatch.class, productId);
+            if (smartwatch != null && smartwatch.getStock() >= quantity) {
+                smartwatch.setStock(smartwatch.getStock() - quantity);
+                em.merge(smartwatch);
                 return true;
             }
         }
@@ -48,39 +48,38 @@ public class ProductFacade {
 
     // Restores product stock when an order is removed.
     public void restoreStock(Long productId, String type, int quantity) {
-        if ("laptop".equalsIgnoreCase(type)) {
-            var laptop = em.find(cqu.coit20259.ebusiness.persistence.Laptop.class, productId);
-            if (laptop != null) {
-                laptop.setStock(laptop.getStock() + quantity);
-                em.merge(laptop);
+        if ("tablet".equalsIgnoreCase(type)) {
+            var tablet = em.find(cqu.coit20259.ebusiness.persistence.Tablet.class, productId);
+            if (tablet != null) {
+                tablet.setStock(tablet.getStock() + quantity);
+                em.merge(tablet);
             }
         } else {
-            var phone = em.find(cqu.coit20259.ebusiness.persistence.Smartphone.class, productId);
-            if (phone != null) {
-                phone.setStock(phone.getStock() + quantity);
-                em.merge(phone);
+            var smartwatch = em.find(cqu.coit20259.ebusiness.persistence.Smartwatch.class, productId);
+            if (smartwatch != null) {
+                smartwatch.setStock(smartwatch.getStock() + quantity);
+                em.merge(smartwatch);
             }
         }
     }
     
-    // Returns all laptop products.
-    public List<cqu.coit20259.ebusiness.persistence.Laptop> findAllLaptops() {
-        return em.createQuery("SELECT l FROM Laptop l", cqu.coit20259.ebusiness.persistence.Laptop.class).getResultList();
+    // Returns all tablet products.
+    public List<cqu.coit20259.ebusiness.persistence.Tablet> findAllTablets() {
+        return em.createQuery("SELECT t FROM Tablet t", cqu.coit20259.ebusiness.persistence.Tablet.class).getResultList();
     }
 
-    // Returns all smartphone products.
-    public List<cqu.coit20259.ebusiness.persistence.Smartphone> findAllSmartphones() {
-        return em.createQuery("SELECT s FROM Smartphone s", cqu.coit20259.ebusiness.persistence.Smartphone.class).getResultList();
+    // Returns all smartwatch products.
+    public List<cqu.coit20259.ebusiness.persistence.Smartwatch> findAllSmartwatches() {
+        return em.createQuery("SELECT s FROM Smartwatch s", cqu.coit20259.ebusiness.persistence.Smartwatch.class).getResultList();
     }
 
-    // Creates a new laptop product.
-    public void createLaptop(cqu.coit20259.ebusiness.persistence.Laptop laptop) {
-        em.persist(laptop);
+    // Creates a new tablet product.
+    public void createTablet(cqu.coit20259.ebusiness.persistence.Tablet tablet) {
+        em.persist(tablet);
     }
 
-    // Creates a new smartphone product.
-    public void createSmartphone(cqu.coit20259.ebusiness.persistence.Smartphone phone) {
-        em.persist(phone);
+    // Creates a new smartwatch product.
+    public void createSmartwatch(cqu.coit20259.ebusiness.persistence.Smartwatch smartwatch) {
+        em.persist(smartwatch);
     }
 }
-
