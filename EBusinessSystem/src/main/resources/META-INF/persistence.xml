@@ -9,8 +9,8 @@
         
         <class>cqu.coit20259.ebusiness.persistence.Customer</class>
         <class>cqu.coit20259.ebusiness.persistence.Order</class>
-        <class>cqu.coit20259.ebusiness.persistence.Laptop</class>
-        <class>cqu.coit20259.ebusiness.persistence.Smartphone</class>
+        <class>cqu.coit20259.ebusiness.persistence.Tablet</class>
+        <class>cqu.coit20259.ebusiness.persistence.Smartwatch</class>
         
         <properties>
             <property name="jakarta.persistence.schema-generation.database.action" value="create-or-extend-tables"/>

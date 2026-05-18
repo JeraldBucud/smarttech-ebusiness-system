@@ -17,8 +17,8 @@ import java.io.Serializable;
  */
 
 @Entity
-@Table(name = "LAPTOPS")
-public class Laptop implements Serializable {
+@Table(name = "TABLETS")
+public class Tablet implements Serializable {
     @Id
     private Long id;
     private String brand;
@@ -26,7 +26,7 @@ public class Laptop implements Serializable {
     private double price;
     private int stock;
 
-    public Laptop() {}
+    public Tablet() {}
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -35,7 +35,7 @@ public class Laptop implements Serializable {
     public void setBrand(String brand) { this.brand = brand; }
 
     public String getModel() { return model; }
-    public void setModel(String model) { this.model = model; } // <-- Corregido aquí
+    public void setModel(String model) { this.model = model; }
 
     public double getPrice() { return price; }
     public void setPrice(double price) { this.price = price; }
