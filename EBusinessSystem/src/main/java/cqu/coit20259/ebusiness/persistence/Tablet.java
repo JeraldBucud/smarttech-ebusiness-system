@@ -36,7 +36,7 @@ public class Tablet implements Serializable {
     }
 
     public Long getId() {
-        return id;
+        return id; 
     }
 
     public void setId(Long id) {
