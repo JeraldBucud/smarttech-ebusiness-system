@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html">
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
 
     <h:head>
         <title>Customer List - E-Business System</title>
@@ -43,34 +44,47 @@
 
                     <h:messages globalOnly="true" styleClass="form-error" />
 
-                    <div class="table-wrapper">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Customer ID</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Email Address</th>
-                                    <th>Phone Number</th>
-                                    <th>Address</th>
-                                    <th>Details</th>
-                                </tr>
-                            </thead>
+                                        <div class="table-wrapper">
+                        <h:dataTable value="#{customerBean.customerRows}"
+                                     var="customer"
+                                     styleClass="data-table">
 
-                            <tbody>
-                                <tr>
-                                    <td>CUST-001</td>
-                                    <td>Sample</td>
-                                    <td>Customer</td>
-                                    <td>sample.customer@email.com</td>
-                                    <td>0400 000 000</td>
-                                    <td>Sample customer address</td>
-                                    <td>
-                                        <h:link outcome="customerDetails" value="View Details" />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                            <h:column>
+                                <f:facet name="header">Customer ID</f:facet>
+                                <h:outputText value="#{customer.customerId}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">First Name</f:facet>
+                                <h:outputText value="#{customer.firstName}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Last Name</f:facet>
+                                <h:outputText value="#{customer.lastName}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Email Address</f:facet>
+                                <h:outputText value="#{customer.emailAddress}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Phone Number</f:facet>
+                                <h:outputText value="#{customer.phoneNumber}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Address</f:facet>
+                                <h:outputText value="#{customer.address}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Details</f:facet>
+                                <h:link outcome="customerDetails" value="View Details" />
+                            </h:column>
+
+                        </h:dataTable>
                     </div>
 
                 </h:form>
