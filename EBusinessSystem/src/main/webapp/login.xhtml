@@ -2,57 +2,61 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="jakarta.faces.html">
-      
+
     <h:head>
         <title>Login - E-Business System</title>
         <meta name="viewport" content="width-device-width, initial-scale=1.0" />
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
-    
-    
+
+
     <h:body>
         <main class="auth-container">
             <section class="auth-card">
-                
+
                 <div class="auth-brand">
                     <h2>E-Business System</h2>
                     <p>Tablet and Smartwatch Management Portal</p>
                 </div>
-                
+
                 <h1 class="auth-title">Login Your Account</h1>
-                
+
                 <p class="auth-subtitle">
                     Sign in to access product, customer, and order management functions.
                 </p>
-                
+
                 <h:form styleClass="auth-form">
-                    
+
                     <div class="form-group">
-                        <h:outputLabel for="username" value="Username" styleClass="form-lab" />
+                        <h:outputLabel for="Email Address" value="Username" styleClass="form-lab" />
                         <h:inputText id="username"
-                                     value="#{authenticationBean.username}"
+                                     value="#{authenticationBean.emailAddress}"
                                      required="true"
                                      requiredMessage="Username is required"
                                      styleClass="form-input" />
                         <h:message for="username" styleClass="form-error" />            
                     </div>
-                    
+
                     <div class="form-group">
-                        <h:outputLabel for="password" value="Password" styleClass="form-label" />
-                        <h:inputSecret id="password"
-                                       value="#{authenticationBean.password}"
-                                       required="true"
-                                       requiredMessage="Password is required"
-                                       styleClass="form-input" />
-                        <h:message for="password" styleClass="form-error" />
+                        <h:outputLabel for="emailAddress"
+                                       value="Email Address"
+                                       styleClass="form-label" />
+
+                        <h:inputText id="emailAddress"
+                                     value="#{authenticationBean.emailAddress}"
+                                     required="true"
+                                     requiredMessage="Email address is required"
+                                     styleClass="form-input" />
+
+                        <h:message for="emailAddress" styleClass="form-error" />
                     </div>
-                    
+
                     <div class="form-actions">
                         <h:commandButton value="Login" 
                                          action="#{authenticationBean.login}"
                                          styleClass="primary-button" />
                     </div>
-                    
+
                 </h:form>
                 <div class="auth-links">
                     <h:link outcome="recoverAccount" value="Forgot your username and/or password?" />
@@ -61,9 +65,9 @@
                     <span>|</span>
                     <h:link outcome="index" value="Welcome Page" />
                 </div>
-                
+
             </section>
         </main>
     </h:body>
-    
+
 </html>

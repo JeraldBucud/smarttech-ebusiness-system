@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html">
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
 
     <h:head>
         <title>Search Order - E-Business System</title>
@@ -65,46 +66,47 @@
                         </div>
                     </div>
 
-                    <div class="table-wrapper">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Order ID</th>
-                                    <th>Customer</th>
-                                    <th>Product Type</th>
-                                    <th>Product Model</th>
-                                    <th>Quantity</th>
-                                    <th>Status</th>
-                                    <th>Details</th>
-                                </tr>
-                            </thead>
+                                        <div class="table-wrapper">
+                        <h:dataTable value="#{orderBean.filteredOrderRows}"
+                                     var="order"
+                                     styleClass="data-table">
 
-                            <tbody>
-                                <tr>
-                                    <td>ORD-001</td>
-                                    <td>Sample Customer</td>
-                                    <td>Tablet</td>
-                                    <td>Sample Tablet Model</td>
-                                    <td>2</td>
-                                    <td>Created</td>
-                                    <td>
-                                        <h:link outcome="orderDetails" value="View Details" />
-                                    </td>
-                                </tr>
+                            <h:column>
+                                <f:facet name="header">Order ID</f:facet>
+                                <h:outputText value="#{order.orderId}" />
+                            </h:column>
 
-                                <tr>
-                                    <td>ORD-002</td>
-                                    <td>Sample Customer</td>
-                                    <td>Smartwatch</td>
-                                    <td>Sample Smartwatch Model</td>
-                                    <td>1</td>
-                                    <td>Created</td>
-                                    <td>
-                                        <h:link outcome="orderDetails" value="View Details" />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                            <h:column>
+                                <f:facet name="header">Customer</f:facet>
+                                <h:outputText value="#{order.customerName}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Product Type</f:facet>
+                                <h:outputText value="#{order.productType}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Product Model</f:facet>
+                                <h:outputText value="#{order.productModel}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Quantity</f:facet>
+                                <h:outputText value="#{order.quantity}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Status</f:facet>
+                                <h:outputText value="#{order.status}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Details</f:facet>
+                                <h:link outcome="orderDetails" value="View Details" />
+                            </h:column>
+
+                        </h:dataTable>
                     </div>
 
                 </h:form>

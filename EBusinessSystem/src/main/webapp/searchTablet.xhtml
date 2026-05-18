@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html">
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
 
     <h:head>
         <title>Search Tablet - E-Business System</title>
@@ -65,32 +66,47 @@
                         </div>
                     </div>
 
-                    <div class="table-wrapper">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Brand</th>
-                                    <th>Model</th>
-                                    <th>Display Size</th>
-                                    <th>Storage</th>
-                                    <th>Stylus Support</th>
-                                    <th>Battery</th>
-                                    <th>Stock</th>
-                                </tr>
-                            </thead>
+                                        <div class="table-wrapper">
+                        <h:dataTable value="#{tabletBean.filteredTabletRows}"
+                                     var="tablet"
+                                     styleClass="data-table">
 
-                            <tbody>
-                                <tr>
-                                    <td>Sample Brand</td>
-                                    <td>Sample Tablet Model</td>
-                                    <td>11 inch</td>
-                                    <td>128 GB</td>
-                                    <td>Yes</td>
-                                    <td>8000 mAh</td>
-                                    <td>100</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                            <h:column>
+                                <f:facet name="header">Brand</f:facet>
+                                <h:outputText value="#{tablet.brand}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Model</f:facet>
+                                <h:outputText value="#{tablet.model}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Display Size</f:facet>
+                                <h:outputText value="#{tablet.displaySize}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Storage</f:facet>
+                                <h:outputText value="#{tablet.storageCapacity}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Stylus Support</f:facet>
+                                <h:outputText value="#{tablet.stylusSupport}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Battery</f:facet>
+                                <h:outputText value="#{tablet.batteryCapacity}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Stock</f:facet>
+                                <h:outputText value="#{tablet.stockQuantity}" />
+                            </h:column>
+
+                        </h:dataTable>
                     </div>
 
                 </h:form>

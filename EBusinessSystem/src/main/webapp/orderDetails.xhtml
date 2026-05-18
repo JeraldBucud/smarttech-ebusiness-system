@@ -23,6 +23,7 @@
                     <h:link outcome="createOrder" value="Create Order" />
                     <h:link outcome="listOrders" value="List Orders" />
                     <h:link outcome="searchOrder" value="Search Order" />
+                    
                     <h:form styleClass="logout-form">
                         <h:commandLink value="Logout"
                                        action="#{authenticationBean.logout}"
@@ -44,57 +45,74 @@
 
                     <div class="details-item">
                         <span class="details-label">Order ID</span>
-                        <span class="details-value">ORD-001</span>
+                        <span class="details-value">
+                            <h:outputText value="#{orderBean.selectedOrder.orderId}" />
+                        </span>
                     </div>
 
                     <div class="details-item">
                         <span class="details-label">Order Status</span>
-                        <span class="details-value">Created</span>
+                        <span class="details-value">
+                            <h:outputText value="#{orderBean.selectedOrder.status}" />
+                        </span>
                     </div>
 
                     <div class="details-item">
                         <span class="details-label">Customer</span>
-                        <span class="details-value">Sample Customer</span>
+                        <span class="details-value">
+                            <h:outputText value="#{orderBean.selectedOrder.customerName}" />
+                        </span>
                     </div>
 
                     <div class="details-item">
                         <span class="details-label">Customer Email</span>
-                        <span class="details-value">sample.customer@email.com</span>
+                        <span class="details-value">
+                            <h:outputText value="#{orderBean.selectedOrder.customerEmail}" />
+                        </span>
                     </div>
 
                     <div class="details-item">
                         <span class="details-label">Product Type</span>
-                        <span class="details-value">Tablet</span>
+                        <span class="details-value">
+                            <h:outputText value="#{orderBean.selectedOrder.productType}" />
+                        </span>
+                    </div>
+
+                    <div class="details-item">
+                        <span class="details-label">Brand</span>
+                        <span class="details-value">
+                            <h:outputText value="#{orderBean.selectedOrder.brand}" />
+                        </span>
                     </div>
 
                     <div class="details-item">
                         <span class="details-label">Product Model</span>
-                        <span class="details-value">Sample Tablet Model</span>
+                        <span class="details-value">
+                            <h:outputText value="#{orderBean.selectedOrder.productModel}" />
+                        </span>
                     </div>
 
                     <div class="details-item">
                         <span class="details-label">Quantity</span>
-                        <span class="details-value">2</span>
+                        <span class="details-value">
+                            <h:outputText value="#{orderBean.selectedOrder.quantity}" />
+                        </span>
                     </div>
 
-                    <div class="details-item">
+                    <div class="details-item details-full">
                         <span class="details-label">Stock Impact</span>
-                        <span class="details-value">Stock quantity reduced by 2 after order creation.</span>
+                        <span class="details-value">
+                            <h:outputText value="#{orderBean.selectedOrder.stockImpact}" />
+                        </span>
                     </div>
 
                     <div class="details-item details-full">
                         <span class="details-label">Order Notes</span>
                         <span class="details-value">
-                            Sample order note for presentation layout demonstration.
+                            <h:outputText value="#{orderBean.selectedOrder.orderNotes}" />
                         </span>
                     </div>
-
-                </div>
-
-                <div class="auth-links">
-                    <h:link outcome="listOrders" value="Back to Order List" />
-                    <span>|</span>
-                    <h:link outcome="searchOrder" value="Search Orders" />
+                    
                 </div>
 
             </section>
