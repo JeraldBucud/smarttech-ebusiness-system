@@ -39,6 +39,8 @@ public class AuthenticationBean implements Serializable {
     private String recoveryCode;
     private String newPassword;
     private boolean loggedIn;
+    private String generatedVerificationCode;
+    private String generatedRecoveryCode;
 
     /**
      * Creates an authentication backing bean with the user logged out by
@@ -103,7 +105,7 @@ public class AuthenticationBean implements Serializable {
             customer.setLastName(lastName);
             customer.setUsername(username);
 
-            verificationCode = customerService.generateVerificationCode();
+            generatedVerificationCode = customerService.generateVerificationCode();
 
             customerService.registerCustomer(customer);
 
@@ -129,13 +131,23 @@ public class AuthenticationBean implements Serializable {
      *
      * @return navigation outcome for login page
      */
-    public String verifyEmail() {
+        public String verifyEmail() {
 
         if (verificationCode == null || verificationCode.trim().isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR,
                             "Verification Failed",
                             "Verification code is required."));
+
+            return null;
+        }
+
+        if (generatedVerificationCode == null
+                || !generatedVerificationCode.equals(verificationCode.trim())) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Verification Failed",
+                            "The verification code is incorrect."));
 
             return null;
         }
@@ -155,7 +167,7 @@ public class AuthenticationBean implements Serializable {
      */
     public String recoverAccount() {
 
-        recoveryCode = customerService.generateVerificationCode();
+        generatedRecoveryCode = customerService.generateVerificationCode();
 
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -171,6 +183,25 @@ public class AuthenticationBean implements Serializable {
      * @return navigation outcome for login page
      */
     public String resetPassword() {
+
+        if (recoveryCode == null || recoveryCode.trim().isEmpty()) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Password Reset Failed",
+                            "Recovery code is required."));
+
+            return null;
+        }
+
+        if (generatedRecoveryCode == null
+                || !generatedRecoveryCode.equals(recoveryCode.trim())) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Password Reset Failed",
+                            "The recovery code is incorrect."));
+
+            return null;
+        }
 
         if (newPassword == null || !newPassword.equals(confirmPassword)) {
             FacesContext.getCurrentInstance().addMessage(null,
@@ -200,8 +231,8 @@ public class AuthenticationBean implements Serializable {
         FacesContext facesContext = FacesContext.getCurrentInstance();
 
         if (facesContext != null) {
-            jakarta.servlet.http.HttpServletRequest request =
-                    (jakarta.servlet.http.HttpServletRequest) facesContext
+            jakarta.servlet.http.HttpServletRequest request
+                    = (jakarta.servlet.http.HttpServletRequest) facesContext
                             .getExternalContext()
                             .getRequest();
 
