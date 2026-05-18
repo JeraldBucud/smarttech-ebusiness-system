@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html">
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
 
     <h:head>
         <title>Search Smartwatch - E-Business System</title>
@@ -65,32 +66,47 @@
                         </div>
                     </div>
 
-                    <div class="table-wrapper">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Brand</th>
-                                    <th>Model</th>
-                                    <th>Display Size</th>
-                                    <th>Health Monitoring</th>
-                                    <th>Fitness Tracking</th>
-                                    <th>Wearable Connectivity</th>
-                                    <th>Stock</th>
-                                </tr>
-                            </thead>
+                                        <div class="table-wrapper">
+                        <h:dataTable value="#{smartwatchBean.smartwatchRows}"
+                                     var="smartwatch"
+                                     styleClass="data-table">
 
-                            <tbody>
-                                <tr>
-                                    <td>Sample Brand</td>
-                                    <td>Sample Smartwatch Model</td>
-                                    <td>1.9 inch</td>
-                                    <td>Heart Rate</td>
-                                    <td>Step Counter</td>
-                                    <td>Bluetooth</td>
-                                    <td>100</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                            <h:column>
+                                <f:facet name="header">Brand</f:facet>
+                                <h:outputText value="#{smartwatch.brand}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Model</f:facet>
+                                <h:outputText value="#{smartwatch.model}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Display Size</f:facet>
+                                <h:outputText value="#{smartwatch.displaySize}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Health Monitoring</f:facet>
+                                <h:outputText value="#{smartwatch.healthMonitoring}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Fitness Tracking</f:facet>
+                                <h:outputText value="#{smartwatch.fitnessTracking}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Wearable Connectivity</f:facet>
+                                <h:outputText value="#{smartwatch.wearableConnectivity}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Stock</f:facet>
+                                <h:outputText value="#{smartwatch.stockQuantity}" />
+                            </h:column>
+
+                        </h:dataTable>
                     </div>
 
                 </h:form>
