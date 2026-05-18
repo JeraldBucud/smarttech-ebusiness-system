@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html">
+
+    <h:head>
+        <title>Main Page - E-Business System</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <h:outputStylesheet library="css" name="style.css" />
+    </h:head>
+
+    <h:body>
+        <main class="app-container">
+
+            <header class="app-header">
+                <div>
+                    <h1>E-Business System</h1>
+                    <p>Product, Customer and Order Management</p>
+                </div>
+
+                <nav class="app-nav">
+                    <h:link outcome="main" value="Dashboard" />
+                    <h:form styleClass="logout-form">
+                        <h:commandLink value="Logout"
+                                       action="#{authenticationBean.logout}"
+                                       styleClass="nav-command-link" />
+                    </h:form>
+                </nav>
+            </header>
+
+            <section class="dashboard-hero">
+                <h2>Management Dashboard</h2>
+                <p>
+                    Use this secured page to manage tablets, smartwatches,
+                    customers, and customer orders.
+                </p>
+            </section>
+
+            <section class="dashboard-grid">
+
+                <article class="dashboard-card">
+                    <h3>Tablet Management</h3>
+                    <p>Create, view, and search tablet product records.</p>
+
+                    <div class="card-links">
+                        <h:link outcome="createTablet" value="Create Tablet" />
+                        <h:link outcome="listTablets" value="Tablet Stock List" />
+                        <h:link outcome="searchTablet" value="Search Tablet" />
+                    </div>
+                </article>
+
+                <article class="dashboard-card">
+                    <h3>Smartwatch Management</h3>
+                    <p>Create, view, and search smartwatch product records.</p>
+
+                    <div class="card-links">
+                        <h:link outcome="createSmartwatch" value="Create Smartwatch" />
+                        <h:link outcome="listSmartwatches" value="Smartwatch Stock List" />
+                        <h:link outcome="searchSmartwatch" value="Search Smartwatch" />
+                    </div>
+                </article>
+
+                <article class="dashboard-card">
+                    <h3>Customers</h3>
+                    <p>Create, list, search, and view customer details.</p>
+
+                    <div class="card-links">
+                        <h:link outcome="createCustomer" value="Create Customer" />
+                        <h:link outcome="listCustomers" value="List Customers" />
+                        <h:link outcome="searchCustomer" value="Search Customer" />
+                        <h:link outcome="customerDetails" value="Customer Details" />
+                    </div>
+                </article>
+
+                <article class="dashboard-card">
+                    <h3>Orders</h3>
+                    <p>Create, view, search, and manage customer orders.</p>
+
+                    <div class="card-links">
+                        <h:link outcome="createOrder" value="Create Order" />
+                        <h:link outcome="listOrders" value="List Orders" />
+                        <h:link outcome="searchOrder" value="Search Order" />
+                        <h:link outcome="orderDetails" value="Order Details" />
+                    </div>
+                </article>
+
+            </section>
+
+        </main>
+    </h:body>
+
+</html>
