@@ -7,14 +7,16 @@
         
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         
+         <jta-data-source>jdbc/ebusiness_db</jta-data-source>
+         
         <class>cqu.coit20259.ebusiness.persistence.Customer</class>
         <class>cqu.coit20259.ebusiness.persistence.Order</class>
         <class>cqu.coit20259.ebusiness.persistence.Tablet</class>
         <class>cqu.coit20259.ebusiness.persistence.Smartwatch</class>
         
         <properties>
-            <property name="jakarta.persistence.schema-generation.database.action" value="create-or-extend-tables"/>
-            
+            <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+            <property name="eclipselink.ddl-generation.output-mode" value="database"/>
             <property name="eclipselink.logging.level" value="FINE"/>
             <property name="eclipselink.logging.parameters" value="true"/>
         </properties>
