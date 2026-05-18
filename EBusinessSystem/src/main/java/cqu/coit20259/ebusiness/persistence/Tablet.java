@@ -17,7 +17,7 @@ import java.io.Serializable;
  */
 
 @Entity
-@Table(name = "LAPTOPS")
+@Table(name = "TABLETS")
 public class Tablet implements Serializable {
     @Id
     private Long id;
