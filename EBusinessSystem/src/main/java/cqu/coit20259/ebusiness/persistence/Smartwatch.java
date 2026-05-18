@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @author Cardoso Pepe 
  */
 @Entity
-@Table(name = "SMARTPHONES")
+@Table(name = "SMARTWATCHES")
 public class Smartwatch implements Serializable {
     
     @Id
@@ -23,7 +23,7 @@ public class Smartwatch implements Serializable {
     // Default constructor required by JPA.
     public Smartwatch() {}
 
-    // Getter and setter methods for smartphone data.
+    // Getter and setter methods for smartwatch data.
     public Long getId() { 
         return id; 
     }
@@ -64,4 +64,3 @@ public class Smartwatch implements Serializable {
         this.stock = stock; 
     }
 }
-
