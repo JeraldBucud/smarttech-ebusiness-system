@@ -58,7 +58,7 @@ public class Smartwatch implements Serializable {
     }
 
     public double getPrice() {
-        return price;
+        return price; 
     }
 
     public void setPrice(double price) {
