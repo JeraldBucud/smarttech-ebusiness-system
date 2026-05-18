@@ -3,6 +3,8 @@ package com.ebusiness.presentation;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Backing bean for smartwatch-related JSF pages.
@@ -10,8 +12,8 @@ import java.io.Serializable;
  * This class stores temporary smartwatch form data and provides placeholder
  * action methods for creating and searching smartwatch records.
  *
- * The actual persistence and retrieval logic will be connected later
- * through the business tier.
+ * The actual persistence and retrieval logic will be connected later through
+ * the business tier.
  *
  * @author Jerald Christopher Bucud
  */
@@ -52,6 +54,41 @@ public class SmartwatchBean implements Serializable {
         return "searchSmartwatch";
     }
 
+    /**
+     * Provides temporary smartwatch rows for the JSF table display.
+     *
+     * This placeholder data will later be replaced by results returned from the
+     * business tier.
+     *
+     * @return list of smartwatch rows for display
+     */
+    public List<SmartwatchRow> getSmartwatchRows() {
+
+        List<SmartwatchRow> smartwatches = new ArrayList<>();
+
+        smartwatches.add(new SmartwatchRow(
+                "Sample Brand",
+                "Sample Smartwatch Model",
+                "1.9 inch",
+                "Heart Rate",
+                "Step Counter",
+                "Bluetooth",
+                "100"
+        ));
+
+        smartwatches.add(new SmartwatchRow(
+                "Demo Brand",
+                "Demo Watch Pro",
+                "2.0 inch",
+                "Heart Rate and Sleep Tracking",
+                "Steps and Workout Modes",
+                "Bluetooth and NFC",
+                "75"
+        ));
+
+        return smartwatches;
+    }
+
     public String getBrand() {
         return brand;
     }
@@ -59,7 +96,6 @@ public class SmartwatchBean implements Serializable {
     public void setBrand(String brand) {
         this.brand = brand;
     }
-
 
     public String getModel() {
         return model;
@@ -69,7 +105,6 @@ public class SmartwatchBean implements Serializable {
         this.model = model;
     }
 
-
     public String getDisplaySize() {
         return displaySize;
     }
@@ -77,7 +112,6 @@ public class SmartwatchBean implements Serializable {
     public void setDisplaySize(String displaySize) {
         this.displaySize = displaySize;
     }
-
 
     public String getWeight() {
         return weight;
@@ -87,7 +121,6 @@ public class SmartwatchBean implements Serializable {
         this.weight = weight;
     }
 
-
     public String getOperatingSystem() {
         return operatingSystem;
     }
@@ -95,7 +128,6 @@ public class SmartwatchBean implements Serializable {
     public void setOperatingSystem(String operatingSystem) {
         this.operatingSystem = operatingSystem;
     }
-
 
     public String getConnectivity() {
         return connectivity;
@@ -105,7 +137,6 @@ public class SmartwatchBean implements Serializable {
         this.connectivity = connectivity;
     }
 
-
     public String getWifiCapability() {
         return wifiCapability;
     }
@@ -113,7 +144,6 @@ public class SmartwatchBean implements Serializable {
     public void setWifiCapability(String wifiCapability) {
         this.wifiCapability = wifiCapability;
     }
-
 
     public String getHealthMonitoring() {
         return healthMonitoring;
@@ -123,7 +153,6 @@ public class SmartwatchBean implements Serializable {
         this.healthMonitoring = healthMonitoring;
     }
 
-
     public String getFitnessTracking() {
         return fitnessTracking;
     }
@@ -131,7 +160,6 @@ public class SmartwatchBean implements Serializable {
     public void setFitnessTracking(String fitnessTracking) {
         this.fitnessTracking = fitnessTracking;
     }
-
 
     public String getWearableConnectivity() {
         return wearableConnectivity;
@@ -141,7 +169,6 @@ public class SmartwatchBean implements Serializable {
         this.wearableConnectivity = wearableConnectivity;
     }
 
-
     public String getStockQuantity() {
         return stockQuantity;
     }
@@ -150,12 +177,72 @@ public class SmartwatchBean implements Serializable {
         this.stockQuantity = stockQuantity;
     }
 
-
     public String getSearchKeyword() {
         return searchKeyword;
     }
 
     public void setSearchKeyword(String searchKeyword) {
         this.searchKeyword = searchKeyword;
+    }
+
+    /**
+     * Simple display row used by the smartwatch JSF table.
+     *
+     * This class is temporary presentation-layer display data and will be
+     * replaced or mapped from entity results after EJB integration.
+     */
+    public static class SmartwatchRow {
+
+        private final String brand;
+        private final String model;
+        private final String displaySize;
+        private final String healthMonitoring;
+        private final String fitnessTracking;
+        private final String wearableConnectivity;
+        private final String stockQuantity;
+
+        public SmartwatchRow(String brand,
+                String model,
+                String displaySize,
+                String healthMonitoring,
+                String fitnessTracking,
+                String wearableConnectivity,
+                String stockQuantity) {
+            this.brand = brand;
+            this.model = model;
+            this.displaySize = displaySize;
+            this.healthMonitoring = healthMonitoring;
+            this.fitnessTracking = fitnessTracking;
+            this.wearableConnectivity = wearableConnectivity;
+            this.stockQuantity = stockQuantity;
+        }
+
+        public String getBrand() {
+            return brand;
+        }
+
+        public String getModel() {
+            return model;
+        }
+
+        public String getDisplaySize() {
+            return displaySize;
+        }
+
+        public String getHealthMonitoring() {
+            return healthMonitoring;
+        }
+
+        public String getFitnessTracking() {
+            return fitnessTracking;
+        }
+
+        public String getWearableConnectivity() {
+            return wearableConnectivity;
+        }
+
+        public String getStockQuantity() {
+            return stockQuantity;
+        }
     }
 }
