@@ -1,6 +1,10 @@
 package com.ebusiness.presentation;
 
+import cqu.coit20259.ebusiness.persistence.Customer;
+import jakarta.ejb.EJB;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,6 +27,9 @@ public class CustomerBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @EJB
+    private cqu.coit20259.ebusiness.business.CustomerBean customerService;
+
     private String firstName;
     private String lastName;
     private String emailAddress;
@@ -31,12 +38,42 @@ public class CustomerBean implements Serializable {
     private String searchKeyword;
 
     /**
-     * Placeholder action for creating a customer record.
+     * Creates a customer record through the business tier.
      *
      * @return navigation outcome for the customer list page
      */
     public String createCustomer() {
-        return "listCustomers?faces-redirect=true";
+
+        try {
+            Customer customer = new Customer();
+
+            customer.setEmail(emailAddress);
+
+            /*
+             * The final Customer entity is expected to include these fields.
+             */
+            customer.setFirstName(firstName);
+            customer.setLastName(lastName);
+            customer.setPhoneNumber(phoneNumber);
+            customer.setAddress(address);
+
+            customerService.registerCustomer(customer);
+
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO,
+                            "Customer Created",
+                            "The customer record has been created successfully."));
+
+            return "listCustomers?faces-redirect=true";
+
+        } catch (Exception exception) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Customer Creation Failed",
+                            exception.getMessage()));
+
+            return null;
+        }
     }
 
     /**
@@ -49,55 +86,82 @@ public class CustomerBean implements Serializable {
     }
 
     /**
-     * Provides temporary customer rows for the JSF table display.
-     *
-     * This placeholder data will later be replaced by results returned from the
-     * business tier.
+     * Retrieves customer rows for JSF list table display.
      *
      * @return list of customer rows for display
      */
     public List<CustomerRow> getCustomerRows() {
 
-        List<CustomerRow> customers = new ArrayList<>();
+        List<CustomerRow> customerRows = new ArrayList<>();
 
-        customers.add(new CustomerRow(
-                "CUST-001",
-                "Sample",
-                "Customer",
-                "sample.customer@email.com",
-                "0400 000 000",
-                "Sample customer address"
-        ));
+        List<Customer> customers = customerService.findAllCustomers();
 
-        customers.add(new CustomerRow(
-                "CUST-002",
-                "Demo",
-                "User",
-                "demo.user@email.com",
-                "0411 111 111",
-                "Demo customer address"
-        ));
+        for (Customer customer : customers) {
+            customerRows.add(new CustomerRow(
+                    String.valueOf(customer.getId()),
+                    customer.getFirstName(),
+                    customer.getLastName(),
+                    customer.getEmail(),
+                    customer.getPhoneNumber(),
+                    customer.getAddress()
+            ));
+        }
 
-        return customers;
+        return customerRows;
     }
 
     /**
-     * Provides a temporary selected customer for the customer details page.
+     * Provides a selected customer for the customer details page.
      *
-     * This placeholder data will later be replaced by the selected customer
-     * returned from the business tier.
+     * This currently returns the first available customer until row-level
+     * selection is connected.
      *
      * @return selected customer row for display
      */
     public CustomerRow getSelectedCustomer() {
-        return new CustomerRow(
-                "CUST-001",
-                "Sample",
-                "Customer",
-                "sample.customer@email.com",
-                "0400 000 000",
-                "Sample customer address"
-        );
+
+        List<CustomerRow> customers = getCustomerRows();
+
+        if (customers.isEmpty()) {
+            return new CustomerRow(
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
+            );
+        }
+
+        return customers.get(0);
+    }
+
+    /**
+     * Retrieves filtered customer rows for JSF search table display.
+     *
+     * @return filtered customer rows for display
+     */
+    public List<CustomerRow> getFilteredCustomerRows() {
+
+        if (searchKeyword == null || searchKeyword.trim().isEmpty()) {
+            return getCustomerRows();
+        }
+
+        String keyword = searchKeyword.trim().toLowerCase();
+        List<CustomerRow> filteredRows = new ArrayList<>();
+
+        for (CustomerRow customer : getCustomerRows()) {
+            if (customer.getCustomerId().toLowerCase().contains(keyword)
+                    || customer.getFirstName().toLowerCase().contains(keyword)
+                    || customer.getLastName().toLowerCase().contains(keyword)
+                    || customer.getEmailAddress().toLowerCase().contains(keyword)
+                    || customer.getPhoneNumber().toLowerCase().contains(keyword)
+                    || customer.getAddress().toLowerCase().contains(keyword)) {
+                filteredRows.add(customer);
+            }
+        }
+
+        return filteredRows;
     }
 
     public String getFirstName() {
@@ -164,11 +228,11 @@ public class CustomerBean implements Serializable {
         private final String address;
 
         public CustomerRow(String customerId,
-                String firstName,
-                String lastName,
-                String emailAddress,
-                String phoneNumber,
-                String address) {
+                           String firstName,
+                           String lastName,
+                           String emailAddress,
+                           String phoneNumber,
+                           String address) {
             this.customerId = customerId;
             this.firstName = firstName;
             this.lastName = lastName;

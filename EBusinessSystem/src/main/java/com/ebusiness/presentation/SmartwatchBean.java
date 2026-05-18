@@ -1,5 +1,8 @@
 package com.ebusiness.presentation;
 
+import cqu.coit20259.ebusiness.business.ProductFacade;
+import cqu.coit20259.ebusiness.persistence.Smartwatch;
+import jakarta.ejb.EJB;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 import java.io.Serializable;
@@ -22,7 +25,10 @@ import java.util.List;
 public class SmartwatchBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    
+    @EJB
+    private ProductFacade productFacade;
+    
     private String brand;
     private String model;
     private String displaySize;
@@ -36,12 +42,29 @@ public class SmartwatchBean implements Serializable {
     private String stockQuantity;
     private String searchKeyword;
 
-    /**
-     * Placeholder action for creating a smartwatch record.
+        /**
+     * Creates a smartwatch record through the business tier.
      *
      * @return navigation outcome for the smartwatch stock list page
      */
     public String createSmartwatch() {
+
+        Smartwatch smartwatch = new Smartwatch();
+
+        smartwatch.setBrand(brand);
+        smartwatch.setModel(model);
+        smartwatch.setDisplaySize(displaySize);
+        smartwatch.setWeight(weight);
+        smartwatch.setOperatingSystem(operatingSystem);
+        smartwatch.setConnectivity(connectivity);
+        smartwatch.setWifiCapability(wifiCapability);
+        smartwatch.setHealthMonitoring(healthMonitoring);
+        smartwatch.setFitnessTracking(fitnessTracking);
+        smartwatch.setWearableConnectivity(wearableConnectivity);
+        smartwatch.setStock(Integer.parseInt(stockQuantity));
+
+        productFacade.createSmartwatch(smartwatch);
+
         return "listSmartwatches?faces-redirect=true";
     }
 
@@ -54,39 +77,61 @@ public class SmartwatchBean implements Serializable {
         return "searchSmartwatch";
     }
 
-    /**
-     * Provides temporary smartwatch rows for the JSF table display.
-     *
-     * This placeholder data will later be replaced by results returned from the
-     * business tier.
+        /**
+     * Retrieves smartwatch rows for JSF list table display.
      *
      * @return list of smartwatch rows for display
      */
     public List<SmartwatchRow> getSmartwatchRows() {
 
-        List<SmartwatchRow> smartwatches = new ArrayList<>();
+        List<SmartwatchRow> smartwatchRows = new ArrayList<>();
 
-        smartwatches.add(new SmartwatchRow(
-                "Sample Brand",
-                "Sample Smartwatch Model",
-                "1.9 inch",
-                "Heart Rate",
-                "Step Counter",
-                "Bluetooth",
-                "100"
-        ));
+        List<Smartwatch> smartwatches = productFacade.findAllSmartwatches();
 
-        smartwatches.add(new SmartwatchRow(
-                "Demo Brand",
-                "Demo Watch Pro",
-                "2.0 inch",
-                "Heart Rate and Sleep Tracking",
-                "Steps and Workout Modes",
-                "Bluetooth and NFC",
-                "75"
-        ));
+        for (Smartwatch smartwatch : smartwatches) {
+            smartwatchRows.add(new SmartwatchRow(
+                    smartwatch.getBrand(),
+                    smartwatch.getModel(),
+                    smartwatch.getDisplaySize(),
+                    smartwatch.getHealthMonitoring(),
+                    smartwatch.getFitnessTracking(),
+                    smartwatch.getWearableConnectivity(),
+                    String.valueOf(smartwatch.getStock())
+            ));
+        }
 
-        return smartwatches;
+        return smartwatchRows;
+    }
+    
+        /**
+     * Retrieves filtered smartwatch rows for JSF search table display.
+     *
+     * This method performs presentation-level filtering only. The search can
+     * later be moved into the business tier if required.
+     *
+     * @return filtered smartwatch rows for display
+     */
+    public List<SmartwatchRow> getFilteredSmartwatchRows() {
+
+        if (searchKeyword == null || searchKeyword.trim().isEmpty()) {
+            return getSmartwatchRows();
+        }
+
+        String keyword = searchKeyword.trim().toLowerCase();
+        List<SmartwatchRow> filteredRows = new ArrayList<>();
+
+        for (SmartwatchRow smartwatch : getSmartwatchRows()) {
+            if (smartwatch.getBrand().toLowerCase().contains(keyword)
+                    || smartwatch.getModel().toLowerCase().contains(keyword)
+                    || smartwatch.getDisplaySize().toLowerCase().contains(keyword)
+                    || smartwatch.getHealthMonitoring().toLowerCase().contains(keyword)
+                    || smartwatch.getFitnessTracking().toLowerCase().contains(keyword)
+                    || smartwatch.getWearableConnectivity().toLowerCase().contains(keyword)) {
+                filteredRows.add(smartwatch);
+            }
+        }
+
+        return filteredRows;
     }
 
     public String getBrand() {
