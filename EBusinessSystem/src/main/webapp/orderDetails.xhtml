@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html">
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+
+    <f:metadata>
+        <f:viewParam name="orderId" value="#{orderBean.selectedOrderId}" />
+    </f:metadata>
 
     <h:head>
         <title>Order Details - E-Business System</title>
@@ -10,7 +15,7 @@
     </h:head>
 
     <h:body>
-        <main class="app-container">
+        <main class="page-container">
 
             <header class="app-header">
                 <div>
@@ -23,96 +28,74 @@
                     <h:link outcome="createOrder" value="Create Order" />
                     <h:link outcome="listOrders" value="List Orders" />
                     <h:link outcome="searchOrder" value="Search Order" />
-                    
-                    <h:form styleClass="logout-form">
-                        <h:commandLink value="Logout"
-                                       action="#{authenticationBean.logout}"
-                                       styleClass="nav-command-link" />
-                    </h:form>
+                    <h:link outcome="logout" value="Logout" />
                 </nav>
             </header>
 
             <section class="content-card">
-
-                <div class="section-heading">
-                    <h2>Order Details</h2>
-                    <p>
-                        View the selected customer order, product information, quantity, and order status.
-                    </p>
-                </div>
+                <h2>Order Details</h2>
+                <p class="section-subtitle">
+                    View the selected customer order, product information, quantity, and order status.
+                </p>
 
                 <div class="details-grid">
 
                     <div class="details-item">
                         <span class="details-label">Order ID</span>
-                        <span class="details-value">
-                            <h:outputText value="#{orderBean.selectedOrder.orderId}" />
-                        </span>
+                        <span class="details-value">#{orderBean.selectedOrder.orderId}</span>
                     </div>
 
                     <div class="details-item">
                         <span class="details-label">Order Status</span>
-                        <span class="details-value">
-                            <h:outputText value="#{orderBean.selectedOrder.status}" />
-                        </span>
+                        <span class="details-value">#{orderBean.selectedOrder.status}</span>
                     </div>
 
                     <div class="details-item">
                         <span class="details-label">Customer</span>
-                        <span class="details-value">
-                            <h:outputText value="#{orderBean.selectedOrder.customerName}" />
-                        </span>
+                        <span class="details-value">#{orderBean.selectedOrder.customerName}</span>
                     </div>
 
                     <div class="details-item">
                         <span class="details-label">Customer Email</span>
-                        <span class="details-value">
-                            <h:outputText value="#{orderBean.selectedOrder.customerEmail}" />
-                        </span>
+                        <span class="details-value">#{orderBean.selectedOrder.customerEmail}</span>
                     </div>
 
                     <div class="details-item">
                         <span class="details-label">Product Type</span>
-                        <span class="details-value">
-                            <h:outputText value="#{orderBean.selectedOrder.productType}" />
-                        </span>
+                        <span class="details-value">#{orderBean.selectedOrder.productType}</span>
                     </div>
 
                     <div class="details-item">
                         <span class="details-label">Brand</span>
-                        <span class="details-value">
-                            <h:outputText value="#{orderBean.selectedOrder.brand}" />
-                        </span>
+                        <span class="details-value">#{orderBean.selectedOrder.brand}</span>
                     </div>
 
                     <div class="details-item">
                         <span class="details-label">Product Model</span>
-                        <span class="details-value">
-                            <h:outputText value="#{orderBean.selectedOrder.productModel}" />
-                        </span>
+                        <span class="details-value">#{orderBean.selectedOrder.productModel}</span>
                     </div>
 
                     <div class="details-item">
                         <span class="details-label">Quantity</span>
-                        <span class="details-value">
-                            <h:outputText value="#{orderBean.selectedOrder.quantity}" />
-                        </span>
+                        <span class="details-value">#{orderBean.selectedOrder.quantity}</span>
                     </div>
 
                     <div class="details-item details-full">
                         <span class="details-label">Stock Impact</span>
-                        <span class="details-value">
-                            <h:outputText value="#{orderBean.selectedOrder.stockImpact}" />
-                        </span>
+                        <span class="details-value">#{orderBean.selectedOrder.stockImpact}</span>
                     </div>
 
                     <div class="details-item details-full">
                         <span class="details-label">Order Notes</span>
-                        <span class="details-value">
-                            <h:outputText value="#{orderBean.selectedOrder.orderNotes}" />
-                        </span>
+                        <span class="details-value">#{orderBean.selectedOrder.orderNotes}</span>
                     </div>
-                    
+
+                </div>
+
+                <div class="page-actions">
+                    <h:link outcome="listOrders"
+                            value="Back to Order List"
+                            styleClass="secondary-button" />
                 </div>
 
             </section>

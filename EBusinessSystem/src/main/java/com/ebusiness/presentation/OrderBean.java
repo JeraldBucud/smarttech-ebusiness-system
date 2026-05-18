@@ -1,10 +1,15 @@
 package com.ebusiness.presentation;
 
+import cqu.coit20259.ebusiness.business.ProductFacade;
+import cqu.coit20259.ebusiness.persistence.Customer;
 import cqu.coit20259.ebusiness.persistence.Order;
+import cqu.coit20259.ebusiness.persistence.Smartwatch;
+import cqu.coit20259.ebusiness.persistence.Tablet;
 import jakarta.ejb.EJB;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.SelectItem;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,16 +21,19 @@ import java.util.List;
  * This class stores order form data, calls the business tier for order
  * creation and retrieval, and prepares order display rows for JSF pages.
  *
- * The business tier handles order creation, stock deduction, order deletion,
- * and persistence operations.
- *
  * @author Jerald Christopher Bucud
  */
 @Named("orderBean")
-@RequestScoped
+@ViewScoped
 public class OrderBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    @EJB
+    private ProductFacade productFacade;
+
+    @EJB
+    private cqu.coit20259.ebusiness.business.CustomerBean customerService;
 
     @EJB
     private cqu.coit20259.ebusiness.business.OrderBean orderService;
@@ -36,6 +44,7 @@ public class OrderBean implements Serializable {
     private String quantity;
     private String orderNotes;
     private String searchKeyword;
+    private String selectedOrderId;
 
     /**
      * Creates an order through the business tier.
@@ -47,9 +56,11 @@ public class OrderBean implements Serializable {
         try {
             Order order = new Order();
 
+            Long customerId = Long.parseLong(customer);
             Long productId = Long.parseLong(product);
             int orderQuantity = Integer.parseInt(quantity);
 
+            order.setCustomerId(customerId);
             order.setProductId(productId);
             order.setProductType(productType);
             order.setQuantity(orderQuantity);
@@ -67,7 +78,7 @@ public class OrderBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR,
                             "Invalid Order Data",
-                            "Product and quantity values must be valid numbers."));
+                            "Customer, product, and quantity values must be valid."));
 
             return null;
 
@@ -84,10 +95,10 @@ public class OrderBean implements Serializable {
     /**
      * Keeps the user on the order search page after a search request.
      *
-     * @return navigation outcome for the order search page
+     * @return null to remain on the same JSF view
      */
     public String searchOrder() {
-        return "searchOrder";
+        return null;
     }
 
     /**
@@ -98,7 +109,6 @@ public class OrderBean implements Serializable {
     public List<OrderRow> getOrderRows() {
 
         List<OrderRow> orderRows = new ArrayList<>();
-
         List<Order> orders = orderService.findAllOrders();
 
         for (Order order : orders) {
@@ -106,7 +116,7 @@ public class OrderBean implements Serializable {
                     String.valueOf(order.getId()),
                     getDisplayCustomerName(order),
                     getDisplayCustomerEmail(order),
-                    order.getProductType(),
+                    safeText(order.getProductType()),
                     getDisplayBrand(order),
                     getDisplayProductModel(order),
                     String.valueOf(order.getQuantity()),
@@ -120,10 +130,7 @@ public class OrderBean implements Serializable {
     }
 
     /**
-     * Provides a selected order for the order details page.
-     *
-     * This currently returns the first available order until row-level
-     * selection is connected.
+     * Provides the selected order for the order details page.
      *
      * @return selected order row for display
      */
@@ -132,18 +139,17 @@ public class OrderBean implements Serializable {
         List<OrderRow> orders = getOrderRows();
 
         if (orders.isEmpty()) {
-            return new OrderRow(
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    ""
-            );
+            return new OrderRow("", "", "", "", "", "", "", "", "", "");
+        }
+
+        if (selectedOrderId == null || selectedOrderId.trim().isEmpty()) {
+            return orders.get(0);
+        }
+
+        for (OrderRow order : orders) {
+            if (order.getOrderId().equals(selectedOrderId)) {
+                return order;
+            }
         }
 
         return orders.get(0);
@@ -164,13 +170,16 @@ public class OrderBean implements Serializable {
         List<OrderRow> filteredRows = new ArrayList<>();
 
         for (OrderRow order : getOrderRows()) {
-            if (order.getOrderId().toLowerCase().contains(keyword)
-                    || order.getCustomerName().toLowerCase().contains(keyword)
-                    || order.getCustomerEmail().toLowerCase().contains(keyword)
-                    || order.getProductType().toLowerCase().contains(keyword)
-                    || order.getBrand().toLowerCase().contains(keyword)
-                    || order.getProductModel().toLowerCase().contains(keyword)
-                    || order.getStatus().toLowerCase().contains(keyword)) {
+            if (safeText(order.getOrderId()).toLowerCase().contains(keyword)
+                    || safeText(order.getCustomerName()).toLowerCase().contains(keyword)
+                    || safeText(order.getCustomerEmail()).toLowerCase().contains(keyword)
+                    || safeText(order.getProductType()).toLowerCase().contains(keyword)
+                    || safeText(order.getBrand()).toLowerCase().contains(keyword)
+                    || safeText(order.getProductModel()).toLowerCase().contains(keyword)
+                    || safeText(order.getQuantity()).toLowerCase().contains(keyword)
+                    || safeText(order.getStatus()).toLowerCase().contains(keyword)
+                    || safeText(order.getStockImpact()).toLowerCase().contains(keyword)
+                    || safeText(order.getOrderNotes()).toLowerCase().contains(keyword)) {
                 filteredRows.add(order);
             }
         }
@@ -179,82 +188,213 @@ public class OrderBean implements Serializable {
     }
 
     /**
-     * Provides display customer name for an order row.
+     * Provides customer dropdown options from registered customers.
      *
-     * @param order order entity
-     * @return customer display name
+     * @return customer select options
      */
-    private String getDisplayCustomerName(Order order) {
-        if (customer != null && !customer.trim().isEmpty()) {
-            return customer;
+    public List<SelectItem> getCustomerOptions() {
+
+        List<SelectItem> options = new ArrayList<>();
+        options.add(new SelectItem("", "Select Customer"));
+
+        List<Customer> customers = customerService.findAllCustomers();
+
+        for (Customer customerRecord : customers) {
+            String firstName = safeText(customerRecord.getFirstName());
+            String lastName = safeText(customerRecord.getLastName());
+            String fullName = (firstName + " " + lastName).trim();
+
+            if (fullName.isEmpty()) {
+                fullName = safeText(customerRecord.getEmail());
+            }
+
+            String label = customerRecord.getId() + " - "
+                    + fullName
+                    + " (" + safeText(customerRecord.getEmail()) + ")";
+
+            options.add(new SelectItem(String.valueOf(customerRecord.getId()), label));
         }
 
-        return "Customer " + order.getId();
+        return options;
     }
 
     /**
-     * Provides display customer email for an order row.
+     * Provides product dropdown options based on selected product type.
      *
-     * @param order order entity
-     * @return customer display email
+     * @return product select options
      */
+    public List<SelectItem> getProductOptions() {
+
+        List<SelectItem> options = new ArrayList<>();
+        options.add(new SelectItem("", "Select Product"));
+
+        if (productType == null || productType.trim().isEmpty()) {
+            return options;
+        }
+
+        if ("Tablet".equalsIgnoreCase(productType)) {
+            List<Tablet> tablets = productFacade.findAllTablets();
+
+            for (Tablet tablet : tablets) {
+                String label = safeText(tablet.getBrand()) + " "
+                        + safeText(tablet.getModel())
+                        + " - Stock: " + tablet.getStock();
+
+                options.add(new SelectItem(String.valueOf(tablet.getId()), label));
+            }
+
+            return options;
+        }
+
+        if ("Smartwatch".equalsIgnoreCase(productType)) {
+            List<Smartwatch> smartwatches = productFacade.findAllSmartwatches();
+
+            for (Smartwatch smartwatch : smartwatches) {
+                String label = safeText(smartwatch.getBrand()) + " "
+                        + safeText(smartwatch.getModel())
+                        + " - Stock: " + smartwatch.getStock();
+
+                options.add(new SelectItem(String.valueOf(smartwatch.getId()), label));
+            }
+        }
+
+        return options;
+    }
+
+    private String getDisplayCustomerName(Order order) {
+
+        if (order.getCustomerId() == null) {
+            return "";
+        }
+
+        Customer customerRecord = customerService.findCustomerById(order.getCustomerId());
+
+        if (customerRecord == null) {
+            return "Customer " + order.getCustomerId();
+        }
+
+        String firstName = safeText(customerRecord.getFirstName());
+        String lastName = safeText(customerRecord.getLastName());
+        String fullName = (firstName + " " + lastName).trim();
+
+        if (fullName.isEmpty()) {
+            return safeText(customerRecord.getEmail());
+        }
+
+        return fullName;
+    }
+
     private String getDisplayCustomerEmail(Order order) {
-        return "customer" + order.getId() + "@email.com";
+
+        if (order.getCustomerId() == null) {
+            return "";
+        }
+
+        Customer customerRecord = customerService.findCustomerById(order.getCustomerId());
+
+        if (customerRecord == null) {
+            return "";
+        }
+
+        return safeText(customerRecord.getEmail());
     }
 
-    /**
-     * Provides display product brand for an order row.
-     *
-     * @param order order entity
-     * @return product brand display text
-     */
     private String getDisplayBrand(Order order) {
-        return "Product Brand";
+
+        Object productRecord = productFacade.findProduct(
+                order.getProductId(),
+                order.getProductType()
+        );
+
+        if (productRecord instanceof Tablet) {
+            return safeText(((Tablet) productRecord).getBrand());
+        }
+
+        if (productRecord instanceof Smartwatch) {
+            return safeText(((Smartwatch) productRecord).getBrand());
+        }
+
+        return "";
     }
 
-    /**
-     * Provides display product model for an order row.
-     *
-     * @param order order entity
-     * @return product model display text
-     */
     private String getDisplayProductModel(Order order) {
-        return "Product ID " + order.getProductId();
+
+        Object productRecord = productFacade.findProduct(
+                order.getProductId(),
+                order.getProductType()
+        );
+
+        if (productRecord instanceof Tablet) {
+            return safeText(((Tablet) productRecord).getModel());
+        }
+
+        if (productRecord instanceof Smartwatch) {
+            return safeText(((Smartwatch) productRecord).getModel());
+        }
+
+        return "";
     }
 
-    /**
-     * Provides display status for an order row.
-     *
-     * @param order order entity
-     * @return order status
-     */
     private String getDisplayStatus(Order order) {
         return "Created";
     }
 
-    /**
-     * Provides stock impact text for an order row.
-     *
-     * @param order order entity
-     * @return stock impact display text
-     */
     private String getDisplayStockImpact(Order order) {
         return "Stock quantity reduced by " + order.getQuantity()
                 + " after order creation.";
     }
 
-    /**
-     * Provides order notes text for an order row.
-     *
-     * @param order order entity
-     * @return order notes display text
-     */
     private String getDisplayOrderNotes(Order order) {
         if (orderNotes != null && !orderNotes.trim().isEmpty()) {
             return orderNotes;
         }
 
         return "Order created through the e-business system.";
+    }
+    
+        /**
+     * Deletes an order through the business tier.
+     *
+     * The business layer restores the ordered product stock before removing
+     * the order record.
+     *
+     * @param orderId selected order ID
+     * @return navigation outcome for refreshing the order list
+     */
+    public String deleteOrder(String orderId) {
+
+        try {
+            Long selectedOrderId = Long.parseLong(orderId);
+
+            orderService.deleteOrder(selectedOrderId);
+
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO,
+                            "Order Deleted",
+                            "The order has been deleted successfully."));
+
+            return "listOrders?faces-redirect=true";
+
+        } catch (NumberFormatException exception) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Delete Failed",
+                            "The selected order ID is invalid."));
+
+            return null;
+
+        } catch (Exception exception) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Delete Failed",
+                            exception.getMessage()));
+
+            return null;
+        }
+    }
+
+    private String safeText(String value) {
+        return value == null ? "" : value;
     }
 
     public String getCustomer() {
@@ -271,6 +411,7 @@ public class OrderBean implements Serializable {
 
     public void setProductType(String productType) {
         this.productType = productType;
+        this.product = null;
     }
 
     public String getProduct() {
@@ -305,9 +446,14 @@ public class OrderBean implements Serializable {
         this.searchKeyword = searchKeyword;
     }
 
-    /**
-     * Simple display row used by order JSF tables.
-     */
+    public String getSelectedOrderId() {
+        return selectedOrderId;
+    }
+
+    public void setSelectedOrderId(String selectedOrderId) {
+        this.selectedOrderId = selectedOrderId;
+    }
+
     public static class OrderRow {
 
         private final String orderId;

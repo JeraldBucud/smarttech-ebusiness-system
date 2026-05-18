@@ -11,7 +11,7 @@
     </h:head>
 
     <h:body>
-        <main class="app-container">
+        <main class="page-container">
 
             <header class="app-header">
                 <div>
@@ -23,27 +23,17 @@
                     <h:link outcome="main" value="Dashboard" />
                     <h:link outcome="createOrder" value="Create Order" />
                     <h:link outcome="searchOrder" value="Search Order" />
-                    <h:form styleClass="logout-form">
-                        <h:commandLink value="Logout"
-                                       action="#{authenticationBean.logout}"
-                                       styleClass="nav-command-link" />
-                    </h:form>
+                    <h:link outcome="logout" value="Logout" />
                 </nav>
             </header>
 
             <section class="content-card">
+                <h2>Order List</h2>
+                <p class="section-subtitle">
+                    View customer orders saved in the e-business system.
+                </p>
 
-                <div class="section-heading">
-                    <h2>Order List</h2>
-                    <p>
-                        View customer orders saved in the e-business system.
-                    </p>
-                </div>
-
-                <h:form styleClass="data-form">
-
-                    <h:messages globalOnly="true" styleClass="form-error" />
-
+                <h:form>
                     <div class="table-wrapper">
                         <h:dataTable value="#{orderBean.orderRows}"
                                      var="order"
@@ -51,48 +41,50 @@
 
                             <h:column>
                                 <f:facet name="header">Order ID</f:facet>
-                                <h:outputText value="#{order.orderId}" />
+                                    #{order.orderId}
                             </h:column>
 
                             <h:column>
                                 <f:facet name="header">Customer</f:facet>
-                                <h:outputText value="#{order.customerName}" />
+                                    #{order.customerName}
                             </h:column>
 
                             <h:column>
                                 <f:facet name="header">Product Type</f:facet>
-                                <h:outputText value="#{order.productType}" />
+                                    #{order.productType}
                             </h:column>
 
                             <h:column>
                                 <f:facet name="header">Product Model</f:facet>
-                                <h:outputText value="#{order.productModel}" />
+                                    #{order.productModel}
                             </h:column>
 
                             <h:column>
                                 <f:facet name="header">Quantity</f:facet>
-                                <h:outputText value="#{order.quantity}" />
+                                    #{order.quantity}
                             </h:column>
 
                             <h:column>
                                 <f:facet name="header">Status</f:facet>
-                                <h:outputText value="#{order.status}" />
+                                    #{order.status}
                             </h:column>
 
                             <h:column>
                                 <f:facet name="header">Details</f:facet>
-                                <h:link outcome="orderDetails" value="View Details" />
+                                <h:link outcome="orderDetails" value="View Details">
+                                    <f:param name="orderId" value="#{order.orderId}" />
+                                </h:link>
                             </h:column>
 
                             <h:column>
                                 <f:facet name="header">Delete</f:facet>
                                 <h:commandLink value="Delete"
+                                               action="#{orderBean.deleteOrder(order.orderId)}"
                                                styleClass="danger-link" />
                             </h:column>
 
                         </h:dataTable>
                     </div>
-
                 </h:form>
 
             </section>

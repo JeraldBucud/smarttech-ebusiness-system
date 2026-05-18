@@ -52,8 +52,6 @@
 
                             <h:inputText id="searchKeyword"
                                          value="#{smartwatchBean.searchKeyword}"
-                                         required="true"
-                                         requiredMessage="Search keyword is required."
                                          styleClass="form-input" />
 
                             <h:message for="searchKeyword" styleClass="form-error" />
@@ -61,7 +59,7 @@
 
                         <div class="search-action">
                             <h:commandButton value="Search Smartwatch"
-                                             action="#{smartwatchBean.createSmartwatch}"
+                                             action="#{smartwatchBean.searchSmartwatch}"
                                              styleClass="primary-button" />
                         </div>
                     </div>

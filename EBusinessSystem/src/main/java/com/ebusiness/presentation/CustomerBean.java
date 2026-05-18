@@ -13,11 +13,8 @@ import java.util.List;
 /**
  * Backing bean for customer-related JSF pages.
  *
- * This class stores temporary customer form data and provides placeholder
- * action methods for creating and searching customer records.
- *
- * The actual persistence and retrieval logic will be connected later through
- * the business tier.
+ * This class stores customer form data, calls the business tier for customer
+ * creation and retrieval, and prepares customer display rows for JSF pages.
  *
  * @author Jerald Christopher Bucud
  */
@@ -47,15 +44,18 @@ public class CustomerBean implements Serializable {
         try {
             Customer customer = new Customer();
 
-            customer.setEmail(emailAddress);
-
-            /*
-             * The final Customer entity is expected to include these fields.
-             */
             customer.setFirstName(firstName);
             customer.setLastName(lastName);
+            customer.setEmail(emailAddress);
             customer.setPhoneNumber(phoneNumber);
             customer.setAddress(address);
+
+            /*
+             * Password and username are not required for manually created
+             * customer records in the customer management page.
+             */
+            customer.setUsername(emailAddress);
+            customer.setPassword("");
 
             customerService.registerCustomer(customer);
 
@@ -77,7 +77,7 @@ public class CustomerBean implements Serializable {
     }
 
     /**
-     * Placeholder action for searching customer records.
+     * Keeps the user on the customer search page after a search request.
      *
      * @return navigation outcome for the customer search page
      */
@@ -99,11 +99,11 @@ public class CustomerBean implements Serializable {
         for (Customer customer : customers) {
             customerRows.add(new CustomerRow(
                     String.valueOf(customer.getId()),
-                    customer.getFirstName(),
-                    customer.getLastName(),
-                    customer.getEmail(),
-                    customer.getPhoneNumber(),
-                    customer.getAddress()
+                    safeText(customer.getFirstName()),
+                    safeText(customer.getLastName()),
+                    safeText(customer.getEmail()),
+                    safeText(customer.getPhoneNumber()),
+                    safeText(customer.getAddress())
             ));
         }
 
@@ -123,14 +123,7 @@ public class CustomerBean implements Serializable {
         List<CustomerRow> customers = getCustomerRows();
 
         if (customers.isEmpty()) {
-            return new CustomerRow(
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    ""
-            );
+            return new CustomerRow("", "", "", "", "", "");
         }
 
         return customers.get(0);
@@ -151,17 +144,27 @@ public class CustomerBean implements Serializable {
         List<CustomerRow> filteredRows = new ArrayList<>();
 
         for (CustomerRow customer : getCustomerRows()) {
-            if (customer.getCustomerId().toLowerCase().contains(keyword)
-                    || customer.getFirstName().toLowerCase().contains(keyword)
-                    || customer.getLastName().toLowerCase().contains(keyword)
-                    || customer.getEmailAddress().toLowerCase().contains(keyword)
-                    || customer.getPhoneNumber().toLowerCase().contains(keyword)
-                    || customer.getAddress().toLowerCase().contains(keyword)) {
+            if (safeText(customer.getCustomerId()).toLowerCase().contains(keyword)
+                    || safeText(customer.getFirstName()).toLowerCase().contains(keyword)
+                    || safeText(customer.getLastName()).toLowerCase().contains(keyword)
+                    || safeText(customer.getEmailAddress()).toLowerCase().contains(keyword)
+                    || safeText(customer.getPhoneNumber()).toLowerCase().contains(keyword)
+                    || safeText(customer.getAddress()).toLowerCase().contains(keyword)) {
                 filteredRows.add(customer);
             }
         }
 
         return filteredRows;
+    }
+
+    /**
+     * Converts null text values into an empty string.
+     *
+     * @param value text value
+     * @return safe text value
+     */
+    private String safeText(String value) {
+        return value == null ? "" : value;
     }
 
     public String getFirstName() {
@@ -213,10 +216,7 @@ public class CustomerBean implements Serializable {
     }
 
     /**
-     * Simple display row used by the customer JSF table.
-     *
-     * This class is temporary presentation-layer display data and will be
-     * replaced or mapped from entity results after EJB integration.
+     * Simple display row used by customer JSF tables.
      */
     public static class CustomerRow {
 

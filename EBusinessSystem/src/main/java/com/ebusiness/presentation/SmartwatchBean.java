@@ -103,11 +103,8 @@ public class SmartwatchBean implements Serializable {
         return smartwatchRows;
     }
     
-        /**
+    /**
      * Retrieves filtered smartwatch rows for JSF search table display.
-     *
-     * This method performs presentation-level filtering only. The search can
-     * later be moved into the business tier if required.
      *
      * @return filtered smartwatch rows for display
      */
@@ -121,12 +118,13 @@ public class SmartwatchBean implements Serializable {
         List<SmartwatchRow> filteredRows = new ArrayList<>();
 
         for (SmartwatchRow smartwatch : getSmartwatchRows()) {
-            if (smartwatch.getBrand().toLowerCase().contains(keyword)
-                    || smartwatch.getModel().toLowerCase().contains(keyword)
-                    || smartwatch.getDisplaySize().toLowerCase().contains(keyword)
-                    || smartwatch.getHealthMonitoring().toLowerCase().contains(keyword)
-                    || smartwatch.getFitnessTracking().toLowerCase().contains(keyword)
-                    || smartwatch.getWearableConnectivity().toLowerCase().contains(keyword)) {
+            if (safeText(smartwatch.getBrand()).toLowerCase().contains(keyword)
+                    || safeText(smartwatch.getModel()).toLowerCase().contains(keyword)
+                    || safeText(smartwatch.getDisplaySize()).toLowerCase().contains(keyword)
+                    || safeText(smartwatch.getHealthMonitoring()).toLowerCase().contains(keyword)
+                    || safeText(smartwatch.getFitnessTracking()).toLowerCase().contains(keyword)
+                    || safeText(smartwatch.getWearableConnectivity()).toLowerCase().contains(keyword)
+                    || safeText(smartwatch.getStockQuantity()).toLowerCase().contains(keyword)) {
                 filteredRows.add(smartwatch);
             }
         }
@@ -228,6 +226,16 @@ public class SmartwatchBean implements Serializable {
 
     public void setSearchKeyword(String searchKeyword) {
         this.searchKeyword = searchKeyword;
+    }
+    
+        /**
+     * Converts null text values into an empty string for safe searching.
+     *
+     * @param value text value
+     * @return safe text value
+     */
+    private String safeText(String value) {
+        return value == null ? "" : value;
     }
 
     /**

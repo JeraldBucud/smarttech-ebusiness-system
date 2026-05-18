@@ -5,112 +5,112 @@
       xmlns:f="jakarta.faces.core">
 
     <h:head>
-        <title>Search Order - E-Business System</title>
+        <title>Search Orders - E-Business System</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
 
     <h:body>
-        <main class="app-container">
+        <main class="page-container">
 
             <header class="app-header">
                 <div>
                     <h1>E-Business System</h1>
-                    <p>Customer Order Search</p>
+                    <p>Tablet and Smartwatch Management Portal</p>
                 </div>
 
                 <nav class="app-nav">
                     <h:link outcome="main" value="Dashboard" />
                     <h:link outcome="createOrder" value="Create Order" />
-                    <h:link outcome="listOrders" value="List Orders" />
-                    <h:form styleClass="logout-form">
-                        <h:commandLink value="Logout"
-                                       action="#{authenticationBean.logout}"
-                                       styleClass="nav-command-link" />
-                    </h:form>
+                    <h:link outcome="listOrders" value="Order List" />
+                    <h:link outcome="logout" value="Logout" />
                 </nav>
             </header>
 
             <section class="content-card">
+                <h2>Search Orders</h2>
+                <p class="section-subtitle">
+                    Search order records by order ID, customer, email, product type,
+                    brand, model, quantity, status, or notes.
+                </p>
 
-                <div class="section-heading">
-                    <h2>Search Order</h2>
-                    <p>
-                        Search customer orders by order ID, customer name, product type, or product model.
-                    </p>
-                </div>
-
-                <h:form styleClass="data-form">
+                <h:form id="searchOrderForm" styleClass="search-form">
 
                     <h:messages globalOnly="true" styleClass="form-error" />
 
-                    <div class="search-bar">
-                        <div class="form-group search-input-group">
-                            <h:outputLabel for="searchKeyword"
-                                           value="Search Keyword"
-                                           styleClass="form-label" />
+                    <div class="form-group">
+                        <h:outputLabel for="searchKeyword"
+                                       value="Search Keyword"
+                                       styleClass="form-label" />
 
-                            <h:inputText id="searchKeyword"
-                                         value="#{orderBean.searchKeyword}"
-                                         required="true"
-                                         requiredMessage="Search keyword is required."
-                                         styleClass="form-input" />
+                        <h:inputText id="searchKeyword"
+                                     value="#{orderBean.searchKeyword}"
+                                     styleClass="form-input" />
 
-                            <h:message for="searchKeyword" styleClass="form-error" />
-                        </div>
-
-                        <div class="search-action">
-                            <h:commandButton value="Search Order"
-                                             action="#{orderBean.searchOrder}"
-                                             styleClass="primary-button" />
-                        </div>
+                        <h:message for="searchKeyword" styleClass="form-error" />
                     </div>
 
-                                        <div class="table-wrapper">
+                    <div class="search-actions">
+                        <h:commandButton value="Search"
+                                         action="#{orderBean.searchOrder}"
+                                         styleClass="primary-button search-button" />
+                    </div>
+
+                    <div class="table-wrapper">
                         <h:dataTable value="#{orderBean.filteredOrderRows}"
                                      var="order"
                                      styleClass="data-table">
 
                             <h:column>
                                 <f:facet name="header">Order ID</f:facet>
-                                <h:outputText value="#{order.orderId}" />
+                                    #{order.orderId}
                             </h:column>
 
                             <h:column>
                                 <f:facet name="header">Customer</f:facet>
-                                <h:outputText value="#{order.customerName}" />
+                                    #{order.customerName}
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Customer Email</f:facet>
+                                    #{order.customerEmail}
                             </h:column>
 
                             <h:column>
                                 <f:facet name="header">Product Type</f:facet>
-                                <h:outputText value="#{order.productType}" />
+                                    #{order.productType}
                             </h:column>
 
                             <h:column>
-                                <f:facet name="header">Product Model</f:facet>
-                                <h:outputText value="#{order.productModel}" />
+                                <f:facet name="header">Brand</f:facet>
+                                    #{order.brand}
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Model</f:facet>
+                                    #{order.productModel}
                             </h:column>
 
                             <h:column>
                                 <f:facet name="header">Quantity</f:facet>
-                                <h:outputText value="#{order.quantity}" />
+                                    #{order.quantity}
                             </h:column>
 
                             <h:column>
                                 <f:facet name="header">Status</f:facet>
-                                <h:outputText value="#{order.status}" />
-                            </h:column>
-
-                            <h:column>
-                                <f:facet name="header">Details</f:facet>
-                                <h:link outcome="orderDetails" value="View Details" />
+                                    #{order.status}
                             </h:column>
 
                         </h:dataTable>
                     </div>
 
-                </h:form>
+                    <div class="page-actions">
+                        <h:link outcome="listOrders"
+                                value="Back to Order List"
+                                styleClass="secondary-button" />
+                    </div>
 
+                </h:form>
             </section>
 
         </main>
