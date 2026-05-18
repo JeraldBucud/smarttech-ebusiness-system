@@ -3,15 +3,17 @@ package com.ebusiness.presentation;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Backing bean for tablet-related JSF pages.
  *
- * This class stores temporary tablet form data and provides placeholder
- * action methods for creating and searching tablet records.
+ * This class stores temporary tablet form data and provides placeholder action
+ * methods for creating and searching tablet records.
  *
- * The actual persistence and retrieval logic will be connected later
- * through the business tier.
+ * The actual persistence and retrieval logic will be connected later through
+ * the business tier.
  *
  * @author Jerald Christopher Bucud
  */
@@ -50,6 +52,41 @@ public class TabletBean implements Serializable {
      */
     public String searchTablet() {
         return "searchTablet";
+    }
+
+    /**
+     * Provides temporary tablet rows for the JSF table display.
+     *
+     * This placeholder data will later be replaced by results returned from the
+     * business tier.
+     *
+     * @return list of tablet rows for display
+     */
+    public List<TabletRow> getTabletRows() {
+
+        List<TabletRow> tablets = new ArrayList<>();
+
+        tablets.add(new TabletRow(
+                "Sample Brand",
+                "Sample Tablet Model",
+                "11 inch",
+                "128 GB",
+                "Yes",
+                "8000 mAh",
+                "100"
+        ));
+
+        tablets.add(new TabletRow(
+                "Demo Brand",
+                "Demo Tablet Pro",
+                "12.9 inch",
+                "256 GB",
+                "Yes",
+                "10000 mAh",
+                "50"
+        ));
+
+        return tablets;
     }
 
     public String getBrand() {
@@ -146,5 +183,66 @@ public class TabletBean implements Serializable {
 
     public void setSearchKeyword(String searchKeyword) {
         this.searchKeyword = searchKeyword;
+    }
+
+    /**
+     * Simple display row used by the tablet JSF table.
+     *
+     * This class is temporary presentation-layer display data and will be
+     * replaced or mapped from entity results after EJB integration.
+     */
+    public static class TabletRow {
+
+        private final String brand;
+        private final String model;
+        private final String displaySize;
+        private final String storageCapacity;
+        private final String stylusSupport;
+        private final String batteryCapacity;
+        private final String stockQuantity;
+
+        public TabletRow(String brand,
+                String model,
+                String displaySize,
+                String storageCapacity,
+                String stylusSupport,
+                String batteryCapacity,
+                String stockQuantity) {
+            this.brand = brand;
+            this.model = model;
+            this.displaySize = displaySize;
+            this.storageCapacity = storageCapacity;
+            this.stylusSupport = stylusSupport;
+            this.batteryCapacity = batteryCapacity;
+            this.stockQuantity = stockQuantity;
+        }
+
+        public String getBrand() {
+            return brand;
+        }
+
+        public String getModel() {
+            return model;
+        }
+
+        public String getDisplaySize() {
+            return displaySize;
+        }
+
+        public String getStorageCapacity() {
+            return storageCapacity;
+        }
+
+        public String getStylusSupport() {
+            return stylusSupport;
+        }
+
+        public String getBatteryCapacity() {
+            return batteryCapacity;
+        }
+
+        public String getStockQuantity() {
+            return stockQuantity;
+        }
     }
 }
