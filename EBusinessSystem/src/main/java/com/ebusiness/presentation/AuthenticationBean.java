@@ -190,12 +190,28 @@ public class AuthenticationBean implements Serializable {
     }
 
     /**
-     * Placeholder logout action.
+     * Logs the user out and invalidates the current HTTP session.
      *
      * @return navigation outcome for logout page
      */
     public String logout() {
         loggedIn = false;
+
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+
+        if (facesContext != null) {
+            jakarta.servlet.http.HttpServletRequest request =
+                    (jakarta.servlet.http.HttpServletRequest) facesContext
+                            .getExternalContext()
+                            .getRequest();
+
+            jakarta.servlet.http.HttpSession session = request.getSession(false);
+
+            if (session != null) {
+                session.invalidate();
+            }
+        }
+
         return "logout?faces-redirect=true";
     }
 
