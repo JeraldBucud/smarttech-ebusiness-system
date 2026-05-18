@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html">
+
+    <h:head>
+        <title>Search Order - E-Business System</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <h:outputStylesheet library="css" name="style.css" />
+    </h:head>
+
+    <h:body>
+        <main class="app-container">
+
+            <header class="app-header">
+                <div>
+                    <h1>E-Business System</h1>
+                    <p>Customer Order Search</p>
+                </div>
+
+                <nav class="app-nav">
+                    <h:link outcome="main" value="Dashboard" />
+                    <h:link outcome="createOrder" value="Create Order" />
+                    <h:link outcome="listOrders" value="List Orders" />
+                    <h:form styleClass="logout-form">
+                        <h:commandLink value="Logout"
+                                       action="#{authenticationBean.logout}"
+                                       styleClass="nav-command-link" />
+                    </h:form>
+                </nav>
+            </header>
+
+            <section class="content-card">
+
+                <div class="section-heading">
+                    <h2>Search Order</h2>
+                    <p>
+                        Search customer orders by order ID, customer name, product type, or product model.
+                    </p>
+                </div>
+
+                <h:form styleClass="data-form">
+
+                    <h:messages globalOnly="true" styleClass="form-error" />
+
+                    <div class="search-bar">
+                        <div class="form-group search-input-group">
+                            <h:outputLabel for="searchKeyword"
+                                           value="Search Keyword"
+                                           styleClass="form-label" />
+
+                            <h:inputText id="searchKeyword"
+                                         value="#{orderBean.searchKeyword}"
+                                         required="true"
+                                         requiredMessage="Search keyword is required."
+                                         styleClass="form-input" />
+
+                            <h:message for="searchKeyword" styleClass="form-error" />
+                        </div>
+
+                        <div class="search-action">
+                            <h:commandButton value="Search Order"
+                                             action="#{orderBean.searchOrder}"
+                                             styleClass="primary-button" />
+                        </div>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Product Type</th>
+                                    <th>Product Model</th>
+                                    <th>Quantity</th>
+                                    <th>Status</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>ORD-001</td>
+                                    <td>Sample Customer</td>
+                                    <td>Tablet</td>
+                                    <td>Sample Tablet Model</td>
+                                    <td>2</td>
+                                    <td>Created</td>
+                                    <td>
+                                        <h:link outcome="orderDetails" value="View Details" />
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>ORD-002</td>
+                                    <td>Sample Customer</td>
+                                    <td>Smartwatch</td>
+                                    <td>Sample Smartwatch Model</td>
+                                    <td>1</td>
+                                    <td>Created</td>
+                                    <td>
+                                        <h:link outcome="orderDetails" value="View Details" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </h:form>
+
+            </section>
+
+        </main>
+    </h:body>
+
+</html>

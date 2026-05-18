@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html">
+
+    <h:head>
+        <title>Create Customer - E-Business System</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <h:outputStylesheet library="css" name="style.css" />
+    </h:head>
+
+    <h:body>
+        <main class="app-container">
+
+            <header class="app-header">
+                <div>
+                    <h1>E-Business System</h1>
+                    <p>Customer Management</p>
+                </div>
+
+                <nav class="app-nav">
+                    <h:link outcome="main" value="Dashboard" />
+                    <h:link outcome="listCustomers" value="List Customers" />
+                    <h:link outcome="searchCustomer" value="Search Customer" />
+                    <h:form styleClass="logout-form">
+                        <h:commandLink value="Logout"
+                                       action="#{authenticationBean.logout}"
+                                       styleClass="nav-command-link" />
+                    </h:form>
+                </nav>
+            </header>
+
+            <section class="content-card">
+
+                <div class="section-heading">
+                    <h2>Create Customer</h2>
+                    <p>
+                        Enter customer details to prepare the customer record for persistence.
+                    </p>
+                </div>
+
+                <h:form styleClass="data-form">
+
+                    <h:messages globalOnly="true" styleClass="form-error" />
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <h:outputLabel for="firstName" value="First Name" styleClass="form-label" />
+                            <h:inputText id="firstName"
+                                         value="#{customerBean.firstName}"
+                                         required="true"
+                                         requiredMessage="First name is required."
+                                         styleClass="form-input" />
+                            <h:message for="firstName" styleClass="form-error" />
+                        </div>
+
+                        <div class="form-group">
+                            <h:outputLabel for="lastName" value="Last Name" styleClass="form-label" />
+                            <h:inputText id="lastName"
+                                         value="#{customerBean.lastName}"
+                                         required="true"
+                                         requiredMessage="Last name is required."
+                                         styleClass="form-input" />
+                            <h:message for="lastName" styleClass="form-error" />
+                        </div>
+
+                        <div class="form-group">
+                            <h:outputLabel for="email" value="Email Address" styleClass="form-label" />
+                            <h:inputText id="email"
+                                         value="#{customerBean.emailAddress}"
+                                         required="true"
+                                         requiredMessage="Email address is required."
+                                         styleClass="form-input" />
+                            <h:message for="email" styleClass="form-error" />
+                        </div>
+
+                        <div class="form-group">
+                            <h:outputLabel for="phone" value="Phone Number" styleClass="form-label" />
+                            <h:inputText id="phone"
+                                         value="#{customerBean.phoneNumber}"
+                                         required="true"
+                                         requiredMessage="Phone number is required."
+                                         styleClass="form-input" />
+                            <h:message for="phone" styleClass="form-error" />
+                        </div>
+
+                        <div class="form-group form-grid-full">
+                            <h:outputLabel for="address" value="Address" styleClass="form-label" />
+                            <h:inputTextarea id="address"
+                                             value="#{customerBean.address}"
+                                             required="true"
+                                             requiredMessage="Address is required."
+                                             styleClass="form-input form-textarea" />
+                            <h:message for="address" styleClass="form-error" />
+                        </div>
+
+                    </div>
+
+                    <div class="form-actions">
+                        <h:commandButton value="Create Customer"
+                                         action="#{customerBean.createCustomer}"
+                                         styleClass="primary-button" />
+                    </div>
+
+                </h:form>
+
+            </section>
+
+        </main>
+    </h:body>
+
+</html>

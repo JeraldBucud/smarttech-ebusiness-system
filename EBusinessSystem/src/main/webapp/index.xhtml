@@ -4,32 +4,40 @@
       xmlns:h="jakarta.faces.html">
 
     <h:head>
-        <title>E-Business System</title>
+        <title>Welcome - E-Business System</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <h:outputStylesheet library="css" name="style.css" />
     </h:head>
 
     <h:body>
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 80px auto; text-align: center;">
+        <main class="landing-container">
 
-            <h1>E-Business: Login, Logout and Registration</h1>
+            <section class="landing-card">
 
-            <p>
-                Welcome to the COIT20259 Assignment 2 e-business system.
-            </p>
+                <div class="landing-content">
+                    <p class="landing-label">COIT20259 Assignment 2</p>
 
-            <div style="margin-top: 30px;">
-                <h:link outcome="login" value="Login"
-                        style="display: inline-block; margin: 10px; padding: 12px 24px;
-                               background-color: #2563eb; color: white; text-decoration: none;
-                               border-radius: 6px;" />
+                    <h1>E-Business System</h1>
 
-                <h:link outcome="register" value="Registration"
-                        style="display: inline-block; margin: 10px; padding: 12px 24px;
-                               background-color: #16a34a; color: white; text-decoration: none;
-                               border-radius: 6px;" />
-            </div>
+                    <p class="landing-subtitle">
+                        A secured enterprise system for managing tablets, smartwatches,
+                        customers, and customer orders.
+                    </p>
 
-        </div>
+                    <div class="landing-actions">
+                        <h:link outcome="login"
+                                value="Login"
+                                styleClass="primary-link-button" />
+
+                        <h:link outcome="register"
+                                value="Registration"
+                                styleClass="secondary-link-button" />
+                    </div>
+                </div>
+
+            </section>
+
+        </main>
     </h:body>
 
 </html>
