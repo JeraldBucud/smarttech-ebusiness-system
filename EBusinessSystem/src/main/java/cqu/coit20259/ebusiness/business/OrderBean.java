@@ -22,13 +22,13 @@ public class OrderBean {
     private ProductFacade productFacade;
 
     // Creates a new order after checking if enough stock is available.
-    public String createOrder(Order order, Long productId, String productType) {
+    public String createOrder(Order order, Long productId, String productType) throws InsufficientStockException {
         // Deducts the product stock before saving the order.
         boolean stockDeducted = productFacade.deductStock(productId, productType, order.getQuantity());
         
         if (!stockDeducted) {
-            // Returns an error message when there is not enough stock.
-            return "ERROR: No hay suficiente stock disponible para completar el pedido.";
+            // Throws the custom business exception so NetBeans uses the import.
+            throw new InsufficientStockException("Not enough stock available for this product.");
         }
         
         // Saves the order in the database when stock is available.
@@ -58,4 +58,3 @@ public class OrderBean {
         return em.find(Order.class, id);
     }
 }
-
