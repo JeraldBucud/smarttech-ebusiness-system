@@ -2,7 +2,8 @@
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html">
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
 
     <h:head>
         <title>Customer Details - E-Business System</title>
@@ -44,27 +45,37 @@
 
                     <div class="details-item">
                         <span class="details-label">Customer ID</span>
-                        <span class="details-value">CUST-001</span>
+                        <span class="details-value">
+                            <h:outputText value="#{customerBean.selectedCustomer.customerId}" />
+                        </span>
                     </div>
 
                     <div class="details-item">
                         <span class="details-label">Full Name</span>
-                        <span class="details-value">Sample Customer</span>
+                        <span class="details-value">
+                            <h:outputText value="#{customerBean.selectedCustomer.firstName} #{customerBean.selectedCustomer.lastName}" />
+                        </span>
                     </div>
 
                     <div class="details-item">
                         <span class="details-label">Email Address</span>
-                        <span class="details-value">sample.customer@email.com</span>
+                        <span class="details-value">
+                            <h:outputText value="#{customerBean.selectedCustomer.emailAddress}" />
+                        </span>
                     </div>
 
                     <div class="details-item">
                         <span class="details-label">Phone Number</span>
-                        <span class="details-value">0400 000 000</span>
+                        <span class="details-value">
+                            <h:outputText value="#{customerBean.selectedCustomer.phoneNumber}" />
+                        </span>
                     </div>
 
                     <div class="details-item details-full">
                         <span class="details-label">Address</span>
-                        <span class="details-value">Sample customer address</span>
+                        <span class="details-value">
+                            <h:outputText value="#{customerBean.selectedCustomer.address}" />
+                        </span>
                     </div>
 
                 </div>
@@ -81,37 +92,36 @@
                     <h:messages globalOnly="true" styleClass="form-error" />
 
                     <div class="table-wrapper">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Order ID</th>
-                                    <th>Product Type</th>
-                                    <th>Brand</th>
-                                    <th>Model</th>
-                                    <th>Quantity</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
+                        <h:dataTable value="#{orderBean.orderRows}"
+                                     var="order"
+                                     styleClass="data-table">
 
-                            <tbody>
-                                <tr>
-                                    <td>ORD-001</td>
-                                    <td>Tablet</td>
-                                    <td>Sample Brand</td>
-                                    <td>Sample Tablet Model</td>
-                                    <td>2</td>
-                                    <td>Created</td>
-                                </tr>
-                                <tr>
-                                    <td>ORD-002</td>
-                                    <td>Smartwatch</td>
-                                    <td>Sample Brand</td>
-                                    <td>Sample Smartwatch Model</td>
-                                    <td>1</td>
-                                    <td>Created</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                            <h:column>
+                                <f:facet name="header">Order ID</f:facet>
+                                <h:outputText value="#{order.orderId}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Product Type</f:facet>
+                                <h:outputText value="#{order.productType}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Product Model</f:facet>
+                                <h:outputText value="#{order.productModel}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Quantity</f:facet>
+                                <h:outputText value="#{order.quantity}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Status</f:facet>
+                                <h:outputText value="#{order.status}" />
+                            </h:column>
+
+                        </h:dataTable>
                     </div>
 
                 </h:form>

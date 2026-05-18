@@ -9,11 +9,11 @@ import java.util.List;
 /**
  * Backing bean for order-related JSF pages.
  *
- * This class stores temporary order form data and provides placeholder action
- * methods for creating and searching customer orders.
+ * This class stores temporary order form data and provides placeholder
+ * action methods for creating, searching, listing, and displaying order records.
  *
- * The actual order creation, stock update, persistence, and retrieval logic
- * will be connected later through the business tier.
+ * The actual order creation, stock update, persistence, and retrieval
+ * logic will be connected later through the business tier.
  *
  * @author Jerald Christopher Bucud
  */
@@ -51,8 +51,8 @@ public class OrderBean implements Serializable {
     /**
      * Provides temporary order rows for the JSF table display.
      *
-     * This placeholder data will later be replaced by results returned from the
-     * business tier.
+     * This placeholder data will later be replaced by results returned
+     * from the business tier.
      *
      * @return list of order rows for display
      */
@@ -63,22 +63,53 @@ public class OrderBean implements Serializable {
         orders.add(new OrderRow(
                 "ORD-001",
                 "Sample Customer",
+                "sample.customer@email.com",
                 "Tablet",
+                "Sample Brand",
                 "Sample Tablet Model",
                 "2",
-                "Created"
+                "Created",
+                "Stock quantity reduced by 2 after order creation.",
+                "Sample order note for presentation layout demonstration."
         ));
 
         orders.add(new OrderRow(
                 "ORD-002",
                 "Sample Customer",
+                "sample.customer@email.com",
                 "Smartwatch",
+                "Sample Brand",
                 "Sample Smartwatch Model",
                 "1",
-                "Created"
+                "Created",
+                "Stock quantity reduced by 1 after order creation.",
+                "Sample smartwatch order note for presentation layout demonstration."
         ));
 
         return orders;
+    }
+
+    /**
+     * Provides a temporary selected order for the order details page.
+     *
+     * This placeholder data will later be replaced by the selected order
+     * returned from the business tier.
+     *
+     * @return selected order row for display
+     */
+    public OrderRow getSelectedOrder() {
+        return new OrderRow(
+                "ORD-001",
+                "Sample Customer",
+                "sample.customer@email.com",
+                "Tablet",
+                "Sample Brand",
+                "Sample Tablet Model",
+                "2",
+                "Created",
+                "Stock quantity reduced by 2 after order creation.",
+                "Sample order note for presentation layout demonstration."
+        );
     }
 
     public String getCustomer() {
@@ -132,30 +163,42 @@ public class OrderBean implements Serializable {
     /**
      * Simple display row used by the order JSF table.
      *
-     * This class is temporary presentation-layer display data and will be
-     * replaced or mapped from entity results after EJB integration.
+     * This class is temporary presentation-layer display data and will
+     * be replaced or mapped from entity results after EJB integration.
      */
     public static class OrderRow {
 
         private final String orderId;
         private final String customerName;
+        private final String customerEmail;
         private final String productType;
+        private final String brand;
         private final String productModel;
         private final String quantity;
         private final String status;
+        private final String stockImpact;
+        private final String orderNotes;
 
         public OrderRow(String orderId,
-                String customerName,
-                String productType,
-                String productModel,
-                String quantity,
-                String status) {
+                        String customerName,
+                        String customerEmail,
+                        String productType,
+                        String brand,
+                        String productModel,
+                        String quantity,
+                        String status,
+                        String stockImpact,
+                        String orderNotes) {
             this.orderId = orderId;
             this.customerName = customerName;
+            this.customerEmail = customerEmail;
             this.productType = productType;
+            this.brand = brand;
             this.productModel = productModel;
             this.quantity = quantity;
             this.status = status;
+            this.stockImpact = stockImpact;
+            this.orderNotes = orderNotes;
         }
 
         public String getOrderId() {
@@ -166,8 +209,16 @@ public class OrderBean implements Serializable {
             return customerName;
         }
 
+        public String getCustomerEmail() {
+            return customerEmail;
+        }
+
         public String getProductType() {
             return productType;
+        }
+
+        public String getBrand() {
+            return brand;
         }
 
         public String getProductModel() {
@@ -180,6 +231,14 @@ public class OrderBean implements Serializable {
 
         public String getStatus() {
             return status;
+        }
+
+        public String getStockImpact() {
+            return stockImpact;
+        }
+
+        public String getOrderNotes() {
+            return orderNotes;
         }
     }
 }

@@ -81,6 +81,25 @@ public class CustomerBean implements Serializable {
         return customers;
     }
 
+    /**
+     * Provides a temporary selected customer for the customer details page.
+     *
+     * This placeholder data will later be replaced by the selected customer
+     * returned from the business tier.
+     *
+     * @return selected customer row for display
+     */
+    public CustomerRow getSelectedCustomer() {
+        return new CustomerRow(
+                "CUST-001",
+                "Sample",
+                "Customer",
+                "sample.customer@email.com",
+                "0400 000 000",
+                "Sample customer address"
+        );
+    }
+
     public String getFirstName() {
         return firstName;
     }
