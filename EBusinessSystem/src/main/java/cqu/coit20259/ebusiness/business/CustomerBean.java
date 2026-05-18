@@ -25,14 +25,15 @@ public class CustomerBean {
     }
 
     // Registers a new customer after checking if the email already exists.
-    public boolean registerCustomer(Customer customer) {
+    public boolean registerCustomer(Customer customer) throws CustomerAlreadyExistsException {
         // Checks if the email is already registered in the database.
         Long count = em.createQuery("SELECT COUNT(c) FROM Customer c WHERE c.email = :email", Long.class)
                 .setParameter("email", customer.getEmail())
                 .getSingleResult();
         
         if (count > 0) {
-            return false; // Returns false if the email is already registered.
+            
+            throw new CustomerAlreadyExistsException("The email address is already registered.");
         }
         
         em.persist(customer);
@@ -61,5 +62,3 @@ public class CustomerBean {
         return em.createQuery("SELECT c FROM Customer c", Customer.class).getResultList();
     }
 }
-
-
