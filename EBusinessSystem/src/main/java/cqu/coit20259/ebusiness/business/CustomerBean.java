@@ -30,28 +30,40 @@ public class CustomerBean {
         Long count = em.createQuery("SELECT COUNT(c) FROM Customer c WHERE c.email = :email", Long.class)
                 .setParameter("email", customer.getEmail())
                 .getSingleResult();
-        
+
         if (count > 0) {
-            
+
             throw new CustomerAlreadyExistsException("The email address is already registered.");
         }
-        
+
         em.persist(customer);
         return true;
     }
 
     // Checks the customer's login details.
     public Customer login(String email, String password) {
-        try {
-            return em.createQuery("SELECT c FROM Customer c WHERE c.email = :email AND c.password = :password", Customer.class)
-                    .setParameter("email", email)
-                    .setParameter("password", password)
-                    .getSingleResult();
-        } catch (Exception e) {
-            return null; // Returns null if the login details are incorrect.
+
+        String cleanEmail = email == null ? "" : email.trim();
+        String cleanPassword = password == null ? "" : password.trim();
+
+
+        java.util.List<Customer> matchingCustomers = em.createQuery(
+                "SELECT c FROM Customer c "
+                + "WHERE LOWER(TRIM(c.email)) = :email "
+                + "AND TRIM(c.password) = :password",
+                Customer.class)
+                .setParameter("email", cleanEmail.toLowerCase())
+                .setParameter("password", cleanPassword)
+                .getResultList();
+
+
+        if (matchingCustomers.isEmpty()) {
+            return null;
         }
+
+        return matchingCustomers.get(0);
     }
-    
+
     // Finds a customer by ID.
     public Customer findCustomerById(Long id) {
         return em.find(Customer.class, id);

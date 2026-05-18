@@ -17,10 +17,10 @@ import java.util.Enumeration;
 /**
  * Filters access to secured JSF pages.
  *
- * This filter checks whether a user has logged in before allowing access
- * to system function pages. Public pages such as login, registration,
- * email verification, account recovery, password reset, logout, and static
- * JSF resources are allowed without authentication.
+ * This filter checks whether a user has logged in before allowing access to
+ * system function pages. Public pages such as login, registration, email
+ * verification, account recovery, password reset, logout, and static JSF
+ * resources are allowed without authentication.
  *
  * @author Jerald Christopher Bucud
  */
@@ -49,8 +49,8 @@ public class LoginFilter implements Filter {
      */
     @Override
     public void doFilter(ServletRequest request,
-                         ServletResponse response,
-                         FilterChain chain)
+            ServletResponse response,
+            FilterChain chain)
             throws IOException, ServletException {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
@@ -114,8 +114,14 @@ public class LoginFilter implements Filter {
             return false;
         }
 
-        AuthenticationBean authenticationBean =
-                (AuthenticationBean) session.getAttribute("authenticationBean");
+        Object loggedIn = session.getAttribute("loggedIn");
+
+        if (Boolean.TRUE.equals(loggedIn)) {
+            return true;
+        }
+
+        AuthenticationBean authenticationBean
+                = (AuthenticationBean) session.getAttribute("authenticationBean");
 
         if (authenticationBean != null && authenticationBean.isLoggedIn()) {
             return true;

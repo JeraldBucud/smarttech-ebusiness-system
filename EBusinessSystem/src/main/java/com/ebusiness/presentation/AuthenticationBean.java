@@ -7,6 +7,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import java.io.Serializable;
+import cqu.coit20259.ebusiness.business.EmailService;
 
 /**
  * Backing bean for authentication-related JSF pages.
@@ -29,6 +30,9 @@ public class AuthenticationBean implements Serializable {
     @EJB
     private cqu.coit20259.ebusiness.business.CustomerBean customerService;
 
+    @EJB
+    private EmailService emailService;
+
     private String username;
     private String password;
     private String confirmPassword;
@@ -50,23 +54,38 @@ public class AuthenticationBean implements Serializable {
         loggedIn = false;
     }
 
-    /**
+     /**
      * Authenticates the user through the business tier.
      *
      * @return navigation outcome for the secured main dashboard
      */
     public String login() {
 
-        Customer customer = customerService.login(emailAddress, password);
+        String cleanEmail = emailAddress == null ? "" : emailAddress.trim();
+        String cleanPassword = password == null ? "" : password.trim();
+
+
+        Customer customer = customerService.login(cleanEmail, cleanPassword);
 
         if (customer != null) {
             loggedIn = true;
             username = customer.getEmail();
 
+            FacesContext.getCurrentInstance()
+                    .getExternalContext()
+                    .getSessionMap()
+                    .put("loggedIn", true);
+
+            FacesContext.getCurrentInstance()
+                    .getExternalContext()
+                    .getSessionMap()
+                    .put("loggedInUser", username);
+
             return "main?faces-redirect=true";
         }
 
         loggedIn = false;
+
 
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -109,6 +128,8 @@ public class AuthenticationBean implements Serializable {
 
             customerService.registerCustomer(customer);
 
+            emailService.sendVerificationCode(emailAddress, generatedVerificationCode);
+
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO,
                             "Registration Submitted",
@@ -131,7 +152,7 @@ public class AuthenticationBean implements Serializable {
      *
      * @return navigation outcome for login page
      */
-        public String verifyEmail() {
+    public String verifyEmail() {
 
         if (verificationCode == null || verificationCode.trim().isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null,
@@ -168,6 +189,8 @@ public class AuthenticationBean implements Serializable {
     public String recoverAccount() {
 
         generatedRecoveryCode = customerService.generateVerificationCode();
+        
+        emailService.sendRecoveryCode(emailAddress, generatedRecoveryCode);
 
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO,

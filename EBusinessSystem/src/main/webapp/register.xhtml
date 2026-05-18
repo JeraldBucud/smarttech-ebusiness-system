@@ -25,6 +25,8 @@
                 </p>
                 
                 <h:form styleClass="auth-form">
+                    <h:messages globalOnly="true" styleClass="form-error" />
+                    
                     <div class="form-group">
                         <h:outputLabel for="email" value="Email Address" styleClass="form-label" />
                         <h:inputText id="email"
@@ -97,6 +99,7 @@
                     <h:link outcome="login" value="Already have an account? Login" />
                     <br />
                     <h:link outcome="index" value="Welcome Page" />
+                    
                 </div>
                 
             </section>

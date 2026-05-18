@@ -1,6 +1,8 @@
 package cqu.coit20259.ebusiness.persistence;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.io.Serializable;
@@ -14,6 +16,7 @@ import java.io.Serializable;
 public class Customer implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String email;
     private String password;
@@ -47,8 +50,8 @@ public class Customer implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-        public String getUsername() {
+
+    public String getUsername() {
         return username;
     }
 

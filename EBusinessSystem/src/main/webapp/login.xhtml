@@ -5,7 +5,7 @@
 
     <h:head>
         <title>Login - E-Business System</title>
-        <meta name="viewport" content="width-device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
 
@@ -26,16 +26,7 @@
                 </p>
 
                 <h:form styleClass="auth-form">
-
-                    <div class="form-group">
-                        <h:outputLabel for="Email Address" value="Username" styleClass="form-lab" />
-                        <h:inputText id="username"
-                                     value="#{authenticationBean.emailAddress}"
-                                     required="true"
-                                     requiredMessage="Username is required"
-                                     styleClass="form-input" />
-                        <h:message for="username" styleClass="form-error" />            
-                    </div>
+                    <h:messages globalOnly="true" styleClass="form-error" />
 
                     <div class="form-group">
                         <h:outputLabel for="emailAddress"
@@ -49,6 +40,20 @@
                                      styleClass="form-input" />
 
                         <h:message for="emailAddress" styleClass="form-error" />
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel for="password"
+                                       value="Password"
+                                       styleClass="form-label" />
+
+                        <h:inputSecret id="password"
+                                       value="#{authenticationBean.password}"
+                                       required="true"
+                                       requiredMessage="Password is required"
+                                       styleClass="form-input" />
+
+                        <h:message for="password" styleClass="form-error" />
                     </div>
 
                     <div class="form-actions">
