@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  *
- * @author Cardoso Pepe 
+ * @author Cardoso Pepe
  */
 @Stateless
 public class ProductFacade {
