@@ -27,7 +27,6 @@ public class OrderBean {
         boolean stockDeducted = productFacade.deductStock(productId, productType, order.getQuantity());
         
         if (!stockDeducted) {
-            // Throws the custom business exception so NetBeans uses the import.
             throw new InsufficientStockException("Not enough stock available for this product.");
         }
         
