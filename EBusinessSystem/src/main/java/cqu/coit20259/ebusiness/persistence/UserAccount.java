@@ -10,27 +10,41 @@ import jakarta.persistence.Table;
 import java.io.Serializable;
 
 /**
- *
+ * Represents a user account in the system.
+ * This class stores login details and the user role.
+ * 
  * @author Cardoso Pepe
  */
-
 @Entity
 @Table(name = "USER_ACCOUNTS")
 public class UserAccount implements Serializable {
+
     @Id
     private String username;
-    private String password;
-    private String groupName; // Para manejar roles (Admin, Customer, etc.)
 
+    private String password;
+
+    // Stores the user role, such as Admin or Customer.
+    private String groupName;
+
+    // Default constructor required by JPA.
     public UserAccount() {}
 
-    // Getters y Setters
+    // Returns the username.
     public String getUsername() { return username; }
+
+    // Sets the username.
     public void setUsername(String username) { this.username = username; }
 
+    // Returns the password.
     public String getPassword() { return password; }
+
+    // Sets the password.
     public void setPassword(String password) { this.password = password; }
 
+    // Returns the user role.
     public String getGroupName() { return groupName; }
+
+    // Sets the user role.
     public void setGroupName(String groupName) { this.groupName = groupName; }
 }
