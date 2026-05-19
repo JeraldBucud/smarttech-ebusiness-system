@@ -13,6 +13,7 @@
         <class>cqu.coit20259.ebusiness.persistence.Order</class>
         <class>cqu.coit20259.ebusiness.persistence.Tablet</class>
         <class>cqu.coit20259.ebusiness.persistence.Smartwatch</class>
+        <class>cqu.coit20259.ebusiness.persistence.UserAccount</class>
         
         <properties>
             <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>

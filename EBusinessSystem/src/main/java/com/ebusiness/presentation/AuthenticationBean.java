@@ -1,23 +1,21 @@
 package com.ebusiness.presentation;
 
-import cqu.coit20259.ebusiness.persistence.Customer;
+import cqu.coit20259.ebusiness.business.EmailService;
+import cqu.coit20259.ebusiness.business.UserAccountBean;
+import jakarta.inject.Named;
 import jakarta.ejb.EJB;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
-import jakarta.enterprise.context.SessionScoped;
-import jakarta.inject.Named;
 import java.io.Serializable;
-import cqu.coit20259.ebusiness.business.EmailService;
 
 /**
  * Backing bean for authentication-related JSF pages.
  *
- * This class stores temporary authentication form data and provides placeholder
- * action methods for login, registration, email verification, account recovery,
- * password reset, and logout.
+ * This class handles form data and page navigation for login, registration,
+ * email verification, account recovery, password reset, and logout.
  *
- * The actual authentication, email verification, account recovery, and
- * persistence logic will be connected later through the business tier.
+ * Authentication logic is delegated to UserAccountBean in the business layer.
  *
  * @author Jerald Christopher Bucud
  */
@@ -28,7 +26,7 @@ public class AuthenticationBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EJB
-    private cqu.coit20259.ebusiness.business.CustomerBean customerService;
+    private UserAccountBean userAccountService;
 
     @EJB
     private EmailService emailService;
@@ -43,60 +41,51 @@ public class AuthenticationBean implements Serializable {
     private String recoveryCode;
     private String newPassword;
     private boolean loggedIn;
-    private String generatedVerificationCode;
-    private String generatedRecoveryCode;
 
-    /**
-     * Creates an authentication backing bean with the user logged out by
-     * default.
-     */
     public AuthenticationBean() {
         loggedIn = false;
     }
 
-     /**
-     * Authenticates the user through the business tier.
+    /**
+     * Authenticates the user through the UserAccount business layer.
      *
      * @return navigation outcome for the secured main dashboard
      */
     public String login() {
 
-        String cleanEmail = emailAddress == null ? "" : emailAddress.trim();
-        String cleanPassword = password == null ? "" : password.trim();
+    String cleanEmailAddress = emailAddress == null ? "" : emailAddress.trim();
+    String cleanPassword = password == null ? "" : password.trim();
 
+    boolean validLogin = userAccountService.login(cleanEmailAddress, cleanPassword);
 
-        Customer customer = customerService.login(cleanEmail, cleanPassword);
+    if (validLogin) {
+        loggedIn = true;
 
-        if (customer != null) {
-            loggedIn = true;
-            username = customer.getEmail();
+        FacesContext.getCurrentInstance()
+                .getExternalContext()
+                .getSessionMap()
+                .put("loggedIn", true);
 
-            FacesContext.getCurrentInstance()
-                    .getExternalContext()
-                    .getSessionMap()
-                    .put("loggedIn", true);
+        FacesContext.getCurrentInstance()
+                .getExternalContext()
+                .getSessionMap()
+                .put("loggedInUser", cleanEmailAddress);
 
-            FacesContext.getCurrentInstance()
-                    .getExternalContext()
-                    .getSessionMap()
-                    .put("loggedInUser", username);
-
-            return "main?faces-redirect=true";
-        }
-
-        loggedIn = false;
-
-
-        FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "Login Failed",
-                        "Invalid email address or password."));
-
-        return null;
+        return "main?faces-redirect=true";
     }
 
+    loggedIn = false;
+
+    FacesContext.getCurrentInstance().addMessage(null,
+            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Login Failed",
+                    "Invalid email address or password."));
+
+    return null;
+}
+
     /**
-     * Registers the user through the business tier.
+     * Registers a new user account through the UserAccount business layer.
      *
      * @return navigation outcome for email verification
      */
@@ -112,28 +101,24 @@ public class AuthenticationBean implements Serializable {
         }
 
         try {
-            Customer customer = new Customer();
+            String generatedVerificationCode = userAccountService.generateVerificationCode();
 
-            customer.setEmail(emailAddress);
-            customer.setPassword(password);
-
-            /*
-             * The final Customer entity is expected to include these fields.
-             */
-            customer.setFirstName(firstName);
-            customer.setLastName(lastName);
-            customer.setUsername(username);
-
-            generatedVerificationCode = customerService.generateVerificationCode();
-
-            customerService.registerCustomer(customer);
+            userAccountService.registerUser(
+                    firstName,
+                    lastName,
+                    username,
+                    emailAddress,
+                    password,
+                    generatedVerificationCode,
+                    "Customer"
+            );
 
             emailService.sendVerificationCode(emailAddress, generatedVerificationCode);
 
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO,
                             "Registration Submitted",
-                            "A verification code has been generated for this account."));
+                            "A verification code has been sent to the registered email address."));
 
             return "emailVerification?faces-redirect=true";
 
@@ -154,6 +139,15 @@ public class AuthenticationBean implements Serializable {
      */
     public String verifyEmail() {
 
+        if (username == null || username.trim().isEmpty()) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Verification Failed",
+                            "Username is required."));
+
+            return null;
+        }
+
         if (verificationCode == null || verificationCode.trim().isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -163,8 +157,12 @@ public class AuthenticationBean implements Serializable {
             return null;
         }
 
-        if (generatedVerificationCode == null
-                || !generatedVerificationCode.equals(verificationCode.trim())) {
+        boolean verified = userAccountService.verifyEmail(
+                username.trim(),
+                verificationCode.trim()
+        );
+
+        if (!verified) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR,
                             "Verification Failed",
@@ -188,16 +186,35 @@ public class AuthenticationBean implements Serializable {
      */
     public String recoverAccount() {
 
-        generatedRecoveryCode = customerService.generateVerificationCode();
-        
-        emailService.sendRecoveryCode(emailAddress, generatedRecoveryCode);
+        if (emailAddress == null || emailAddress.trim().isEmpty()) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Account Recovery Failed",
+                            "Registered email address is required."));
 
-        FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO,
-                        "Recovery Code Generated",
-                        "A recovery code has been generated for the registered email address."));
+            return null;
+        }
 
-        return "resetPassword?faces-redirect=true";
+        try {
+            String generatedRecoveryCode = userAccountService.startAccountRecovery(emailAddress.trim());
+
+            emailService.sendRecoveryCode(emailAddress, generatedRecoveryCode);
+
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO,
+                            "Recovery Code Sent",
+                            "A recovery code has been sent to the registered email address."));
+
+            return "resetPassword?faces-redirect=true";
+
+        } catch (Exception exception) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Account Recovery Failed",
+                            exception.getMessage()));
+
+            return null;
+        }
     }
 
     /**
@@ -207,21 +224,20 @@ public class AuthenticationBean implements Serializable {
      */
     public String resetPassword() {
 
+        if (emailAddress == null || emailAddress.trim().isEmpty()) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Password Reset Failed",
+                            "Registered email address is required."));
+
+            return null;
+        }
+
         if (recoveryCode == null || recoveryCode.trim().isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR,
                             "Password Reset Failed",
                             "Recovery code is required."));
-
-            return null;
-        }
-
-        if (generatedRecoveryCode == null
-                || !generatedRecoveryCode.equals(recoveryCode.trim())) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                            "Password Reset Failed",
-                            "The recovery code is incorrect."));
 
             return null;
         }
@@ -235,10 +251,25 @@ public class AuthenticationBean implements Serializable {
             return null;
         }
 
+        boolean resetSuccessful = userAccountService.resetPassword(
+                emailAddress.trim(),
+                recoveryCode.trim(),
+                newPassword
+        );
+
+        if (!resetSuccessful) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Password Reset Failed",
+                            "The recovery code is incorrect."));
+
+            return null;
+        }
+
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO,
                         "Password Reset",
-                        "The password reset request has been accepted."));
+                        "The password has been reset successfully."));
 
         return "login?faces-redirect=true";
     }

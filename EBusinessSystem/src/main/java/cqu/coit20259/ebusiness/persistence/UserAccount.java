@@ -4,6 +4,7 @@
  */
 package cqu.coit20259.ebusiness.persistence;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -20,31 +21,106 @@ import java.io.Serializable;
 public class UserAccount implements Serializable {
 
     @Id
+    @Column(nullable = false, unique = true)
     private String username;
 
+    @Column(nullable = false)
     private String password;
 
-    // Stores the user role, such as Admin or Customer.
+    @Column(nullable = false, unique = true)
+    private String emailAddress;
+
+    private String firstName;
+
+    private String lastName;
+
+    private String verificationCode;
+
+    private boolean verified;
+
+    private String recoveryCode;
+
     private String groupName;
 
-    // Default constructor required by JPA.
-    public UserAccount() {}
+    public UserAccount() {
+    }
 
-    // Returns the username.
-    public String getUsername() { return username; }
+    public String getUsername() {
+        return username;
+    }
 
-    // Sets the username.
-    public void setUsername(String username) { this.username = username; }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-    // Returns the password.
-    public String getPassword() { return password; }
+    public String getPassword() {
+        return password;
+    }
 
-    // Sets the password.
-    public void setPassword(String password) { this.password = password; }
+    /**
+     * Sets the stored password value.
+     *
+     * Note: The business layer should hash the password before setting it.
+     *
+     * @param password the hashed password value
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-    // Returns the user role.
-    public String getGroupName() { return groupName; }
+    public String getEmailAddress() {
+        return emailAddress;
+    }
 
-    // Sets the user role.
-    public void setGroupName(String groupName) { this.groupName = groupName; }
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
+    public String getRecoveryCode() {
+        return recoveryCode;
+    }
+
+    public void setRecoveryCode(String recoveryCode) {
+        this.recoveryCode = recoveryCode;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
 }
