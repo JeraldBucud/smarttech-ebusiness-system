@@ -16,7 +16,7 @@ import java.io.Serializable;
  * 
  * @author Cardoso Pepe
  */
-@Entity 
+@Entity  
 @Table(name = "USER_ACCOUNTS")
 public class UserAccount implements Serializable {
 
