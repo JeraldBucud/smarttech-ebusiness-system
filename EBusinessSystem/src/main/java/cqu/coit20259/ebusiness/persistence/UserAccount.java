@@ -14,7 +14,7 @@ import java.io.Serializable;
  * Represents a user account in the system.
  * This class stores login details and the user role.
  * 
- * @author Cardoso Pepe 
+ * @author Cardoso Pepe  
  */
 @Entity   
 @Table(name = "USER_ACCOUNTS")
