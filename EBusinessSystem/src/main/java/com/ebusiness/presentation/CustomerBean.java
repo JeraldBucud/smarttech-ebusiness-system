@@ -33,27 +33,16 @@ public class CustomerBean implements Serializable {
     private String phoneNumber;
     private String address;
     private String searchKeyword;
+    private Long selectedCustomerId;
 
-    /**
-     * Creates a customer record through the business tier.
-     *
-     * @return navigation outcome for the customer list page
-     */
     public String createCustomer() {
-
         try {
             Customer customer = new Customer();
-
             customer.setFirstName(firstName);
             customer.setLastName(lastName);
             customer.setEmail(emailAddress);
             customer.setPhoneNumber(phoneNumber);
             customer.setAddress(address);
-
-            /*
-             * Password and username are not required for manually created
-             * customer records in the customer management page.
-             */
             customer.setUsername(emailAddress);
             customer.setPassword("");
 
@@ -65,77 +54,42 @@ public class CustomerBean implements Serializable {
                             "The customer record has been created successfully."));
 
             return "listCustomers?faces-redirect=true";
-
         } catch (Exception exception) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR,
                             "Customer Creation Failed",
                             exception.getMessage()));
-
             return null;
         }
     }
 
-    /**
-     * Keeps the user on the customer search page after a search request.
-     *
-     * @return navigation outcome for the customer search page
-     */
     public String searchCustomer() {
         return "searchCustomer";
     }
 
-    /**
-     * Retrieves customer rows for JSF list table display.
-     *
-     * @return list of customer rows for display
-     */
     public List<CustomerRow> getCustomerRows() {
-
         List<CustomerRow> customerRows = new ArrayList<>();
-
-        List<Customer> customers = customerService.findAllCustomers();
-
-        for (Customer customer : customers) {
-            customerRows.add(new CustomerRow(
-                    String.valueOf(customer.getId()),
-                    safeText(customer.getFirstName()),
-                    safeText(customer.getLastName()),
-                    safeText(customer.getEmail()),
-                    safeText(customer.getPhoneNumber()),
-                    safeText(customer.getAddress())
-            ));
+        for (Customer customer : customerService.findAllCustomers()) {
+            customerRows.add(toCustomerRow(customer));
         }
-
         return customerRows;
     }
 
     /**
-     * Provides a selected customer for the customer details page.
+     * Loads the customer identified by the customerId request parameter.
      *
-     * This currently returns the first available customer until row-level
-     * selection is connected.
-     *
-     * @return selected customer row for display
+     * @return selected customer row, or an empty row when the ID is absent or invalid
      */
     public CustomerRow getSelectedCustomer() {
-
-        List<CustomerRow> customers = getCustomerRows();
-
-        if (customers.isEmpty()) {
-            return new CustomerRow("", "", "", "", "", "");
+        if (selectedCustomerId == null) {
+            return emptyCustomerRow();
         }
 
-        return customers.get(0);
+        Customer customer = customerService.findCustomerById(selectedCustomerId);
+        return customer == null ? emptyCustomerRow() : toCustomerRow(customer);
     }
 
-    /**
-     * Retrieves filtered customer rows for JSF search table display.
-     *
-     * @return filtered customer rows for display
-     */
     public List<CustomerRow> getFilteredCustomerRows() {
-
         if (searchKeyword == null || searchKeyword.trim().isEmpty()) {
             return getCustomerRows();
         }
@@ -153,73 +107,43 @@ public class CustomerBean implements Serializable {
                 filteredRows.add(customer);
             }
         }
-
         return filteredRows;
     }
 
-    /**
-     * Converts null text values into an empty string.
-     *
-     * @param value text value
-     * @return safe text value
-     */
+    private CustomerRow toCustomerRow(Customer customer) {
+        return new CustomerRow(
+                String.valueOf(customer.getId()),
+                safeText(customer.getFirstName()),
+                safeText(customer.getLastName()),
+                safeText(customer.getEmail()),
+                safeText(customer.getPhoneNumber()),
+                safeText(customer.getAddress()));
+    }
+
+    private CustomerRow emptyCustomerRow() {
+        return new CustomerRow("", "", "", "", "", "");
+    }
+
     private String safeText(String value) {
         return value == null ? "" : value;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
+    public String getEmailAddress() { return emailAddress; }
+    public void setEmailAddress(String emailAddress) { this.emailAddress = emailAddress; }
+    public String getPhoneNumber() { return phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
+    public String getSearchKeyword() { return searchKeyword; }
+    public void setSearchKeyword(String searchKeyword) { this.searchKeyword = searchKeyword; }
+    public Long getSelectedCustomerId() { return selectedCustomerId; }
+    public void setSelectedCustomerId(Long selectedCustomerId) { this.selectedCustomerId = selectedCustomerId; }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmailAddress() {
-        return emailAddress;
-    }
-
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getSearchKeyword() {
-        return searchKeyword;
-    }
-
-    public void setSearchKeyword(String searchKeyword) {
-        this.searchKeyword = searchKeyword;
-    }
-
-    /**
-     * Simple display row used by customer JSF tables.
-     */
     public static class CustomerRow {
-
         private final String customerId;
         private final String firstName;
         private final String lastName;
@@ -227,12 +151,8 @@ public class CustomerBean implements Serializable {
         private final String phoneNumber;
         private final String address;
 
-        public CustomerRow(String customerId,
-                           String firstName,
-                           String lastName,
-                           String emailAddress,
-                           String phoneNumber,
-                           String address) {
+        public CustomerRow(String customerId, String firstName, String lastName,
+                String emailAddress, String phoneNumber, String address) {
             this.customerId = customerId;
             this.firstName = firstName;
             this.lastName = lastName;
@@ -241,28 +161,11 @@ public class CustomerBean implements Serializable {
             this.address = address;
         }
 
-        public String getCustomerId() {
-            return customerId;
-        }
-
-        public String getFirstName() {
-            return firstName;
-        }
-
-        public String getLastName() {
-            return lastName;
-        }
-
-        public String getEmailAddress() {
-            return emailAddress;
-        }
-
-        public String getPhoneNumber() {
-            return phoneNumber;
-        }
-
-        public String getAddress() {
-            return address;
-        }
+        public String getCustomerId() { return customerId; }
+        public String getFirstName() { return firstName; }
+        public String getLastName() { return lastName; }
+        public String getEmailAddress() { return emailAddress; }
+        public String getPhoneNumber() { return phoneNumber; }
+        public String getAddress() { return address; }
     }
 }
