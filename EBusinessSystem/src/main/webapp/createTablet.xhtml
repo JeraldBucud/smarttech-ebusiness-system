@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="jakarta.faces.html">
 
     <h:head>
-        <title>Create Tablet - E-Business System</title>
+        <title>Add tablet | SmartTech</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
 
     <h:body>
         <main class="app-container">
-
             <header class="app-header">
                 <div>
-                    <h1>E-Business System</h1>
-                    <p>Tablet Product Management</p>
+                    <h1>SmartTech</h1>
+                    <p>Device inventory</p>
                 </div>
 
-                <nav class="app-nav">
+                <nav class="app-nav" aria-label="Inventory navigation">
                     <h:link outcome="main" value="Dashboard" />
-                    <h:link outcome="createSmartwatch" value="Smartwatch" />
+                    <h:link outcome="listTablets" value="Tablets" />
+                    <h:link outcome="listSmartwatches" value="Wearables" />
+                    <h:link outcome="searchTablet" value="Search" />
                     <h:form styleClass="logout-form">
-                        <h:commandLink value="Logout"
+                        <h:commandLink value="Sign out"
                                        action="#{authenticationBean.logout}"
                                        styleClass="nav-command-link" />
                     </h:form>
@@ -31,142 +31,101 @@
             </header>
 
             <section class="content-card">
-
                 <div class="section-heading">
-                    <h2>Create Tablet</h2>
-                    <p>
-                        Enter the tablet product details to prepare the product record for persistence.
-                    </p>
+                    <h2>Add a tablet</h2>
+                    <p>Record product specifications and the opening stock quantity for a tablet model.</p>
                 </div>
 
                 <h:form styleClass="data-form">
-
                     <h:messages globalOnly="true" styleClass="form-error" />
 
                     <div class="form-grid">
-
                         <div class="form-group">
                             <h:outputLabel for="brand" value="Brand" styleClass="form-label" />
-                            <h:inputText id="brand"
-                                         value="#{tabletBean.brand}"
-                                         required="true"
-                                         requiredMessage="Brand is required."
-                                         styleClass="form-input" />
+                            <h:inputText id="brand" value="#{tabletBean.brand}" required="true"
+                                         requiredMessage="Brand is required." styleClass="form-input" />
                             <h:message for="brand" styleClass="form-error" />
                         </div>
 
                         <div class="form-group">
                             <h:outputLabel for="model" value="Model" styleClass="form-label" />
-                            <h:inputText id="model"
-                                         value="#{tabletBean.model}"
-                                         required="true"
-                                         requiredMessage="Model is required."
-                                         styleClass="form-input" />
+                            <h:inputText id="model" value="#{tabletBean.model}" required="true"
+                                         requiredMessage="Model is required." styleClass="form-input" />
                             <h:message for="model" styleClass="form-error" />
                         </div>
 
                         <div class="form-group">
-                            <h:outputLabel for="displaySize" value="Display Size" styleClass="form-label" />
-                            <h:inputText id="displaySize"
-                                         value="#{tabletBean.displaySize}"
-                                         required="true"
-                                         requiredMessage="Display size is required."
-                                         styleClass="form-input" />
+                            <h:outputLabel for="displaySize" value="Display size" styleClass="form-label" />
+                            <h:inputText id="displaySize" value="#{tabletBean.displaySize}" required="true"
+                                         requiredMessage="Display size is required." styleClass="form-input" />
                             <h:message for="displaySize" styleClass="form-error" />
                         </div>
 
                         <div class="form-group">
                             <h:outputLabel for="weight" value="Weight" styleClass="form-label" />
-                            <h:inputText id="weight"
-                                         value="#{tabletBean.weight}"
-                                         required="true"
-                                         requiredMessage="Weight is required."
-                                         styleClass="form-input" />
+                            <h:inputText id="weight" value="#{tabletBean.weight}" required="true"
+                                         requiredMessage="Weight is required." styleClass="form-input" />
                             <h:message for="weight" styleClass="form-error" />
                         </div>
 
                         <div class="form-group">
-                            <h:outputLabel for="operatingSystem" value="Operating System" styleClass="form-label" />
-                            <h:inputText id="operatingSystem"
-                                         value="#{tabletBean.operatingSystem}"
-                                         required="true"
-                                         requiredMessage="Operating system is required."
-                                         styleClass="form-input" />
+                            <h:outputLabel for="operatingSystem" value="Operating system" styleClass="form-label" />
+                            <h:inputText id="operatingSystem" value="#{tabletBean.operatingSystem}" required="true"
+                                         requiredMessage="Operating system is required." styleClass="form-input" />
                             <h:message for="operatingSystem" styleClass="form-error" />
                         </div>
 
                         <div class="form-group">
                             <h:outputLabel for="connectivity" value="Connectivity" styleClass="form-label" />
-                            <h:inputText id="connectivity"
-                                         value="#{tabletBean.connectivity}"
-                                         required="true"
-                                         requiredMessage="Connectivity is required."
-                                         styleClass="form-input" />
+                            <h:inputText id="connectivity" value="#{tabletBean.connectivity}" required="true"
+                                         requiredMessage="Connectivity is required." styleClass="form-input" />
                             <h:message for="connectivity" styleClass="form-error" />
                         </div>
 
                         <div class="form-group">
-                            <h:outputLabel for="wifiCapability" value="Wi-Fi Capability" styleClass="form-label" />
-                            <h:inputText id="wifiCapability"
-                                         value="#{tabletBean.wifiCapability}"
-                                         required="true"
-                                         requiredMessage="Wi-Fi capability is required."
-                                         styleClass="form-input" />
+                            <h:outputLabel for="wifiCapability" value="Wi-Fi capability" styleClass="form-label" />
+                            <h:inputText id="wifiCapability" value="#{tabletBean.wifiCapability}" required="true"
+                                         requiredMessage="Wi-Fi capability is required." styleClass="form-input" />
                             <h:message for="wifiCapability" styleClass="form-error" />
                         </div>
 
                         <div class="form-group">
-                            <h:outputLabel for="storageCapacity" value="Storage Capacity" styleClass="form-label" />
-                            <h:inputText id="storageCapacity"
-                                         value="#{tabletBean.storageCapacity}"
-                                         required="true"
-                                         requiredMessage="Storage capacity is required."
-                                         styleClass="form-input" />
+                            <h:outputLabel for="storageCapacity" value="Storage capacity" styleClass="form-label" />
+                            <h:inputText id="storageCapacity" value="#{tabletBean.storageCapacity}" required="true"
+                                         requiredMessage="Storage capacity is required." styleClass="form-input" />
                             <h:message for="storageCapacity" styleClass="form-error" />
                         </div>
 
                         <div class="form-group">
-                            <h:outputLabel for="stylusSupport" value="Stylus Support" styleClass="form-label" />
-                            <h:inputText id="stylusSupport"
-                                         value="#{tabletBean.stylusSupport}"
-                                         required="true"
-                                         requiredMessage="Stylus support is required."
-                                         styleClass="form-input" />
+                            <h:outputLabel for="stylusSupport" value="Stylus support" styleClass="form-label" />
+                            <h:inputText id="stylusSupport" value="#{tabletBean.stylusSupport}" required="true"
+                                         requiredMessage="Stylus support is required." styleClass="form-input" />
                             <h:message for="stylusSupport" styleClass="form-error" />
                         </div>
 
                         <div class="form-group">
-                            <h:outputLabel for="batteryCapacity" value="Battery Capacity" styleClass="form-label" />
-                            <h:inputText id="batteryCapacity"
-                                         value="#{tabletBean.batteryCapacity}"
-                                         required="true"
-                                         requiredMessage="Battery capacity is required."
-                                         styleClass="form-input" />
+                            <h:outputLabel for="batteryCapacity" value="Battery capacity" styleClass="form-label" />
+                            <h:inputText id="batteryCapacity" value="#{tabletBean.batteryCapacity}" required="true"
+                                         requiredMessage="Battery capacity is required." styleClass="form-input" />
                             <h:message for="batteryCapacity" styleClass="form-error" />
                         </div>
 
                         <div class="form-group">
-                            <h:outputLabel for="stockQuantity" value="Stock Quantity" styleClass="form-label" />
-                            <h:inputText id="stockQuantity"
-                                         value="#{tabletBean.stockQuantity}"
-                                         required="true"
-                                         requiredMessage="Stock quantity is required."
-                                         styleClass="form-input" />
+                            <h:outputLabel for="stockQuantity" value="Stock quantity" styleClass="form-label" />
+                            <h:inputText id="stockQuantity" value="#{tabletBean.stockQuantity}" required="true"
+                                         requiredMessage="Stock quantity is required." styleClass="form-input" />
                             <h:message for="stockQuantity" styleClass="form-error" />
                         </div>
-
                     </div>
 
                     <div class="form-actions">
-                        <h:commandButton value="Create Tablet"
+                        <h:commandButton value="Save tablet"
                                          action="#{tabletBean.createTablet}"
                                          styleClass="primary-button" />
+                        <h:link outcome="listTablets" value="Cancel" styleClass="secondary-button" />
                     </div>
-
                 </h:form>
-
             </section>
-
         </main>
     </h:body>
 
