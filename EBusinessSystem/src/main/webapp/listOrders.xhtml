@@ -5,90 +5,91 @@
       xmlns:f="jakarta.faces.core">
 
     <h:head>
-        <title>Order List - E-Business System</title>
+        <title>Orders | SmartTech</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
 
     <h:body>
-        <main class="page-container">
-
+        <main class="app-container">
             <header class="app-header">
                 <div>
-                    <h1>E-Business System</h1>
-                    <p>Customer Order Records</p>
+                    <h1>SmartTech</h1>
+                    <p>Order processing</p>
                 </div>
 
-                <nav class="app-nav">
+                <nav class="app-nav" aria-label="Order navigation">
                     <h:link outcome="main" value="Dashboard" />
-                    <h:link outcome="createOrder" value="Create Order" />
-                    <h:link outcome="searchOrder" value="Search Order" />
-                    <h:link outcome="logout" value="Logout" />
+                    <h:link outcome="createOrder" value="Create order" />
+                    <h:link outcome="searchOrder" value="Search" />
+                    <h:link outcome="listCustomers" value="Customers" />
+                    <h:form styleClass="logout-form">
+                        <h:commandLink value="Sign out"
+                                       action="#{authenticationBean.logout}"
+                                       styleClass="nav-command-link" />
+                    </h:form>
                 </nav>
             </header>
 
             <section class="content-card">
-                <h2>Order List</h2>
-                <p class="section-subtitle">
-                    View customer orders saved in the e-business system.
-                </p>
+                <div class="section-heading">
+                    <h2>Order records</h2>
+                    <p>Review SmartTech customer orders, quantities, product details and current status.</p>
+                </div>
 
                 <h:form>
+                    <h:messages globalOnly="true" styleClass="form-error" />
+
                     <div class="table-wrapper">
                         <h:dataTable value="#{orderBean.orderRows}"
                                      var="order"
                                      styleClass="data-table">
-
                             <h:column>
                                 <f:facet name="header">Order ID</f:facet>
-                                    #{order.orderId}
+                                <h:outputText value="#{order.orderId}" />
                             </h:column>
-
                             <h:column>
                                 <f:facet name="header">Customer</f:facet>
-                                    #{order.customerName}
+                                <h:outputText value="#{order.customerName}" />
                             </h:column>
-
                             <h:column>
-                                <f:facet name="header">Product Type</f:facet>
-                                    #{order.productType}
+                                <f:facet name="header">Product type</f:facet>
+                                <h:outputText value="#{order.productType}" />
                             </h:column>
-
                             <h:column>
-                                <f:facet name="header">Product Model</f:facet>
-                                    #{order.productModel}
+                                <f:facet name="header">Product model</f:facet>
+                                <h:outputText value="#{order.productModel}" />
                             </h:column>
-
                             <h:column>
                                 <f:facet name="header">Quantity</f:facet>
-                                    #{order.quantity}
+                                <h:outputText value="#{order.quantity}" />
                             </h:column>
-
                             <h:column>
                                 <f:facet name="header">Status</f:facet>
-                                    #{order.status}
+                                <h:outputText value="#{order.status}" />
                             </h:column>
-
                             <h:column>
                                 <f:facet name="header">Details</f:facet>
-                                <h:link outcome="orderDetails" value="View Details">
+                                <h:link outcome="orderDetails" value="View order">
                                     <f:param name="orderId" value="#{order.orderId}" />
                                 </h:link>
                             </h:column>
-
                             <h:column>
-                                <f:facet name="header">Delete</f:facet>
+                                <f:facet name="header">Action</f:facet>
                                 <h:commandLink value="Delete"
                                                action="#{orderBean.deleteOrder(order.orderId)}"
                                                styleClass="danger-link" />
                             </h:column>
-
                         </h:dataTable>
                     </div>
                 </h:form>
 
+                <div class="page-actions">
+                    <h:link outcome="createOrder"
+                            value="Create order"
+                            styleClass="primary-link-button" />
+                </div>
             </section>
-
         </main>
     </h:body>
 
