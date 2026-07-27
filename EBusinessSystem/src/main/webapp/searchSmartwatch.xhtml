@@ -5,26 +5,26 @@
       xmlns:f="jakarta.faces.core">
 
     <h:head>
-        <title>Search Smartwatch - E-Business System</title>
+        <title>Search wearables | SmartTech</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
 
     <h:body>
         <main class="app-container">
-
             <header class="app-header">
                 <div>
-                    <h1>E-Business System</h1>
-                    <p>Smartwatch Product Search</p>
+                    <h1>SmartTech</h1>
+                    <p>Device inventory</p>
                 </div>
 
-                <nav class="app-nav">
+                <nav class="app-nav" aria-label="Inventory navigation">
                     <h:link outcome="main" value="Dashboard" />
-                    <h:link outcome="createSmartwatch" value="Create Smartwatch" />
-                    <h:link outcome="listSmartwatches" value="Smartwatch Stock" />
+                    <h:link outcome="listTablets" value="Tablets" />
+                    <h:link outcome="createSmartwatch" value="Add smartwatch" />
+                    <h:link outcome="listSmartwatches" value="Wearables" />
                     <h:form styleClass="logout-form">
-                        <h:commandLink value="Logout"
+                        <h:commandLink value="Sign out"
                                        action="#{authenticationBean.logout}"
                                        styleClass="nav-command-link" />
                     </h:form>
@@ -32,85 +32,66 @@
             </header>
 
             <section class="content-card">
-
                 <div class="section-heading">
-                    <h2>Search Smartwatch</h2>
-                    <p>
-                        Search smartwatch products by brand, model, health monitoring, fitness tracking, or connectivity details.
-                    </p>
+                    <h2>Search wearable inventory</h2>
+                    <p>Find smartwatches using a brand, model, connected feature or product specification.</p>
                 </div>
 
                 <h:form styleClass="data-form">
-
                     <h:messages globalOnly="true" styleClass="form-error" />
 
                     <div class="search-bar">
                         <div class="form-group search-input-group">
-                            <h:outputLabel for="searchKeyword"
-                                           value="Search Keyword"
-                                           styleClass="form-label" />
-
+                            <h:outputLabel for="searchKeyword" value="Search keyword" styleClass="form-label" />
                             <h:inputText id="searchKeyword"
                                          value="#{smartwatchBean.searchKeyword}"
                                          styleClass="form-input" />
-
                             <h:message for="searchKeyword" styleClass="form-error" />
                         </div>
 
                         <div class="search-action">
-                            <h:commandButton value="Search Smartwatch"
+                            <h:commandButton value="Search wearables"
                                              action="#{smartwatchBean.searchSmartwatch}"
                                              styleClass="primary-button" />
                         </div>
                     </div>
 
-                                        <div class="table-wrapper">
+                    <div class="table-wrapper">
                         <h:dataTable value="#{smartwatchBean.filteredSmartwatchRows}"
                                      var="smartwatch"
                                      styleClass="data-table">
-
                             <h:column>
                                 <f:facet name="header">Brand</f:facet>
                                 <h:outputText value="#{smartwatch.brand}" />
                             </h:column>
-
                             <h:column>
                                 <f:facet name="header">Model</f:facet>
                                 <h:outputText value="#{smartwatch.model}" />
                             </h:column>
-
                             <h:column>
-                                <f:facet name="header">Display Size</f:facet>
+                                <f:facet name="header">Display size</f:facet>
                                 <h:outputText value="#{smartwatch.displaySize}" />
                             </h:column>
-
                             <h:column>
-                                <f:facet name="header">Health Monitoring</f:facet>
+                                <f:facet name="header">Health monitoring</f:facet>
                                 <h:outputText value="#{smartwatch.healthMonitoring}" />
                             </h:column>
-
                             <h:column>
-                                <f:facet name="header">Fitness Tracking</f:facet>
+                                <f:facet name="header">Fitness tracking</f:facet>
                                 <h:outputText value="#{smartwatch.fitnessTracking}" />
                             </h:column>
-
                             <h:column>
-                                <f:facet name="header">Wearable Connectivity</f:facet>
+                                <f:facet name="header">Connectivity</f:facet>
                                 <h:outputText value="#{smartwatch.wearableConnectivity}" />
                             </h:column>
-
                             <h:column>
                                 <f:facet name="header">Stock</f:facet>
                                 <h:outputText value="#{smartwatch.stockQuantity}" />
                             </h:column>
-
                         </h:dataTable>
                     </div>
-
                 </h:form>
-
             </section>
-
         </main>
     </h:body>
 

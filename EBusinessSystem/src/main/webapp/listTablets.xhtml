@@ -5,26 +5,26 @@
       xmlns:f="jakarta.faces.core">
 
     <h:head>
-        <title>Tablet Stock - E-Business System</title>
+        <title>Tablet inventory | SmartTech</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
 
     <h:body>
         <main class="app-container">
-
             <header class="app-header">
                 <div>
-                    <h1>E-Business System</h1>
-                    <p>Tablet Product Stock</p>
+                    <h1>SmartTech</h1>
+                    <p>Device inventory</p>
                 </div>
 
-                <nav class="app-nav">
+                <nav class="app-nav" aria-label="Inventory navigation">
                     <h:link outcome="main" value="Dashboard" />
-                    <h:link outcome="createTablet" value="Create Tablet" />
-                    <h:link outcome="createSmartwatch" value="Create Smartwatch" />
+                    <h:link outcome="createTablet" value="Add tablet" />
+                    <h:link outcome="listSmartwatches" value="Wearables" />
+                    <h:link outcome="searchTablet" value="Search" />
                     <h:form styleClass="logout-form">
-                        <h:commandLink value="Logout"
+                        <h:commandLink value="Sign out"
                                        action="#{authenticationBean.logout}"
                                        styleClass="nav-command-link" />
                     </h:form>
@@ -32,65 +32,56 @@
             </header>
 
             <section class="content-card">
-
                 <div class="section-heading">
-                    <h2>Tablet Stock List</h2>
-                    <p>
-                        View tablet product records and stock details saved in the e-business system.
-                    </p>
+                    <h2>Tablet inventory</h2>
+                    <p>Review product specifications and current tablet stock recorded in SmartTech.</p>
                 </div>
 
                 <h:form styleClass="data-form">
-
                     <h:messages globalOnly="true" styleClass="form-error" />
 
                     <div class="table-wrapper">
                         <h:dataTable value="#{tabletBean.tabletRows}"
                                      var="tablet"
                                      styleClass="data-table">
-
                             <h:column>
                                 <f:facet name="header">Brand</f:facet>
                                 <h:outputText value="#{tablet.brand}" />
                             </h:column>
-
                             <h:column>
                                 <f:facet name="header">Model</f:facet>
                                 <h:outputText value="#{tablet.model}" />
                             </h:column>
-
                             <h:column>
-                                <f:facet name="header">Display Size</f:facet>
+                                <f:facet name="header">Display size</f:facet>
                                 <h:outputText value="#{tablet.displaySize}" />
                             </h:column>
-
                             <h:column>
                                 <f:facet name="header">Storage</f:facet>
                                 <h:outputText value="#{tablet.storageCapacity}" />
                             </h:column>
-
                             <h:column>
-                                <f:facet name="header">Stylus Support</f:facet>
+                                <f:facet name="header">Stylus support</f:facet>
                                 <h:outputText value="#{tablet.stylusSupport}" />
                             </h:column>
-
                             <h:column>
                                 <f:facet name="header">Battery</f:facet>
                                 <h:outputText value="#{tablet.batteryCapacity}" />
                             </h:column>
-
                             <h:column>
                                 <f:facet name="header">Stock</f:facet>
                                 <h:outputText value="#{tablet.stockQuantity}" />
                             </h:column>
-
                         </h:dataTable>
                     </div>
-
                 </h:form>
 
+                <div class="page-actions">
+                    <h:link outcome="createTablet"
+                            value="Add tablet"
+                            styleClass="primary-link-button" />
+                </div>
             </section>
-
         </main>
     </h:body>
 

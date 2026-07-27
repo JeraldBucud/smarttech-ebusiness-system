@@ -2,107 +2,137 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="jakarta.faces.html">
-    
+
     <h:head>
-        <title>Register - E-Business System</title>
+        <title>Create account | SmartTech</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
 
     <h:body>
         <main class="auth-container">
-            <section class="auth-card">
-                
-                <div class="auth-brand">
-                    <h2>E-Business System</h2>
-                    <p>Tablet and Smartwatch Management Portal</p>
+            <aside class="auth-aside">
+                <div class="brand-lockup">
+                    <span class="brand-mark">ST</span>
+                    <span class="brand-copy">
+                        <strong>SmartTech</strong>
+                        <span>Retail operations workspace</span>
+                    </span>
                 </div>
-                
-                <h1 class="auth-title">Create Your Account</h1>
-                
-                <p class="auth-subtitle">
-                    Register with a valid email address to access the e-business system.
-                </p>
-                
-                <h:form styleClass="auth-form">
-                    <h:messages globalOnly="true" styleClass="form-error" />
-                    
-                    <div class="form-group">
-                        <h:outputLabel for="email" value="Email Address" styleClass="form-label" />
-                        <h:inputText id="email"
-                                     value="#{authenticationBean.emailAddress}"
-                                     required="true"
-                                     requiredMessage="Email address is required"
-                                     styleClass="form-input" />
-                        <h:message for="email" styleClass="form-error" />
-                    </div>
-                    
-                    <div class="form-group">
-                        <h:outputLabel for="firstName" value="First Name" styleClass="form=label" />
-                        <h:inputText id="firstName"
-                                     value="#{authenticationBean.firstName}"
-                                     required="true"
-                                     requiredMessage="First name is required"
-                                     styleClass="form-input" />
-                        <h:message for="firstName" styleClass="form-error" />
-                    </div>
-                    
 
-                    <div class="form-group">
-                        <h:outputLabel for="lastName" value="Last Name" styleClass="form-label" />
-                        <h:inputText id="lastName"
-                                     required="true"
-                                     requiredMessage="Last name is required."
-                                     styleClass="form-input" />
-                        <h:message for="lastName" styleClass="form-error" />
+                <div class="auth-aside-copy">
+                    <p class="eyebrow">Create your workspace access</p>
+                    <h2>Join one connected retail workflow.</h2>
+                    <p>
+                        Register an account, verify your email and securely access the
+                        SmartTech inventory, customer and order-management modules.
+                    </p>
+
+                    <div class="auth-aside-points">
+                        <span class="auth-aside-point">Email verification workflow</span>
+                        <span class="auth-aside-point">Session-protected application pages</span>
+                        <span class="auth-aside-point">Account recovery support</span>
                     </div>
-                    
-                    <div class="form-group">
-                        <h:outputLabel for="username" value="Username" styleClass="form-label" />
-                        <h:inputText id="username"
-                                     value="#{authenticationBean.username}"
-                                     required="true"
-                                     requiredMessage="Username is required."
-                                     styleClass="form-input" />
-                        <h:message for="username" styleClass="form-error" />
-                    </div>
-                    
-                    <div class="form-group">
-                        <h:outputLabel for="password" value="Password" styleClass="form-label" />
-                        <h:inputSecret id="password"
-                                       value="#{authenticationBean.password}"
-                                       required="true"
-                                       requiredMessage="Password is required."
-                                       styleClass="form-input" />
-                        <h:message for="password" styleClass="form-error" />
-                    </div>
-                    
-                    <div class="form-group">
-                        <h:outputLabel for="confirmPassword" value="Confirm Password" styleClass="form-label" />
-                        <h:inputSecret id="confirmPassword"
-                                       value="#{authenticationBean.confirmPassword}"
-                                       required="true"
-                                       requiredMessage="Password confirmation is required."
-                                       styleClass="form-input" />
-                        <h:message for="confirmPassword" styleClass="form-error" />
+                </div>
+
+                <span class="auth-aside-footer">Jakarta EE portfolio application</span>
+            </aside>
+
+            <section class="auth-panel">
+                <div class="auth-card auth-card-wide">
+                    <div class="auth-brand">
+                        <span class="brand-mark">ST</span>
+                        <span class="auth-brand-text">
+                            <strong>SmartTech</strong>
+                            <span>New account registration</span>
+                        </span>
                     </div>
 
-                    <div class="form-actions">
-                        <h:commandButton value="Register" 
-                                         action="#{authenticationBean.register}"
-                                         styleClass="primary-button" />
+                    <h1 class="auth-title">Create your account</h1>
+                    <p class="auth-subtitle">
+                        Complete the details below. A verification code will be sent to your email address.
+                    </p>
+
+                    <h:form styleClass="auth-form">
+                        <h:messages globalOnly="true" styleClass="form-error" />
+
+                        <div class="auth-form-grid">
+                            <div class="form-group form-full">
+                                <h:outputLabel for="email" value="Email address" styleClass="form-label" />
+                                <h:inputText id="email"
+                                             value="#{authenticationBean.emailAddress}"
+                                             required="true"
+                                             requiredMessage="Email address is required."
+                                             styleClass="form-input" />
+                                <h:message for="email" styleClass="form-error" />
+                            </div>
+
+                            <div class="form-group">
+                                <h:outputLabel for="firstName" value="First name" styleClass="form-label" />
+                                <h:inputText id="firstName"
+                                             value="#{authenticationBean.firstName}"
+                                             required="true"
+                                             requiredMessage="First name is required."
+                                             styleClass="form-input" />
+                                <h:message for="firstName" styleClass="form-error" />
+                            </div>
+
+                            <div class="form-group">
+                                <h:outputLabel for="lastName" value="Last name" styleClass="form-label" />
+                                <h:inputText id="lastName"
+                                             value="#{authenticationBean.lastName}"
+                                             required="true"
+                                             requiredMessage="Last name is required."
+                                             styleClass="form-input" />
+                                <h:message for="lastName" styleClass="form-error" />
+                            </div>
+
+                            <div class="form-group form-full">
+                                <h:outputLabel for="username" value="Username" styleClass="form-label" />
+                                <h:inputText id="username"
+                                             value="#{authenticationBean.username}"
+                                             required="true"
+                                             requiredMessage="Username is required."
+                                             styleClass="form-input" />
+                                <h:message for="username" styleClass="form-error" />
+                            </div>
+
+                            <div class="form-group">
+                                <h:outputLabel for="password" value="Password" styleClass="form-label" />
+                                <h:inputSecret id="password"
+                                               value="#{authenticationBean.password}"
+                                               required="true"
+                                               requiredMessage="Password is required."
+                                               styleClass="form-input" />
+                                <h:message for="password" styleClass="form-error" />
+                            </div>
+
+                            <div class="form-group">
+                                <h:outputLabel for="confirmPassword" value="Confirm password" styleClass="form-label" />
+                                <h:inputSecret id="confirmPassword"
+                                               value="#{authenticationBean.confirmPassword}"
+                                               required="true"
+                                               requiredMessage="Password confirmation is required."
+                                               styleClass="form-input" />
+                                <h:message for="confirmPassword" styleClass="form-error" />
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <h:commandButton value="Create account"
+                                             action="#{authenticationBean.register}"
+                                             styleClass="primary-button" />
+                        </div>
+                    </h:form>
+
+                    <div class="auth-links">
+                        <h:link outcome="login" value="Already registered? Sign in" />
+                        <span>|</span>
+                        <h:link outcome="index" value="Return home" />
                     </div>
-                    
-                </h:form>
-                
-                <div class="auth-links">
-                    <h:link outcome="login" value="Already have an account? Login" />
-                    <br />
-                    <h:link outcome="index" value="Welcome Page" />
-                    
                 </div>
-                
             </section>
         </main>
     </h:body>
+
 </html>

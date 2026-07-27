@@ -5,7 +5,7 @@
       xmlns:f="jakarta.faces.core">
 
     <h:head>
-        <title>Search Customer - E-Business System</title>
+        <title>Search customers | SmartTech</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
@@ -15,16 +15,16 @@
 
             <header class="app-header">
                 <div>
-                    <h1>E-Business System</h1>
-                    <p>Customer Search</p>
+                    <h1>SmartTech</h1>
+                    <p>Customer records</p>
                 </div>
 
-                <nav class="app-nav">
+                <nav class="app-nav" aria-label="Customer navigation">
                     <h:link outcome="main" value="Dashboard" />
-                    <h:link outcome="createCustomer" value="Create Customer" />
-                    <h:link outcome="listCustomers" value="List Customers" />
+                    <h:link outcome="createCustomer" value="Add customer" />
+                    <h:link outcome="listCustomers" value="Customers" />
                     <h:form styleClass="logout-form">
-                        <h:commandLink value="Logout"
+                        <h:commandLink value="Sign out"
                                        action="#{authenticationBean.logout}"
                                        styleClass="nav-command-link" />
                     </h:form>
@@ -32,41 +32,35 @@
             </header>
 
             <section class="content-card">
-
                 <div class="section-heading">
-                    <h2>Search Customer</h2>
-                    <p>
-                        Search customer records by customer ID, name, email address, or phone number.
-                    </p>
+                    <h2>Search customer records</h2>
+                    <p>Find customers using an ID, name, email address, phone number or address.</p>
                 </div>
 
                 <h:form styleClass="data-form">
-
                     <h:messages globalOnly="true" styleClass="form-error" />
 
                     <div class="search-bar">
                         <div class="form-group search-input-group">
                             <h:outputLabel for="searchKeyword"
-                                           value="Search Keyword"
+                                           value="Search keyword"
                                            styleClass="form-label" />
-
                             <h:inputText id="searchKeyword"
                                          value="#{customerBean.searchKeyword}"
                                          required="true"
                                          requiredMessage="Search keyword is required."
                                          styleClass="form-input" />
-
                             <h:message for="searchKeyword" styleClass="form-error" />
                         </div>
 
                         <div class="search-action">
-                            <h:commandButton value="Search Customer"
+                            <h:commandButton value="Search customers"
                                              action="#{customerBean.searchCustomer}"
                                              styleClass="primary-button" />
                         </div>
                     </div>
 
-                                        <div class="table-wrapper">
+                    <div class="table-wrapper">
                         <h:dataTable value="#{customerBean.filteredCustomerRows}"
                                      var="customer"
                                      styleClass="data-table">
@@ -77,22 +71,22 @@
                             </h:column>
 
                             <h:column>
-                                <f:facet name="header">First Name</f:facet>
+                                <f:facet name="header">First name</f:facet>
                                 <h:outputText value="#{customer.firstName}" />
                             </h:column>
 
                             <h:column>
-                                <f:facet name="header">Last Name</f:facet>
+                                <f:facet name="header">Last name</f:facet>
                                 <h:outputText value="#{customer.lastName}" />
                             </h:column>
 
                             <h:column>
-                                <f:facet name="header">Email Address</f:facet>
+                                <f:facet name="header">Email address</f:facet>
                                 <h:outputText value="#{customer.emailAddress}" />
                             </h:column>
 
                             <h:column>
-                                <f:facet name="header">Phone Number</f:facet>
+                                <f:facet name="header">Phone number</f:facet>
                                 <h:outputText value="#{customer.phoneNumber}" />
                             </h:column>
 
@@ -102,15 +96,13 @@
                             </h:column>
 
                             <h:column>
-                                <f:facet name="header">Details</f:facet>
-                                <h:link outcome="customerDetails" value="View Details" />
+                                <f:facet name="header">Profile</f:facet>
+                                <h:link outcome="customerDetails" value="View profile" />
                             </h:column>
 
                         </h:dataTable>
                     </div>
-
                 </h:form>
-
             </section>
 
         </main>

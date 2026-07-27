@@ -1,55 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="jakarta.faces.html">
-          
+      xmlns:h="jakarta.faces.html">
+
     <h:head>
-        <title>Account Recovery - E-Business System</title>
+        <title>Recover account | SmartTech</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
-    
+
     <h:body>
         <main class="auth-container">
-            <section class="auth-card">
-                
-                <div class="auth-brand">
-                    <h2>E-business System</h2>
-                    <p>Account Recovery Portal</p>
+            <aside class="auth-aside">
+                <div class="brand-lockup">
+                    <span class="brand-mark">ST</span>
+                    <span class="brand-copy">
+                        <strong>SmartTech</strong>
+                        <span>Retail operations workspace</span>
+                    </span>
                 </div>
-                
-                <h1 class="auth-title">Recover Your Account</h1>
-                
-                <p class="auth-subtitle">
-                    Enter your registered email address to request an account recovery code.
-                </p>
-                
-                <h:form styleClass="auth-form">
-                    <div class="form-group">
-                        <h:outputLabel for="email" value="Email Address" styleClass="form-label" />
-                        <h:inputText id="email"
-                                     value="#{authenticationBean.emailAddress}"
-                                     required="true"
-                                     requiredMessage="Email address is required."
-                                     styleClass="form-input" />
-                        <h:message for="email" styleClass="form-error" />                                       
+
+                <div class="auth-aside-copy">
+                    <p class="eyebrow">Account recovery</p>
+                    <h2>Get back to your workspace securely.</h2>
+                    <p>
+                        Request a recovery code using the email address registered with your SmartTech account.
+                    </p>
+
+                    <div class="auth-aside-points">
+                        <span class="auth-aside-point">Recovery code delivered by email</span>
+                        <span class="auth-aside-point">Code validated before password reset</span>
+                        <span class="auth-aside-point">Existing account data remains protected</span>
                     </div>
-                    
-                    <div class="form-actions">
-                        <h:commandButton value="Create Recovery Code" 
-                                         action="#{authenticationBean.recoverAccount}"
-                                         styleClass="primary-button" />
+                </div>
+
+                <span class="auth-aside-footer">Jakarta EE portfolio application</span>
+            </aside>
+
+            <section class="auth-panel">
+                <div class="auth-card">
+                    <div class="auth-brand">
+                        <span class="brand-mark">ST</span>
+                        <span class="auth-brand-text">
+                            <strong>SmartTech</strong>
+                            <span>Account recovery</span>
+                        </span>
                     </div>
-                    
-                </h:form>
-                
-                <div class="auth-links">
-                    <h:link outcome="login" value="Back to Login" />
-                    <span>|</span>
-                    <h:link outcome="index" value="Welcome Page" />
-            </div>
-                
+
+                    <h1 class="auth-title">Recover your account</h1>
+                    <p class="auth-subtitle">
+                        Enter your registered email address and we will send a recovery code to your local test inbox.
+                    </p>
+
+                    <h:form styleClass="auth-form">
+                        <h:messages globalOnly="true" styleClass="form-error" />
+
+                        <div class="form-group">
+                            <h:outputLabel for="email" value="Registered email address" styleClass="form-label" />
+                            <h:inputText id="email"
+                                         value="#{authenticationBean.emailAddress}"
+                                         required="true"
+                                         requiredMessage="Registered email address is required."
+                                         styleClass="form-input" />
+                            <h:message for="email" styleClass="form-error" />
+                        </div>
+
+                        <div class="form-actions">
+                            <h:commandButton value="Send recovery code"
+                                             action="#{authenticationBean.recoverAccount}"
+                                             styleClass="primary-button" />
+                        </div>
+                    </h:form>
+
+                    <div class="auth-links">
+                        <h:link outcome="login" value="Back to sign in" />
+                        <span>|</span>
+                        <h:link outcome="index" value="Return home" />
+                    </div>
+                </div>
             </section>
         </main>
     </h:body>
+
 </html>

@@ -5,128 +5,111 @@
       xmlns:f="jakarta.faces.core">
 
     <h:head>
-        <title>Create Order - E-Business System</title>
+        <title>Create order | SmartTech</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
 
     <h:body>
-        <main class="page-container">
-
+        <main class="app-container">
             <header class="app-header">
                 <div>
-                    <h1>E-Business System</h1>
-                    <p>Tablet and Smartwatch Management Portal</p>
+                    <h1>SmartTech</h1>
+                    <p>Order processing</p>
                 </div>
 
-                <nav class="app-nav">
+                <nav class="app-nav" aria-label="Order navigation">
                     <h:link outcome="main" value="Dashboard" />
-                    <h:link outcome="createTablet" value="Create Tablet" />
-                    <h:link outcome="createSmartwatch" value="Create Smartwatch" />
                     <h:link outcome="listOrders" value="Orders" />
-                    <h:link outcome="logout" value="Logout" />
+                    <h:link outcome="searchOrder" value="Search" />
+                    <h:link outcome="listTablets" value="Inventory" />
+                    <h:form styleClass="logout-form">
+                        <h:commandLink value="Sign out"
+                                       action="#{authenticationBean.logout}"
+                                       styleClass="nav-command-link" />
+                    </h:form>
                 </nav>
             </header>
 
             <section class="content-card">
-                <h2>Create Order</h2>
-                <p class="section-subtitle">
-                    Create a customer order for one selected product item.
-                </p>
+                <div class="section-heading">
+                    <h2>Create an order</h2>
+                    <p>Connect a customer with an available tablet or smartwatch product.</p>
+                </div>
 
-                <h:form id="orderForm" styleClass="form-grid">
-
+                <h:form id="orderForm" styleClass="data-form">
                     <h:messages globalOnly="true" styleClass="form-error" />
 
-                    <div class="form-group">
-                        <h:outputLabel for="customer"
-                                       value="Customer"
-                                       styleClass="form-label" />
-
-                        <h:selectOneMenu id="customer"
-                                         value="#{orderBean.customer}"
-                                         required="true"
-                                         requiredMessage="Customer is required"
-                                         styleClass="form-input">
-                            <f:selectItems value="#{orderBean.customerOptions}" />
-                        </h:selectOneMenu>
-
-                        <h:message for="customer" styleClass="form-error" />
-                    </div>
-
-                    <div class="form-group">
-                        <h:outputLabel for="productType"
-                                       value="Product Type"
-                                       styleClass="form-label" />
-
-                        <h:selectOneMenu id="productType"
-                                         value="#{orderBean.productType}"
-                                         required="true"
-                                         requiredMessage="Product type is required"
-                                         styleClass="form-input">
-                            <f:selectItem itemLabel="Select Product Type" itemValue="" />
-                            <f:selectItem itemLabel="Tablet" itemValue="Tablet" />
-                            <f:selectItem itemLabel="Smartwatch" itemValue="Smartwatch" />
-                            <f:ajax execute="@this" render="productPanel" />
-                        </h:selectOneMenu>
-
-                        <h:message for="productType" styleClass="form-error" />
-                    </div>
-
-                    <div class="form-group">
-                        <h:outputLabel for="product"
-                                       value="Product"
-                                       styleClass="form-label" />
-
-                        <h:panelGroup id="productPanel" layout="block">
-                            <h:selectOneMenu id="product"
-                                             value="#{orderBean.product}"
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <h:outputLabel for="customer" value="Customer" styleClass="form-label" />
+                            <h:selectOneMenu id="customer"
+                                             value="#{orderBean.customer}"
                                              required="true"
-                                             requiredMessage="Product is required"
+                                             requiredMessage="Customer is required."
                                              styleClass="form-input">
-                                <f:selectItems value="#{orderBean.productOptions}" />
+                                <f:selectItems value="#{orderBean.customerOptions}" />
                             </h:selectOneMenu>
+                            <h:message for="customer" styleClass="form-error" />
+                        </div>
 
-                            <h:message for="product" styleClass="form-error" />
-                        </h:panelGroup>
-                    </div>
+                        <div class="form-group">
+                            <h:outputLabel for="productType" value="Product type" styleClass="form-label" />
+                            <h:selectOneMenu id="productType"
+                                             value="#{orderBean.productType}"
+                                             required="true"
+                                             requiredMessage="Product type is required."
+                                             styleClass="form-input">
+                                <f:selectItem itemLabel="Select a product type" itemValue="" />
+                                <f:selectItem itemLabel="Tablet" itemValue="Tablet" />
+                                <f:selectItem itemLabel="Smartwatch" itemValue="Smartwatch" />
+                                <f:ajax execute="@this" render="productPanel" />
+                            </h:selectOneMenu>
+                            <h:message for="productType" styleClass="form-error" />
+                        </div>
 
-                    <div class="form-group">
-                        <h:outputLabel for="quantity"
-                                       value="Quantity"
-                                       styleClass="form-label" />
+                        <div class="form-group">
+                            <h:outputLabel for="product" value="Product" styleClass="form-label" />
+                            <h:panelGroup id="productPanel" layout="block">
+                                <h:selectOneMenu id="product"
+                                                 value="#{orderBean.product}"
+                                                 required="true"
+                                                 requiredMessage="Product is required."
+                                                 styleClass="form-input">
+                                    <f:selectItems value="#{orderBean.productOptions}" />
+                                </h:selectOneMenu>
+                                <h:message for="product" styleClass="form-error" />
+                            </h:panelGroup>
+                        </div>
 
-                        <h:inputText id="quantity"
-                                     value="#{orderBean.quantity}"
-                                     required="true"
-                                     requiredMessage="Quantity is required"
-                                     styleClass="form-input" />
-
-                        <h:message for="quantity" styleClass="form-error" />
-                    </div>
-
-                    <div class="form-group form-full">
-                        <h:outputLabel for="orderNotes"
-                                       value="Order Notes"
-                                       styleClass="form-label" />
-
-                        <h:inputTextarea id="orderNotes"
-                                         value="#{orderBean.orderNotes}"
-                                         rows="4"
+                        <div class="form-group">
+                            <h:outputLabel for="quantity" value="Quantity" styleClass="form-label" />
+                            <h:inputText id="quantity"
+                                         value="#{orderBean.quantity}"
+                                         required="true"
+                                         requiredMessage="Quantity is required."
                                          styleClass="form-input" />
+                            <h:message for="quantity" styleClass="form-error" />
+                        </div>
 
-                        <h:message for="orderNotes" styleClass="form-error" />
+                        <div class="form-group form-full">
+                            <h:outputLabel for="orderNotes" value="Order notes" styleClass="form-label" />
+                            <h:inputTextarea id="orderNotes"
+                                             value="#{orderBean.orderNotes}"
+                                             rows="4"
+                                             styleClass="form-input form-textarea" />
+                            <h:message for="orderNotes" styleClass="form-error" />
+                        </div>
                     </div>
 
-                    <div class="form-actions form-full">
-                        <h:commandButton value="Create Order"
+                    <div class="form-actions">
+                        <h:commandButton value="Create order"
                                          action="#{orderBean.createOrder}"
                                          styleClass="primary-button" />
+                        <h:link outcome="listOrders" value="Cancel" styleClass="secondary-button" />
                     </div>
-
                 </h:form>
             </section>
-
         </main>
     </h:body>
 

@@ -5,7 +5,7 @@
       xmlns:f="jakarta.faces.core">
 
     <h:head>
-        <title>Customer List - E-Business System</title>
+        <title>Customers | SmartTech</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
@@ -15,16 +15,16 @@
 
             <header class="app-header">
                 <div>
-                    <h1>E-Business System</h1>
-                    <p>Customer Records</p>
+                    <h1>SmartTech</h1>
+                    <p>Customer records</p>
                 </div>
 
-                <nav class="app-nav">
+                <nav class="app-nav" aria-label="Customer navigation">
                     <h:link outcome="main" value="Dashboard" />
-                    <h:link outcome="createCustomer" value="Create Customer" />
-                    <h:link outcome="searchCustomer" value="Search Customer" />
+                    <h:link outcome="createCustomer" value="Add customer" />
+                    <h:link outcome="searchCustomer" value="Search" />
                     <h:form styleClass="logout-form">
-                        <h:commandLink value="Logout"
+                        <h:commandLink value="Sign out"
                                        action="#{authenticationBean.logout}"
                                        styleClass="nav-command-link" />
                     </h:form>
@@ -32,19 +32,15 @@
             </header>
 
             <section class="content-card">
-
                 <div class="section-heading">
-                    <h2>Customer List</h2>
-                    <p>
-                        View customer records saved in the e-business system.
-                    </p>
+                    <h2>Customer directory</h2>
+                    <p>Review customer contact records stored in the SmartTech workspace.</p>
                 </div>
 
                 <h:form styleClass="data-form">
-
                     <h:messages globalOnly="true" styleClass="form-error" />
 
-                                        <div class="table-wrapper">
+                    <div class="table-wrapper">
                         <h:dataTable value="#{customerBean.customerRows}"
                                      var="customer"
                                      styleClass="data-table">
@@ -55,22 +51,22 @@
                             </h:column>
 
                             <h:column>
-                                <f:facet name="header">First Name</f:facet>
+                                <f:facet name="header">First name</f:facet>
                                 <h:outputText value="#{customer.firstName}" />
                             </h:column>
 
                             <h:column>
-                                <f:facet name="header">Last Name</f:facet>
+                                <f:facet name="header">Last name</f:facet>
                                 <h:outputText value="#{customer.lastName}" />
                             </h:column>
 
                             <h:column>
-                                <f:facet name="header">Email Address</f:facet>
+                                <f:facet name="header">Email address</f:facet>
                                 <h:outputText value="#{customer.emailAddress}" />
                             </h:column>
 
                             <h:column>
-                                <f:facet name="header">Phone Number</f:facet>
+                                <f:facet name="header">Phone number</f:facet>
                                 <h:outputText value="#{customer.phoneNumber}" />
                             </h:column>
 
@@ -80,15 +76,19 @@
                             </h:column>
 
                             <h:column>
-                                <f:facet name="header">Details</f:facet>
-                                <h:link outcome="customerDetails" value="View Details" />
+                                <f:facet name="header">Profile</f:facet>
+                                <h:link outcome="customerDetails" value="View profile" />
                             </h:column>
 
                         </h:dataTable>
                     </div>
-
                 </h:form>
 
+                <div class="page-actions">
+                    <h:link outcome="createCustomer"
+                            value="Add customer"
+                            styleClass="primary-link-button" />
+                </div>
             </section>
 
         </main>
