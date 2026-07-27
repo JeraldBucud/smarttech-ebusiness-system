@@ -1,6 +1,8 @@
 # SmartTech E-Business Management System
 
-A secure three-tier retail operations workspace for managing technology inventory, customer records and customer orders. SmartTech demonstrates enterprise Java development through a server-rendered Jakarta EE application with authentication, layered business services and relational data persistence.
+[![Maven Build](https://github.com/JeraldBucud/smarttech-ebusiness-system/actions/workflows/maven-build.yml/badge.svg)](https://github.com/JeraldBucud/smarttech-ebusiness-system/actions/workflows/maven-build.yml)
+
+A three-tier retail operations workspace with authenticated access and session-protected pages for managing technology inventory, customer records and customer orders. SmartTech demonstrates enterprise Java development through a server-rendered Jakarta EE application with layered business services and relational data persistence.
 
 > **Portfolio edition:** This repository preserves the original team contribution history while presenting the application as a standalone product. My primary focus was the Jakarta Faces presentation layer, authentication workflows and access control.
 
@@ -8,14 +10,14 @@ A secure three-tier retail operations workspace for managing technology inventor
 
 ### Operations Dashboard
 
-The secured dashboard provides direct access to tablet inventory, smartwatch inventory, customer records and order-processing workflows.
+The authenticated dashboard provides direct access to tablet inventory, smartwatch inventory, customer records and order-processing workflows.
 
 ![SmartTech operations dashboard](docs/Images/screenshots/dashboard.webp)
 
 <table>
   <tr>
     <td width="50%">
-      <strong>Secure Account Access</strong><br><br>
+      <strong>Authenticated Account Access</strong><br><br>
       <img src="docs/Images/screenshots/login.webp" alt="SmartTech login interface" width="100%">
     </td>
     <td width="50%">
@@ -36,7 +38,7 @@ The application includes account registration and verification, protected applic
 - User registration and email verification
 - Login, logout and session-protected pages
 - Account recovery and password reset
-- Customer creation, listing, search and detail views
+- Customer creation, listing, search and correctly selected detail views
 - Tablet and smartwatch inventory management
 - Customer order creation, listing, search and detail views
 - Server-side form validation and user feedback
@@ -73,7 +75,7 @@ The database stores user accounts, customers, technology products and customer o
 | Database | MySQL 8 |
 | Application server | GlassFish 7 |
 | Email | Jakarta Mail, FakeSMTP |
-| Build | Maven |
+| Build and CI | Maven, GitHub Actions |
 | Development | Apache NetBeans, Git, GitHub |
 
 ## My Contributions
@@ -84,10 +86,11 @@ My primary responsibilities in the team project included:
 - Building presentation-layer backing beans and connecting them to the EJB business layer
 - Integrating login, registration, verification, account recovery and password-reset flows
 - Implementing session-based access control with a servlet filter
-- Adding secure logout behaviour through HTTP-session invalidation
+- Adding logout behaviour through HTTP-session invalidation
 - Developing page navigation, data-table presentation, forms and responsive interface styling
 - Implementing the local email service used for verification and recovery messages
 - Transforming the assessment interface into the portfolio-ready SmartTech product experience
+- Connecting customer-list and search results to the correct customer profile by ID
 - Contributing through feature branches, pull requests and reviewed merges
 
 The original Git history is preserved so that contributions from every team member remain attributable.
@@ -96,6 +99,7 @@ The original Git history is preserved so that contributions from every team memb
 
 ```text
 smarttech-ebusiness-system/
+├── .github/workflows/                        # Maven build verification
 ├── EBusinessSystem/
 │   ├── src/main/java/
 │   │   ├── com/ebusiness/presentation/       # JSF backing beans
@@ -147,9 +151,8 @@ This is an educational application and is not currently intended for production 
 - Environment-based database and SMTP configuration
 - Automated unit, integration and browser tests
 - Containerised local setup
-- Continuous integration and deployment checks
 - Further accessibility testing
 
 ## Project Status
 
-The original assessment functionality is complete. The portfolio edition now includes product-focused branding, a redesigned responsive frontend, cleaned documentation and application screenshots. Further improvements can focus on automated testing, security hardening and deployment portability.
+The original assessment functionality is complete. The portfolio edition now includes product-focused branding, a redesigned responsive frontend, cleaned documentation, application screenshots, corrected customer-profile navigation and automated Maven build verification. Further improvements can focus on testing, security hardening and deployment portability.
