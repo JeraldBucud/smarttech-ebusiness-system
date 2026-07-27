@@ -4,32 +4,63 @@
       xmlns:h="jakarta.faces.html">
 
     <h:head>
-        <title>Logout - E-Business System</title>
+        <title>Signed out | SmartTech</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
 
     <h:body>
         <main class="auth-container">
-            <section class="auth-card">
-
-                <div class="auth-brand">
-                    <h2>E-Business System</h2>
-                    <p>Secure Session Logout</p>
+            <aside class="auth-aside">
+                <div class="brand-lockup">
+                    <span class="brand-mark">ST</span>
+                    <span class="brand-copy">
+                        <strong>SmartTech</strong>
+                        <span>Retail operations workspace</span>
+                    </span>
                 </div>
 
-                <h1 class="auth-title">You Have Logged Out</h1>
+                <div class="auth-aside-copy">
+                    <p class="eyebrow">Session complete</p>
+                    <h2>Your SmartTech workspace is now secured.</h2>
+                    <p>
+                        The active HTTP session has ended. Sign in again whenever you need to continue managing operations.
+                    </p>
 
-                <p class="auth-subtitle">
-                    Your session has ended. Please log in again to access the e-business system.
-                </p>
-
-                <div class="auth-links">
-                    <h:link outcome="login" value="Return to Login" />
-                    <span>|</span>
-                    <h:link outcome="index" value="Welcome Page" />
+                    <div class="auth-aside-points">
+                        <span class="auth-aside-point">Application session invalidated</span>
+                        <span class="auth-aside-point">Protected pages require a new sign-in</span>
+                        <span class="auth-aside-point">Account data remains stored securely</span>
+                    </div>
                 </div>
 
+                <span class="auth-aside-footer">Jakarta EE portfolio application</span>
+            </aside>
+
+            <section class="auth-panel">
+                <div class="auth-card">
+                    <div class="auth-brand">
+                        <span class="brand-mark">ST</span>
+                        <span class="auth-brand-text">
+                            <strong>SmartTech</strong>
+                            <span>Secure session</span>
+                        </span>
+                    </div>
+
+                    <h1 class="auth-title">You are signed out</h1>
+                    <p class="auth-subtitle">
+                        Your session has ended successfully. Sign in again to return to the operations workspace.
+                    </p>
+
+                    <div class="landing-actions">
+                        <h:link outcome="login"
+                                value="Sign in again"
+                                styleClass="primary-link-button" />
+                        <h:link outcome="index"
+                                value="Return home"
+                                styleClass="secondary-button" />
+                    </div>
+                </div>
             </section>
         </main>
     </h:body>
