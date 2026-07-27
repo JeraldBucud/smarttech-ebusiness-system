@@ -7,14 +7,13 @@
         <title>SmartTech | Retail Operations Workspace</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description"
-              content="SmartTech is a secure Jakarta EE workspace for inventory, customer and order management." />
+              content="SmartTech is an authenticated Jakarta EE workspace for inventory, customer and order management." />
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
 
     <h:body>
         <main class="landing-container">
             <div class="landing-shell">
-
                 <header class="public-nav">
                     <div class="brand-lockup">
                         <span class="brand-mark">ST</span>
@@ -23,28 +22,24 @@
                             <span>Retail operations workspace</span>
                         </span>
                     </div>
-
-                    <span class="nav-note">Secure access for authorised users</span>
+                    <span class="nav-note">Authenticated access for authorised users</span>
                 </header>
 
                 <section class="landing-hero">
                     <div class="hero-copy">
                         <p class="eyebrow">Connected retail operations</p>
-
                         <h1 class="hero-title">
                             Manage every device order from <span>one workspace.</span>
                         </h1>
-
                         <p class="hero-description">
                             SmartTech brings product inventory, customer records and order
-                            processing together in a secure enterprise Java application.
+                            processing together in an authenticated enterprise Java application.
                         </p>
 
                         <div class="landing-actions">
                             <h:link outcome="login"
                                     value="Sign in to SmartTech"
                                     styleClass="primary-link-button" />
-
                             <h:link outcome="register"
                                     value="Create an account"
                                     styleClass="secondary-link-button" />
@@ -60,7 +55,7 @@
                     <aside class="preview-card" aria-label="SmartTech workspace preview">
                         <div class="preview-top">
                             <strong>Operations overview</strong>
-                            <span class="status-badge">Secured</span>
+                            <span class="status-badge">Authenticated</span>
                         </div>
 
                         <div class="preview-grid">
@@ -69,7 +64,6 @@
                                 <strong>2</strong>
                                 <small>Tablets and wearables</small>
                             </div>
-
                             <div class="preview-stat">
                                 <span>Core workflows</span>
                                 <strong>4</strong>
@@ -86,7 +80,6 @@
                                 </span>
                                 <em>Manage</em>
                             </div>
-
                             <div class="preview-row">
                                 <span class="preview-row-icon">CU</span>
                                 <span>
@@ -95,7 +88,6 @@
                                 </span>
                                 <em>Organise</em>
                             </div>
-
                             <div class="preview-row">
                                 <span class="preview-row-icon">OR</span>
                                 <span>
@@ -111,9 +103,7 @@
                 <footer class="landing-footer">
                     Built with Jakarta EE, Jakarta Faces, EJB, JPA and MySQL
                 </footer>
-
             </div>
         </main>
     </h:body>
-
 </html>

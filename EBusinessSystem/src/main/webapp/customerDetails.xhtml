@@ -4,6 +4,10 @@
       xmlns:h="jakarta.faces.html"
       xmlns:f="jakarta.faces.core">
 
+    <f:metadata>
+        <f:viewParam name="customerId" value="#{customerBean.selectedCustomerId}" />
+    </f:metadata>
+
     <h:head>
         <title>Customer profile | SmartTech</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,7 +16,6 @@
 
     <h:body>
         <main class="app-container">
-
             <header class="app-header">
                 <div>
                     <h1>SmartTech</h1>
@@ -34,87 +37,31 @@
             <section class="content-card">
                 <div class="section-heading">
                     <h2>Customer profile</h2>
-                    <p>Review customer contact information and associated order activity.</p>
+                    <p>Review customer contact information for the selected customer.</p>
                 </div>
 
                 <div class="details-grid">
                     <div class="details-item">
                         <span class="details-label">Customer ID</span>
-                        <span class="details-value">
-                            <h:outputText value="#{customerBean.selectedCustomer.customerId}" />
-                        </span>
+                        <span class="details-value"><h:outputText value="#{customerBean.selectedCustomer.customerId}" /></span>
                     </div>
-
                     <div class="details-item">
                         <span class="details-label">Full name</span>
-                        <span class="details-value">
-                            <h:outputText value="#{customerBean.selectedCustomer.firstName} #{customerBean.selectedCustomer.lastName}" />
-                        </span>
+                        <span class="details-value"><h:outputText value="#{customerBean.selectedCustomer.firstName} #{customerBean.selectedCustomer.lastName}" /></span>
                     </div>
-
                     <div class="details-item">
                         <span class="details-label">Email address</span>
-                        <span class="details-value">
-                            <h:outputText value="#{customerBean.selectedCustomer.emailAddress}" />
-                        </span>
+                        <span class="details-value"><h:outputText value="#{customerBean.selectedCustomer.emailAddress}" /></span>
                     </div>
-
                     <div class="details-item">
                         <span class="details-label">Phone number</span>
-                        <span class="details-value">
-                            <h:outputText value="#{customerBean.selectedCustomer.phoneNumber}" />
-                        </span>
+                        <span class="details-value"><h:outputText value="#{customerBean.selectedCustomer.phoneNumber}" /></span>
                     </div>
-
                     <div class="details-item details-full">
                         <span class="details-label">Address</span>
-                        <span class="details-value">
-                            <h:outputText value="#{customerBean.selectedCustomer.address}" />
-                        </span>
+                        <span class="details-value"><h:outputText value="#{customerBean.selectedCustomer.address}" /></span>
                     </div>
                 </div>
-
-                <div class="section-heading sub-section-heading">
-                    <h2>Order activity</h2>
-                    <p>Orders currently available to the customer-management view are listed below.</p>
-                </div>
-
-                <h:form styleClass="data-form">
-                    <h:messages globalOnly="true" styleClass="form-error" />
-
-                    <div class="table-wrapper">
-                        <h:dataTable value="#{orderBean.orderRows}"
-                                     var="order"
-                                     styleClass="data-table">
-
-                            <h:column>
-                                <f:facet name="header">Order ID</f:facet>
-                                <h:outputText value="#{order.orderId}" />
-                            </h:column>
-
-                            <h:column>
-                                <f:facet name="header">Product type</f:facet>
-                                <h:outputText value="#{order.productType}" />
-                            </h:column>
-
-                            <h:column>
-                                <f:facet name="header">Product model</f:facet>
-                                <h:outputText value="#{order.productModel}" />
-                            </h:column>
-
-                            <h:column>
-                                <f:facet name="header">Quantity</f:facet>
-                                <h:outputText value="#{order.quantity}" />
-                            </h:column>
-
-                            <h:column>
-                                <f:facet name="header">Status</f:facet>
-                                <h:outputText value="#{order.status}" />
-                            </h:column>
-
-                        </h:dataTable>
-                    </div>
-                </h:form>
 
                 <div class="page-actions">
                     <h:link outcome="listCustomers"
@@ -122,8 +69,6 @@
                             styleClass="secondary-button" />
                 </div>
             </section>
-
         </main>
     </h:body>
-
 </html>

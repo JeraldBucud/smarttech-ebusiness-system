@@ -12,7 +12,6 @@
 
     <h:body>
         <main class="app-container">
-
             <header class="app-header">
                 <div>
                     <h1>SmartTech</h1>
@@ -39,12 +38,9 @@
 
                 <h:form styleClass="data-form">
                     <h:messages globalOnly="true" styleClass="form-error" />
-
                     <div class="search-bar">
                         <div class="form-group search-input-group">
-                            <h:outputLabel for="searchKeyword"
-                                           value="Search keyword"
-                                           styleClass="form-label" />
+                            <h:outputLabel for="searchKeyword" value="Search keyword" styleClass="form-label" />
                             <h:inputText id="searchKeyword"
                                          value="#{customerBean.searchKeyword}"
                                          required="true"
@@ -52,7 +48,6 @@
                                          styleClass="form-input" />
                             <h:message for="searchKeyword" styleClass="form-error" />
                         </div>
-
                         <div class="search-action">
                             <h:commandButton value="Search customers"
                                              action="#{customerBean.searchCustomer}"
@@ -64,48 +59,22 @@
                         <h:dataTable value="#{customerBean.filteredCustomerRows}"
                                      var="customer"
                                      styleClass="data-table">
-
-                            <h:column>
-                                <f:facet name="header">Customer ID</f:facet>
-                                <h:outputText value="#{customer.customerId}" />
-                            </h:column>
-
-                            <h:column>
-                                <f:facet name="header">First name</f:facet>
-                                <h:outputText value="#{customer.firstName}" />
-                            </h:column>
-
-                            <h:column>
-                                <f:facet name="header">Last name</f:facet>
-                                <h:outputText value="#{customer.lastName}" />
-                            </h:column>
-
-                            <h:column>
-                                <f:facet name="header">Email address</f:facet>
-                                <h:outputText value="#{customer.emailAddress}" />
-                            </h:column>
-
-                            <h:column>
-                                <f:facet name="header">Phone number</f:facet>
-                                <h:outputText value="#{customer.phoneNumber}" />
-                            </h:column>
-
-                            <h:column>
-                                <f:facet name="header">Address</f:facet>
-                                <h:outputText value="#{customer.address}" />
-                            </h:column>
-
+                            <h:column><f:facet name="header">Customer ID</f:facet><h:outputText value="#{customer.customerId}" /></h:column>
+                            <h:column><f:facet name="header">First name</f:facet><h:outputText value="#{customer.firstName}" /></h:column>
+                            <h:column><f:facet name="header">Last name</f:facet><h:outputText value="#{customer.lastName}" /></h:column>
+                            <h:column><f:facet name="header">Email address</f:facet><h:outputText value="#{customer.emailAddress}" /></h:column>
+                            <h:column><f:facet name="header">Phone number</f:facet><h:outputText value="#{customer.phoneNumber}" /></h:column>
+                            <h:column><f:facet name="header">Address</f:facet><h:outputText value="#{customer.address}" /></h:column>
                             <h:column>
                                 <f:facet name="header">Profile</f:facet>
-                                <h:link outcome="customerDetails" value="View profile" />
+                                <h:link outcome="customerDetails" value="View profile">
+                                    <f:param name="customerId" value="#{customer.customerId}" />
+                                </h:link>
                             </h:column>
-
                         </h:dataTable>
                     </div>
                 </h:form>
             </section>
-
         </main>
     </h:body>
-
 </html>
