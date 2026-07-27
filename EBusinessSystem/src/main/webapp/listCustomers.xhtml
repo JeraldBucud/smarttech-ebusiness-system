@@ -12,7 +12,6 @@
 
     <h:body>
         <main class="app-container">
-
             <header class="app-header">
                 <div>
                     <h1>SmartTech</h1>
@@ -44,42 +43,36 @@
                         <h:dataTable value="#{customerBean.customerRows}"
                                      var="customer"
                                      styleClass="data-table">
-
                             <h:column>
                                 <f:facet name="header">Customer ID</f:facet>
                                 <h:outputText value="#{customer.customerId}" />
                             </h:column>
-
                             <h:column>
                                 <f:facet name="header">First name</f:facet>
                                 <h:outputText value="#{customer.firstName}" />
                             </h:column>
-
                             <h:column>
                                 <f:facet name="header">Last name</f:facet>
                                 <h:outputText value="#{customer.lastName}" />
                             </h:column>
-
                             <h:column>
                                 <f:facet name="header">Email address</f:facet>
                                 <h:outputText value="#{customer.emailAddress}" />
                             </h:column>
-
                             <h:column>
                                 <f:facet name="header">Phone number</f:facet>
                                 <h:outputText value="#{customer.phoneNumber}" />
                             </h:column>
-
                             <h:column>
                                 <f:facet name="header">Address</f:facet>
                                 <h:outputText value="#{customer.address}" />
                             </h:column>
-
                             <h:column>
                                 <f:facet name="header">Profile</f:facet>
-                                <h:link outcome="customerDetails" value="View profile" />
+                                <h:link outcome="customerDetails" value="View profile">
+                                    <f:param name="customerId" value="#{customer.customerId}" />
+                                </h:link>
                             </h:column>
-
                         </h:dataTable>
                     </div>
                 </h:form>
@@ -90,8 +83,6 @@
                             styleClass="primary-link-button" />
                 </div>
             </section>
-
         </main>
     </h:body>
-
 </html>
