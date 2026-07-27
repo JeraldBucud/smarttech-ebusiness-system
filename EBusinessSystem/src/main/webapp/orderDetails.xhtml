@@ -9,97 +9,87 @@
     </f:metadata>
 
     <h:head>
-        <title>Order Details - E-Business System</title>
+        <title>Order details | SmartTech</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
 
     <h:body>
-        <main class="page-container">
-
+        <main class="app-container">
             <header class="app-header">
                 <div>
-                    <h1>E-Business System</h1>
-                    <p>Order Details</p>
+                    <h1>SmartTech</h1>
+                    <p>Order processing</p>
                 </div>
 
-                <nav class="app-nav">
+                <nav class="app-nav" aria-label="Order navigation">
                     <h:link outcome="main" value="Dashboard" />
-                    <h:link outcome="createOrder" value="Create Order" />
-                    <h:link outcome="listOrders" value="List Orders" />
-                    <h:link outcome="searchOrder" value="Search Order" />
-                    <h:link outcome="logout" value="Logout" />
+                    <h:link outcome="createOrder" value="Create order" />
+                    <h:link outcome="listOrders" value="Orders" />
+                    <h:link outcome="searchOrder" value="Search" />
+                    <h:form styleClass="logout-form">
+                        <h:commandLink value="Sign out"
+                                       action="#{authenticationBean.logout}"
+                                       styleClass="nav-command-link" />
+                    </h:form>
                 </nav>
             </header>
 
             <section class="content-card">
-                <h2>Order Details</h2>
-                <p class="section-subtitle">
-                    View the selected customer order, product information, quantity, and order status.
-                </p>
+                <div class="section-heading">
+                    <h2>Order details</h2>
+                    <p>Review the customer, selected product, quantity, stock impact and order status.</p>
+                </div>
 
                 <div class="details-grid">
-
                     <div class="details-item">
                         <span class="details-label">Order ID</span>
                         <span class="details-value">#{orderBean.selectedOrder.orderId}</span>
                     </div>
-
                     <div class="details-item">
-                        <span class="details-label">Order Status</span>
+                        <span class="details-label">Order status</span>
                         <span class="details-value">#{orderBean.selectedOrder.status}</span>
                     </div>
-
                     <div class="details-item">
                         <span class="details-label">Customer</span>
                         <span class="details-value">#{orderBean.selectedOrder.customerName}</span>
                     </div>
-
                     <div class="details-item">
-                        <span class="details-label">Customer Email</span>
+                        <span class="details-label">Customer email</span>
                         <span class="details-value">#{orderBean.selectedOrder.customerEmail}</span>
                     </div>
-
                     <div class="details-item">
-                        <span class="details-label">Product Type</span>
+                        <span class="details-label">Product type</span>
                         <span class="details-value">#{orderBean.selectedOrder.productType}</span>
                     </div>
-
                     <div class="details-item">
                         <span class="details-label">Brand</span>
                         <span class="details-value">#{orderBean.selectedOrder.brand}</span>
                     </div>
-
                     <div class="details-item">
-                        <span class="details-label">Product Model</span>
+                        <span class="details-label">Product model</span>
                         <span class="details-value">#{orderBean.selectedOrder.productModel}</span>
                     </div>
-
                     <div class="details-item">
                         <span class="details-label">Quantity</span>
                         <span class="details-value">#{orderBean.selectedOrder.quantity}</span>
                     </div>
-
                     <div class="details-item details-full">
-                        <span class="details-label">Stock Impact</span>
+                        <span class="details-label">Stock impact</span>
                         <span class="details-value">#{orderBean.selectedOrder.stockImpact}</span>
                     </div>
-
                     <div class="details-item details-full">
-                        <span class="details-label">Order Notes</span>
+                        <span class="details-label">Order notes</span>
                         <span class="details-value">#{orderBean.selectedOrder.orderNotes}</span>
                     </div>
-
                 </div>
 
                 <div class="page-actions">
                     <h:link outcome="listOrders"
-                            value="Back to Order List"
+                            value="Back to orders"
                             styleClass="secondary-button" />
                 </div>
-
             </section>
-
         </main>
     </h:body>
 
