@@ -22,7 +22,7 @@ public class EmailService {
 
     private static final String SMTP_HOST = "localhost";
     private static final String SMTP_PORT = "2525";
-    private static final String FROM_EMAIL = "noreply@ebusinesssystem.local";
+    private static final String FROM_EMAIL = "noreply@smarttech.local";
 
     /**
      * Sends an email verification code to a registered user.
@@ -31,8 +31,8 @@ public class EmailService {
      * @param verificationCode generated verification code
      */
     public void sendVerificationCode(String recipientEmail, String verificationCode) {
-        String subject = "E-Business System Email Verification";
-        String body = "Your E-Business System verification code is: "
+        String subject = "SmartTech account verification";
+        String body = "Your SmartTech verification code is: "
                 + verificationCode;
 
         sendEmail(recipientEmail, subject, body);
@@ -45,8 +45,8 @@ public class EmailService {
      * @param recoveryCode generated recovery code
      */
     public void sendRecoveryCode(String recipientEmail, String recoveryCode) {
-        String subject = "E-Business System Account Recovery";
-        String body = "Your E-Business System recovery code is: "
+        String subject = "SmartTech account recovery";
+        String body = "Your SmartTech recovery code is: "
                 + recoveryCode;
 
         sendEmail(recipientEmail, subject, body);
