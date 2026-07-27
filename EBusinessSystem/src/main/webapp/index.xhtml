@@ -4,39 +4,115 @@
       xmlns:h="jakarta.faces.html">
 
     <h:head>
-        <title>Welcome - E-Business System</title>
+        <title>SmartTech | Retail Operations Workspace</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description"
+              content="SmartTech is a secure Jakarta EE workspace for inventory, customer and order management." />
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
 
     <h:body>
         <main class="landing-container">
+            <div class="landing-shell">
 
-            <section class="landing-card">
-
-                <div class="landing-content">
-                    <p class="landing-label">COIT20259 Assignment 2</p>
-
-                    <h1>E-Business System</h1>
-
-                    <p class="landing-subtitle">
-                        A secured enterprise system for managing tablets, smartwatches,
-                        customers, and customer orders.
-                    </p>
-
-                    <div class="landing-actions">
-                        <h:link outcome="login"
-                                value="Login"
-                                styleClass="primary-link-button" />
-
-                        <h:link outcome="register"
-                                value="Registration"
-                                styleClass="secondary-link-button" />
+                <header class="public-nav">
+                    <div class="brand-lockup">
+                        <span class="brand-mark">ST</span>
+                        <span class="brand-copy">
+                            <strong>SmartTech</strong>
+                            <span>Retail operations workspace</span>
+                        </span>
                     </div>
-                </div>
 
-            </section>
+                    <span class="nav-note">Secure access for authorised users</span>
+                </header>
 
+                <section class="landing-hero">
+                    <div class="hero-copy">
+                        <p class="eyebrow">Connected retail operations</p>
+
+                        <h1 class="hero-title">
+                            Manage every device order from <span>one workspace.</span>
+                        </h1>
+
+                        <p class="hero-description">
+                            SmartTech brings product inventory, customer records and order
+                            processing together in a secure enterprise Java application.
+                        </p>
+
+                        <div class="landing-actions">
+                            <h:link outcome="login"
+                                    value="Sign in to SmartTech"
+                                    styleClass="primary-link-button" />
+
+                            <h:link outcome="register"
+                                    value="Create an account"
+                                    styleClass="secondary-link-button" />
+                        </div>
+
+                        <div class="feature-list" aria-label="Application capabilities">
+                            <span class="feature-item">Inventory control</span>
+                            <span class="feature-item">Customer records</span>
+                            <span class="feature-item">Order workflows</span>
+                        </div>
+                    </div>
+
+                    <aside class="preview-card" aria-label="SmartTech workspace preview">
+                        <div class="preview-top">
+                            <strong>Operations overview</strong>
+                            <span class="status-badge">Secured</span>
+                        </div>
+
+                        <div class="preview-grid">
+                            <div class="preview-stat">
+                                <span>Product areas</span>
+                                <strong>2</strong>
+                                <small>Tablets and wearables</small>
+                            </div>
+
+                            <div class="preview-stat">
+                                <span>Core workflows</span>
+                                <strong>4</strong>
+                                <small>Connected modules</small>
+                            </div>
+                        </div>
+
+                        <div class="preview-list">
+                            <div class="preview-row">
+                                <span class="preview-row-icon">IN</span>
+                                <span>
+                                    <strong>Inventory catalogue</strong>
+                                    <span>Maintain product specifications and stock</span>
+                                </span>
+                                <em>Manage</em>
+                            </div>
+
+                            <div class="preview-row">
+                                <span class="preview-row-icon">CU</span>
+                                <span>
+                                    <strong>Customer records</strong>
+                                    <span>Create, search and review customer details</span>
+                                </span>
+                                <em>Organise</em>
+                            </div>
+
+                            <div class="preview-row">
+                                <span class="preview-row-icon">OR</span>
+                                <span>
+                                    <strong>Order processing</strong>
+                                    <span>Connect customers with available products</span>
+                                </span>
+                                <em>Process</em>
+                            </div>
+                        </div>
+                    </aside>
+                </section>
+
+                <footer class="landing-footer">
+                    Built with Jakarta EE, Jakarta Faces, EJB, JPA and MySQL
+                </footer>
+
+            </div>
         </main>
     </h:body>
 
