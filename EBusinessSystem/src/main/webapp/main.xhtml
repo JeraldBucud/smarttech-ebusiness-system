@@ -4,7 +4,7 @@
       xmlns:h="jakarta.faces.html">
 
     <h:head>
-        <title>Main Page - E-Business System</title>
+        <title>Dashboard | SmartTech</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
@@ -14,14 +14,17 @@
 
             <header class="app-header">
                 <div>
-                    <h1>E-Business System</h1>
-                    <p>Product, Customer and Order Management</p>
+                    <h1>SmartTech</h1>
+                    <p>Retail operations workspace</p>
                 </div>
 
-                <nav class="app-nav">
+                <nav class="app-nav" aria-label="Primary navigation">
                     <h:link outcome="main" value="Dashboard" />
+                    <h:link outcome="listTablets" value="Inventory" />
+                    <h:link outcome="listCustomers" value="Customers" />
+                    <h:link outcome="listOrders" value="Orders" />
                     <h:form styleClass="logout-form">
-                        <h:commandLink value="Logout"
+                        <h:commandLink value="Sign out"
                                        action="#{authenticationBean.logout}"
                                        styleClass="nav-command-link" />
                     </h:form>
@@ -29,58 +32,77 @@
             </header>
 
             <section class="dashboard-hero">
-                <h2>Management Dashboard</h2>
-                <p>
-                    Use this secured page to manage tablets, smartwatches,
-                    customers, and customer orders.
-                </p>
+                <div>
+                    <p class="hero-kicker">Operations overview</p>
+                    <h2>Keep products, customers and orders moving together.</h2>
+                    <p>
+                        Use the SmartTech workspace to maintain device inventory,
+                        organise customer records and process orders through one secured system.
+                    </p>
+                </div>
+
+                <div class="dashboard-meta" aria-label="Workspace summary">
+                    <span class="meta-pill">4 connected modules</span>
+                    <span class="meta-pill">2 product categories</span>
+                    <span class="meta-pill">Session protected</span>
+                </div>
             </section>
 
-            <section class="dashboard-grid">
+            <section class="dashboard-grid" aria-label="Management modules">
 
                 <article class="dashboard-card">
-                    <h3>Tablet Management</h3>
-                    <p>Create, view, and search tablet product records.</p>
+                    <div class="module-card-header">
+                        <span class="module-icon">TB</span>
+                        <h3>Tablet inventory</h3>
+                    </div>
+                    <p>Maintain tablet specifications, review available stock and find products quickly.</p>
 
                     <div class="card-links">
-                        <h:link outcome="createTablet" value="Create Tablet" />
-                        <h:link outcome="listTablets" value="Tablet Stock List" />
-                        <h:link outcome="searchTablet" value="Search Tablet" />
+                        <h:link outcome="createTablet" value="Add tablet" />
+                        <h:link outcome="listTablets" value="View stock" />
+                        <h:link outcome="searchTablet" value="Search tablets" />
                     </div>
                 </article>
 
                 <article class="dashboard-card">
-                    <h3>Smartwatch Management</h3>
-                    <p>Create, view, and search smartwatch product records.</p>
+                    <div class="module-card-header">
+                        <span class="module-icon">SW</span>
+                        <h3>Wearable inventory</h3>
+                    </div>
+                    <p>Organise smartwatch specifications, health features, connectivity and stock levels.</p>
 
                     <div class="card-links">
-                        <h:link outcome="createSmartwatch" value="Create Smartwatch" />
-                        <h:link outcome="listSmartwatches" value="Smartwatch Stock List" />
-                        <h:link outcome="searchSmartwatch" value="Search Smartwatch" />
+                        <h:link outcome="createSmartwatch" value="Add smartwatch" />
+                        <h:link outcome="listSmartwatches" value="View stock" />
+                        <h:link outcome="searchSmartwatch" value="Search wearables" />
                     </div>
                 </article>
 
                 <article class="dashboard-card">
-                    <h3>Customers</h3>
-                    <p>Create, list, search, and view customer details.</p>
+                    <div class="module-card-header">
+                        <span class="module-icon">CU</span>
+                        <h3>Customer records</h3>
+                    </div>
+                    <p>Create customer profiles, search contact information and review associated orders.</p>
 
                     <div class="card-links">
-                        <h:link outcome="createCustomer" value="Create Customer" />
-                        <h:link outcome="listCustomers" value="List Customers" />
-                        <h:link outcome="searchCustomer" value="Search Customer" />
-                        <h:link outcome="customerDetails" value="Customer Details" />
+                        <h:link outcome="createCustomer" value="Add customer" />
+                        <h:link outcome="listCustomers" value="View customers" />
+                        <h:link outcome="searchCustomer" value="Search records" />
                     </div>
                 </article>
 
                 <article class="dashboard-card">
-                    <h3>Orders</h3>
-                    <p>Create, view, search, and manage customer orders.</p>
+                    <div class="module-card-header">
+                        <span class="module-icon">OR</span>
+                        <h3>Order processing</h3>
+                    </div>
+                    <p>Create orders from available inventory, track order details and review order records.</p>
 
                     <div class="card-links">
-                        <h:link outcome="createOrder" value="Create Order" />
-                        <h:link outcome="listOrders" value="List Orders" />
-                        <h:link outcome="searchOrder" value="Search Order" />
-                        <h:link outcome="orderDetails" value="Order Details" />
+                        <h:link outcome="createOrder" value="Create order" />
+                        <h:link outcome="listOrders" value="View orders" />
+                        <h:link outcome="searchOrder" value="Search orders" />
                     </div>
                 </article>
 
