@@ -10,17 +10,17 @@ A secure three-tier retail operations workspace for managing technology inventor
 
 The secured dashboard provides direct access to tablet inventory, smartwatch inventory, customer records and order-processing workflows.
 
-![SmartTech operations dashboard](docs/Images/screenshots/dashboard.png)
+![SmartTech operations dashboard](docs/Images/screenshots/dashboard.webp)
 
 <table>
   <tr>
     <td width="50%">
       <strong>Secure Account Access</strong><br><br>
-      <img src="docs/Images/screenshots/login.png" alt="SmartTech login interface" width="100%">
+      <img src="docs/Images/screenshots/login.webp" alt="SmartTech login interface" width="100%">
     </td>
     <td width="50%">
       <strong>Session Sign-out</strong><br><br>
-      <img src="docs/Images/screenshots/sign-out.png" alt="SmartTech sign-out confirmation" width="100%">
+      <img src="docs/Images/screenshots/sign-out.webp" alt="SmartTech sign-out confirmation" width="100%">
     </td>
   </tr>
 </table>
@@ -59,7 +59,7 @@ flowchart LR
 
 The database stores user accounts, customers, technology products and customer orders using linked MySQL tables.
 
-![SmartTech MySQL database schema](docs/Images/screenshots/database-schema.png)
+![SmartTech MySQL database schema](docs/Images/screenshots/database-schema.webp)
 
 ## Technology Stack
 
